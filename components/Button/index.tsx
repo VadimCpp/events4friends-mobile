@@ -1,11 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
 
-export default function Button() {
+export default function Button(props) {
+  const { color } = props
+
   return (
     <TouchableOpacity
       onPress={() => Alert.alert('TODO')}
-      style={styles.button} 
+      style={[
+        styles.button, 
+        { 
+          backgroundColor: color,
+        }
+      ]} 
       activeOpacity={0.6}
     >
       <Text style={styles.text}>перейти</Text>
@@ -18,7 +25,6 @@ const styles = StyleSheet.create({
     width: 130,
     height: 30,
     borderRadius: 15,
-    backgroundColor: '#EC7B28',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

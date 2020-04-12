@@ -6,7 +6,12 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Welcome to events4friends!</Text>
-      <Button />
+      <Button 
+        color='#EC7B28'
+      />
+      <Button 
+        color='#24BA7B'
+      />
     </View>
   );
 }
