@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
 
-export default function Button(props) {
+interface ButtonParams {
+  color: string
+}
+
+export default function Button(props: ButtonParams) {
   const { color } = props
 
   return (
