@@ -8,12 +8,14 @@ export default function App() {
       <Text>Welcome to events4friends!</Text>
       <Button 
         color='#EC7B28'
+        title='перейти'
         onPress={() => {
           Alert.alert('Перейти к анонсам')
         }}
       />
       <Button 
         color='#24BA7B'
+        title='перейти'
         onPress={() => {
           Alert.alert('Перейти к услугам')
         }}

@@ -3,11 +3,12 @@ import { StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
 
 interface ButtonParams {
   color: string
+  title: string
   onPress: () => void
 }
 
 export default function Button(props: ButtonParams) {
-  const { color, onPress } = props
+  const { color, title, onPress } = props
 
   return (
     <TouchableOpacity
@@ -20,7 +21,7 @@ export default function Button(props: ButtonParams) {
       ]} 
       activeOpacity={0.6}
     >
-      <Text style={styles.text}>перейти</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 }
