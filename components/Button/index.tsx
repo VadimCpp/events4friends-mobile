@@ -3,14 +3,15 @@ import { StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
 
 interface ButtonParams {
   color: string
+  onPress: () => void
 }
 
 export default function Button(props: ButtonParams) {
-  const { color } = props
+  const { color, onPress } = props
 
   return (
     <TouchableOpacity
-      onPress={() => Alert.alert('TODO')}
+      onPress={onPress}
       style={[
         styles.button, 
         { 

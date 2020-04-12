@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import Button from './components/Button'
 
 export default function App() {
@@ -8,9 +8,15 @@ export default function App() {
       <Text>Welcome to events4friends!</Text>
       <Button 
         color='#EC7B28'
+        onPress={() => {
+          Alert.alert('Перейти к анонсам')
+        }}
       />
       <Button 
         color='#24BA7B'
+        onPress={() => {
+          Alert.alert('Перейти к услугам')
+        }}
       />
     </View>
   );
