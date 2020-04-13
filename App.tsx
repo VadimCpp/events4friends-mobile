@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, Alert } from 'react-native';
 import Button from './components/Button'
+import MainBackground from './components/MainBackground'
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <MainBackground />
       <Text>Welcome to events4friends!</Text>
       <Button 
         color='#EC7B28'
