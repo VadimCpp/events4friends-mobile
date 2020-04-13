@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, Image } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import Button from './components/Button'
 import MainBackground from './components/MainBackground'
 
