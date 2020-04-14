@@ -1,32 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Button from './components/Button'
-import MainBackground from './components/MainBackground'
-
-function HomeScreen({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <MainBackground />
-      <Text>Welcome to events4friends!</Text>
-      <Button 
-        color='#EC7B28'
-        title='перейти'
-        onPress={() => {
-          navigation.navigate('Details')
-        }}
-      />
-      <Button 
-        color='#24BA7B'
-        title='перейти'
-        onPress={() => {
-          Alert.alert('Перейти к услугам')
-        }}
-      />
-    </View>
-  )
-}
+import HomeScreen from './screens/Home';
 
 function DetailsScreen() {
   return (
@@ -38,7 +14,6 @@ function DetailsScreen() {
 
 const Stack = createStackNavigator();
 
-
 export default function App() {
   return (
     <NavigationContainer>
@@ -49,12 +24,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
