@@ -11,6 +11,8 @@ const { width } = Dimensions.get('screen');
 //
 // NB: The .png files have been changed for ones with x4 resolution.  
 
+const FIGMA_WIDTH = 375;
+
 export default function MainBackground() {
 	return (
 		<View style={styles.background}>
@@ -46,27 +48,27 @@ const styles = StyleSheet.create({
 		top: 0,
 		left: 0,
 		width: '100%',
-		height: width * (236 / 375),
+		height: width * (236 / FIGMA_WIDTH),
 	},
 	imgBgWave: {
 		position: 'absolute',
-		top: width * (177 / 375),
+		top: width * (177 / FIGMA_WIDTH),
 		left: 0,
 		width: '100%',
-		height: width * (60 / 375),
+		height: width * (60 / FIGMA_WIDTH),
 	},
 	imgBgWave2: {
 		position: 'absolute',
-		top: width * (227 / 375),
+		top: width * (227 / FIGMA_WIDTH),
 		left: 0,
 		width: '100%',
-		height: width * (227 / 375),
+		height: width * (227 / FIGMA_WIDTH),
 	},
 	imgBgBottom: {
 		position: 'absolute',
-		top: width * (443 / 375),
+		top: width * (443 / FIGMA_WIDTH),
 		left: 0,
 		width: '100%',
-		height: width * (502 / 375),
+		height: width * (502 / FIGMA_WIDTH),
 	},
 });
