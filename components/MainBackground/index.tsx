@@ -3,14 +3,6 @@ import { StyleSheet, View, Image, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('screen');
 
-//
-// NOTE!
-// This component look ugly on iPads
-//
-// TODO: fix it some day
-//
-// NB: The .png files have been changed for ones with x4 resolution.
-
 const FIGMA_WIDTH = 375;
 
 export default function MainBackground() {
