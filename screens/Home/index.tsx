@@ -1,30 +1,35 @@
-
 import React from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
-import Button from '../../components/Button'
-import MainBackground from '../../components/MainBackground'
+import { StyleSheet, Text, View } from 'react-native';
+import Button from '../../components/Button';
+import MainBackground from '../../components/MainBackground';
 
-export default function HomeScreen({ navigation }) {
+interface HomeScreenParams {
+  navigation: any;
+}
+
+export default function HomeScreen(props: HomeScreenParams) {
+  const { navigation } = props;
+
   return (
     <View style={styles.container}>
       <MainBackground />
       <Text>Welcome to events4friends!</Text>
-      <Button 
-        color='#EC7B28'
-        title='перейти'
+      <Button
+        color="#EC7B28"
+        title="перейти"
         onPress={() => {
-          navigation.navigate('Details')
+          navigation.navigate('Details');
         }}
       />
-      <Button 
-        color='#24BA7B'
-        title='перейти'
+      <Button
+        color="#24BA7B"
+        title="перейти"
         onPress={() => {
-          navigation.navigate('Services')
+          navigation.navigate('Services');
         }}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
