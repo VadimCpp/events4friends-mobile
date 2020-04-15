@@ -31,9 +31,10 @@ export default function EventSingleBackground() {
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
-    top: 0,
+    top: width * (18 / FIGMA_WIDTH),
     left: 0,
     width,
+    height: width * (649 / FIGMA_WIDTH),
   },
   wave1Style: {
     position: 'absolute',
@@ -59,8 +60,9 @@ const styles = StyleSheet.create({
   vectorStyle: {
     position: 'absolute',
     top: width * (18 / FIGMA_WIDTH),
-    left: width * (375 / FIGMA_WIDTH),
+    left: width * (0 / FIGMA_WIDTH),
     width,
     height: width * (226 / FIGMA_WIDTH),
+    // transform: [{ rotateY: '180deg' }],
   },
 });
