@@ -20,7 +20,7 @@ export default function HomeScreen({ navigation }) {
         color='#24BA7B'
         title='перейти'
         onPress={() => {
-          Alert.alert('Перейти к услугам')
+          navigation.navigate('Services')
         }}
       />
     </View>
