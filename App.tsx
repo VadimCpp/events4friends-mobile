@@ -44,20 +44,6 @@ export default function App() {
         }
 
         setUser(aUser);
-
-        const db = firebase.firestore();
-        db.collection('services')
-          .get()
-          .then(function(querySnapshot) {
-            const services = querySnapshot.docs.map(item => ({
-              ...item.data(),
-              id: item.id,
-            }));
-            console.log('Got some services', services);
-          })
-          .catch(function(error) {
-            console.warn('Error getting services, skip: ', error);
-          });
       } else {
         console.log(
           'onAuthStateChanged: user is not loggen in, login anonymously',
@@ -71,6 +57,24 @@ export default function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      const db = firebase.firestore();
+      db.collection('services')
+        .get()
+        .then(function(querySnapshot) {
+          const services = querySnapshot.docs.map(item => ({
+            ...item.data(),
+            id: item.id,
+          }));
+          console.log('Got some services', services);
+        })
+        .catch(function(error) {
+          console.warn('Error getting services, skip: ', error);
+        });
+    }
+  }, [user]);
 
   return (
     <NavigationContainer>
