@@ -9,25 +9,29 @@ import ServicesScreen from './screens/Services';
 import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
 
+function initializeApp() {
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: 'AIzaSyBjAQdqx3qkki7MVb6dd1eASw-0UGs2Bg0',
+    authDomain: 'events4friends.firebaseapp.com',
+    databaseURL: 'https://events4friends.firebaseio.com',
+    projectId: 'events4friends',
+    storageBucket: 'events4friends.appspot.com',
+    messagingSenderId: '610960096409',
+    appId: '1:610960096409:web:337ff9ec4ca355a6c28c08',
+    measurementId: 'G-4T13RKFFSG',
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
   useEffect(() => {
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: 'AIzaSyBjAQdqx3qkki7MVb6dd1eASw-0UGs2Bg0',
-      authDomain: 'events4friends.firebaseapp.com',
-      databaseURL: 'https://events4friends.firebaseio.com',
-      projectId: 'events4friends',
-      storageBucket: 'events4friends.appspot.com',
-      messagingSenderId: '610960096409',
-      appId: '1:610960096409:web:337ff9ec4ca355a6c28c08',
-      measurementId: 'G-4T13RKFFSG',
-    };
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+    initializeApp();
 
     firebase.auth().onAuthStateChanged((user: any) => {
       if (user) {
