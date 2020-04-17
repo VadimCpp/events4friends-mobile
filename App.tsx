@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 export default function App() {
   useEffect(() => {
     // Initialize Firebase
-    var firebaseConfig = {
+    const firebaseConfig = {
       apiKey: 'AIzaSyBjAQdqx3qkki7MVb6dd1eASw-0UGs2Bg0',
       authDomain: 'events4friends.firebaseapp.com',
       databaseURL: 'https://events4friends.firebaseio.com',
@@ -25,7 +25,9 @@ export default function App() {
       measurementId: 'G-4T13RKFFSG',
     };
 
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
 
     firebase.auth().onAuthStateChanged((user: any) => {
       if (user) {
