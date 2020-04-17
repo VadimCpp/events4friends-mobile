@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
@@ -30,16 +30,20 @@ function initializeApp() {
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     initializeApp();
 
-    firebase.auth().onAuthStateChanged((user: any) => {
-      if (user) {
-        if (user.isAnonymous) {
+    firebase.auth().onAuthStateChanged((aUser: any) => {
+      if (aUser) {
+        if (aUser.isAnonymous) {
           console.log('onAuthStateChanged: user is logged in anonymously');
         } else {
           console.log('onAuthStateChanged: user is logged in successfully');
         }
+
+        setUser(aUser);
 
         const db = firebase.firestore();
         db.collection('services')
