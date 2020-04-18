@@ -27,6 +27,35 @@ function initializeApp() {
   }
 }
 
+function subscribeToServiceChanges(): Function | null {
+  const db = firebase.firestore();
+  db.collection('services')
+    .get()
+    .then(function(querySnapshot) {
+      const services = querySnapshot.docs.map(item => ({
+        ...item.data(),
+        id: item.id,
+      }));
+      console.log('Got some services', services);
+    })
+    .catch(function(error) {
+      console.warn('Error getting services, skip: ', error);
+    });
+  return null;
+}
+
+function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
+  const db = firebase.firestore();
+  return db.collection('events').onSnapshot(async snapshot => {
+    if (snapshot && snapshot.docs && snapshot.docs.length) {
+      const events = snapshot.docs.reduce((result: Array<any>, item: any) => {
+        return [...result, { ...item.data(), id: item.id }];
+      }, []);
+      onEventsUpdated(events);
+    }
+  });
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -59,21 +88,24 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    let unsubscribeFromServices: Function | null = null;
+    let unsubscribeFromEvents: Function | null = null;
+
     if (user) {
-      const db = firebase.firestore();
-      db.collection('services')
-        .get()
-        .then(function(querySnapshot) {
-          const services = querySnapshot.docs.map(item => ({
-            ...item.data(),
-            id: item.id,
-          }));
-          console.log('Got some services', services);
-        })
-        .catch(function(error) {
-          console.warn('Error getting services, skip: ', error);
-        });
+      unsubscribeFromServices = subscribeToServiceChanges();
+      unsubscribeFromEvents = subscribeToEventsChanges((events: Array<any>) => {
+        console.log('Got some events:', events);
+      });
     }
+
+    return () => {
+      if (unsubscribeFromServices) {
+        unsubscribeFromServices();
+      }
+      if (unsubscribeFromEvents) {
+        unsubscribeFromEvents();
+      }
+    };
   }, [user]);
 
   return (
