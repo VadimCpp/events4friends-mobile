@@ -3,12 +3,14 @@
     "name": "events4friends",
     "description": "Лучшее мобильное приложение для друзей",
     "slug": "events4friends",
+    "privacy": "public",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.0",
+    "githubUrl": "https://github.com/VadimCpp/events4friends-mobile", 
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
