@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "events4friends-mobile",
-    "slug": "events4friends-mobile",
+    "name": "events4friends",
+    "description": "Лучшее мобильное приложение для друзей",
+    "slug": "events4friends",
     "platforms": [
       "ios",
       "android",
