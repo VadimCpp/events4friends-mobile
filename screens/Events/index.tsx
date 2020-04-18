@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, ScrollView, View, StyleSheet } from 'react-native';
+import DataContext from '../../context/DataContext';
 import Button from '../../components/Button';
 
 interface EventsScreenParams {
@@ -10,20 +11,40 @@ export default function EventsScreen(props: EventsScreenParams) {
   const { navigation } = props;
 
   return (
-    <View style={styles.container}>
-      <Text>Events Screen</Text>
-      <Button
-        color="#EC7B28"
-        title="подробнее"
-        onPress={() => {
-          navigation.navigate('EventSingleScreen');
-        }}
-      />
-    </View>
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.container}>
+        <Text>Events Screen</Text>
+        <DataContext.Consumer>
+          {({ events }) => {
+            return events.map((event: any) => {
+              return (
+                <View>
+                  <Text>...</Text>
+                  <Text>Тут будет компонент элемента списка EventListItem</Text>
+                  <Text>...</Text>
+                  <Text>{event.summary}</Text>
+                  <Text>{event.description}</Text>
+                </View>
+              );
+            });
+          }}
+        </DataContext.Consumer>
+        <Button
+          color="#EC7B28"
+          title="подробнее"
+          onPress={() => {
+            navigation.navigate('EventSingleScreen');
+          }}
+        />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     alignItems: 'center',

@@ -8,6 +8,7 @@ import EventsScreen from './screens/Events';
 import ServicesScreen from './screens/Services';
 import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
+import DataContext from './context/DataContext';
 
 function initializeApp() {
   // Initialize Firebase
@@ -60,6 +61,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     initializeApp();
@@ -93,9 +95,11 @@ export default function App() {
 
     if (user) {
       unsubscribeFromServices = subscribeToServiceChanges();
-      unsubscribeFromEvents = subscribeToEventsChanges((events: Array<any>) => {
-        console.log('Got some events:', events);
-      });
+      unsubscribeFromEvents = subscribeToEventsChanges(
+        (anEvents: Array<never>) => {
+          setEvents(anEvents);
+        },
+      );
     }
 
     return () => {
@@ -109,21 +113,30 @@ export default function App() {
   }, [user]);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'events4friends' }}
-        />
-        <Stack.Screen name="Details" component={EventsScreen} />
-        <Stack.Screen name="Services" component={ServicesScreen} />
-        <Stack.Screen name="EventSingleScreen" component={EventSingleScreen} />
-        <Stack.Screen
-          name="ServiceSingleScreen"
-          component={ServiceSingleScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <DataContext.Provider
+      value={{
+        events,
+      }}
+    >
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: 'events4friends' }}
+          />
+          <Stack.Screen name="Details" component={EventsScreen} />
+          <Stack.Screen name="Services" component={ServicesScreen} />
+          <Stack.Screen
+            name="EventSingleScreen"
+            component={EventSingleScreen}
+          />
+          <Stack.Screen
+            name="ServiceSingleScreen"
+            component={ServiceSingleScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </DataContext.Provider>
   );
 }
