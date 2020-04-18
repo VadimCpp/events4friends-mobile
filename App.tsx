@@ -60,6 +60,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     initializeApp();
@@ -93,9 +94,11 @@ export default function App() {
 
     if (user) {
       unsubscribeFromServices = subscribeToServiceChanges();
-      unsubscribeFromEvents = subscribeToEventsChanges((events: Array<any>) => {
-        console.log('Got some events:', events);
-      });
+      unsubscribeFromEvents = subscribeToEventsChanges(
+        (anEvents: Array<never>) => {
+          setEvents(anEvents);
+        },
+      );
     }
 
     return () => {
