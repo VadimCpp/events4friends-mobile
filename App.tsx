@@ -27,7 +27,7 @@ function initializeApp() {
   }
 }
 
-function subscribeToServiceChanges() {
+function subscribeToServiceChanges(): Function | null {
   const db = firebase.firestore();
   db.collection('services')
     .get()
@@ -41,24 +41,19 @@ function subscribeToServiceChanges() {
     .catch(function(error) {
       console.warn('Error getting services, skip: ', error);
     });
+  return null;
 }
 
-function subscribeToEventsChanges() {
-  //
-  // TODO: add events here
-  //
-}
-
-function unsubscribeFromServiceChanges() {
-  //
-  // TODO: unsubscribe from events update
-  //
-}
-
-function unsubscribeFromEventsChanges() {
-  //
-  // TODO: unsubscribe from events update
-  //
+function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
+  const db = firebase.firestore();
+  return db.collection('events').onSnapshot(async snapshot => {
+    if (snapshot && snapshot.docs && snapshot.docs.length) {
+      const events = snapshot.docs.reduce((result: Array<any>, item: any) => {
+        return [...result, { ...item.data(), id: item.id }];
+      }, []);
+      onEventsUpdated(events);
+    }
+  });
 }
 
 const Stack = createStackNavigator();
@@ -93,17 +88,25 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    let unsubscribeFromServices: Function | null = null;
+    let unsubscribeFromEvents: Function | null = null;
+
     if (user) {
-      subscribeToServiceChanges();
-      subscribeToEventsChanges();
-    } else {
-      unsubscribeFromServiceChanges();
-      unsubscribeFromEventsChanges();
+      unsubscribeFromServices = subscribeToServiceChanges();
+      unsubscribeFromEvents = subscribeToEventsChanges((events: Array<any>) => {
+        console.log('Got some events:', events);
+      });
     }
 
     return () => {
-      unsubscribeFromServiceChanges();
-      unsubscribeFromEventsChanges();
+      if (unsubscribeFromServices) {
+        unsubscribeFromServices();
+        unsubscribeFromServices = null;
+      }
+      if (unsubscribeFromEvents) {
+        unsubscribeFromEvents();
+        unsubscribeFromEvents = null;
+      }
     };
   }, [user]);
 
