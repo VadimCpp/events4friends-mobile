@@ -16,4 +16,4 @@ expo publish --release-channel beta
 ```
 
 Тестовая сборка приложения доступна по ссылке:
-https://expo.io/@vadimcpp/events4friends
+https://expo.io/@vadimcpp/events4friends?release-channel=beta
