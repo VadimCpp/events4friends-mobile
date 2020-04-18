@@ -27,6 +27,40 @@ function initializeApp() {
   }
 }
 
+function subscribeToServiceChanges() {
+  const db = firebase.firestore();
+  db.collection('services')
+    .get()
+    .then(function(querySnapshot) {
+      const services = querySnapshot.docs.map(item => ({
+        ...item.data(),
+        id: item.id,
+      }));
+      console.log('Got some services', services);
+    })
+    .catch(function(error) {
+      console.warn('Error getting services, skip: ', error);
+    });
+}
+
+function subscribeToEventsChanges() {
+  //
+  // TODO: add events here
+  //
+}
+
+function unsubscribeFromServiceChanges() {
+  //
+  // TODO: unsubscribe from events update
+  //
+}
+
+function unsubscribeFromEventsChanges() {
+  //
+  // TODO: unsubscribe from events update
+  //
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -60,20 +94,17 @@ export default function App() {
 
   useEffect(() => {
     if (user) {
-      const db = firebase.firestore();
-      db.collection('services')
-        .get()
-        .then(function(querySnapshot) {
-          const services = querySnapshot.docs.map(item => ({
-            ...item.data(),
-            id: item.id,
-          }));
-          console.log('Got some services', services);
-        })
-        .catch(function(error) {
-          console.warn('Error getting services, skip: ', error);
-        });
+      subscribeToServiceChanges();
+      subscribeToEventsChanges();
+    } else {
+      unsubscribeFromServiceChanges();
+      unsubscribeFromEventsChanges();
     }
+
+    return () => {
+      unsubscribeFromServiceChanges();
+      unsubscribeFromEventsChanges();
+    };
   }, [user]);
 
   return (
