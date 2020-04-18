@@ -15,5 +15,5 @@ expo login #только один раз для входа в аккаунт exp
 expo publish --release-channel beta
 ```
 
-Тестовая сбока приложения доступна по ссылке:
-https://expo.io/@vadimcpp/events4friends-mobile?release-channel=beta
+Тестовая сборка приложения доступна по ссылке:
+https://expo.io/@vadimcpp/events4friends
