@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, ScrollView, StyleSheet } from 'react-native';
 import DataContext from '../../context/DataContext';
 import Button from '../../components/Button';
 
@@ -11,7 +11,7 @@ export default function EventsScreen(props: EventsScreenParams) {
   const { navigation } = props;
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text>Events Screen</Text>
       <DataContext.Consumer>
         {({ events }) => {
@@ -26,7 +26,7 @@ export default function EventsScreen(props: EventsScreenParams) {
           navigation.navigate('EventSingleScreen');
         }}
       />
-    </View>
+    </ScrollView>
   );
 }
 
