@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import DataContext from '../../context/DataContext';
 import Button from '../../components/Button';
 
 interface EventsScreenParams {
@@ -12,6 +13,12 @@ export default function EventsScreen(props: EventsScreenParams) {
   return (
     <View style={styles.container}>
       <Text>Events Screen</Text>
+      <DataContext.Consumer>
+        {({ events }) => {
+          const text = JSON.stringify(events);
+          return <Text>{text}</Text>;
+        }}
+      </DataContext.Consumer>
       <Button
         color="#EC7B28"
         title="подробнее"
