@@ -1,13 +1,16 @@
 {
   "expo": {
-    "name": "events4friends-mobile",
-    "slug": "events4friends-mobile",
+    "name": "events4friends",
+    "description": "Лучшее мобильное приложение для друзей",
+    "slug": "events4friends",
+    "privacy": "public",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.0",
+    "githubUrl": "https://github.com/VadimCpp/events4friends-mobile", 
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -21,8 +24,12 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "versionCode": 2
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "2"
     }
   }
 }
