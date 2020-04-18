@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,45 +9,41 @@ import ServicesScreen from './screens/Services';
 import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
 
+function initializeApp() {
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: 'AIzaSyBjAQdqx3qkki7MVb6dd1eASw-0UGs2Bg0',
+    authDomain: 'events4friends.firebaseapp.com',
+    databaseURL: 'https://events4friends.firebaseio.com',
+    projectId: 'events4friends',
+    storageBucket: 'events4friends.appspot.com',
+    messagingSenderId: '610960096409',
+    appId: '1:610960096409:web:337ff9ec4ca355a6c28c08',
+    measurementId: 'G-4T13RKFFSG',
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
-    // Initialize Firebase
-    var firebaseConfig = {
-      apiKey: 'AIzaSyBjAQdqx3qkki7MVb6dd1eASw-0UGs2Bg0',
-      authDomain: 'events4friends.firebaseapp.com',
-      databaseURL: 'https://events4friends.firebaseio.com',
-      projectId: 'events4friends',
-      storageBucket: 'events4friends.appspot.com',
-      messagingSenderId: '610960096409',
-      appId: '1:610960096409:web:337ff9ec4ca355a6c28c08',
-      measurementId: 'G-4T13RKFFSG',
-    };
+    initializeApp();
 
-    firebase.initializeApp(firebaseConfig);
-
-    firebase.auth().onAuthStateChanged((user: any) => {
-      if (user) {
-        if (user.isAnonymous) {
+    firebase.auth().onAuthStateChanged((aUser: any) => {
+      if (aUser) {
+        if (aUser.isAnonymous) {
           console.log('onAuthStateChanged: user is logged in anonymously');
         } else {
           console.log('onAuthStateChanged: user is logged in successfully');
         }
 
-        const db = firebase.firestore();
-        db.collection('services')
-          .get()
-          .then(function(querySnapshot) {
-            const services = querySnapshot.docs.map(item => ({
-              ...item.data(),
-              id: item.id,
-            }));
-            console.log('Got some services', services);
-          })
-          .catch(function(error) {
-            console.warn('Error getting services, skip: ', error);
-          });
+        setUser(aUser);
       } else {
         console.log(
           'onAuthStateChanged: user is not loggen in, login anonymously',
@@ -61,6 +57,24 @@ export default function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      const db = firebase.firestore();
+      db.collection('services')
+        .get()
+        .then(function(querySnapshot) {
+          const services = querySnapshot.docs.map(item => ({
+            ...item.data(),
+            id: item.id,
+          }));
+          console.log('Got some services', services);
+        })
+        .catch(function(error) {
+          console.warn('Error getting services, skip: ', error);
+        });
+    }
+  }, [user]);
 
   return (
     <NavigationContainer>
