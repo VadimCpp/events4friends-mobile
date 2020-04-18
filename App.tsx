@@ -101,11 +101,9 @@ export default function App() {
     return () => {
       if (unsubscribeFromServices) {
         unsubscribeFromServices();
-        unsubscribeFromServices = null;
       }
       if (unsubscribeFromEvents) {
         unsubscribeFromEvents();
-        unsubscribeFromEvents = null;
       }
     };
   }, [user]);
