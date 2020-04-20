@@ -2,11 +2,19 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SingleBackground from '../../components/SingleBackground';
 
-export default function EventSingleScreen() {
+interface EventSingleScreenParams {
+  route: any;
+  navigation: any;
+}
+
+export default function EventSingleScreen(props: EventSingleScreenParams) {
+  const { route } = props;
+  const { event } = route.params;
+
   return (
     <View style={styles.container}>
       <SingleBackground />
-      <Text>Single Event Screen</Text>
+      <Text>{event.summary}</Text>
     </View>
   );
 }

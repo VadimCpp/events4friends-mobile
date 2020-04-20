@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
 import DataContext from '../../context/DataContext';
@@ -32,7 +33,13 @@ export default function EventsScreen(props: EventsScreenParams) {
               const startTime = moment(event.start).format('HH:mm');
 
               return (
-                <View key={event.id} style={styles.listItemContainer}>
+                <TouchableOpacity
+                  key={event.id}
+                  style={styles.listItemContainer}
+                  onPress={() =>
+                    navigation.navigate('EventSingleScreen', { event })
+                  }
+                >
                   <View style={styles.summaryWrap}>
                     <Text style={styles.summary} numberOfLines={1}>
                       {event.summary}
@@ -74,7 +81,7 @@ export default function EventsScreen(props: EventsScreenParams) {
                     style={styles.eventListItemWave}
                     source={require('../../assets/img/event_list_item_wave_x4.png')}
                   />
-                </View>
+                </TouchableOpacity>
               );
             });
           }}
@@ -92,6 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 30,
   },
 
   //
