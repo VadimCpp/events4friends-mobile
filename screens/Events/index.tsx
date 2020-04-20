@@ -18,7 +18,7 @@ export default function EventsScreen(props: EventsScreenParams) {
           {({ events }) => {
             return events.map((event: any) => {
               return (
-                <View>
+                <View key={event.id}>
                   <Text>...</Text>
                   <Text>Тут будет компонент элемента списка EventListItem</Text>
                   <Text>...</Text>
