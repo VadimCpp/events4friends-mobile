@@ -3,6 +3,8 @@ import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import moment from 'moment';
+import 'moment/locale/ru';
 import HomeScreen from './screens/Home';
 import EventsScreen from './screens/Events';
 import ServicesScreen from './screens/Services';
@@ -87,6 +89,8 @@ export default function App() {
           });
       }
     });
+
+    moment.locale('ru');
   }, []);
 
   useEffect(() => {

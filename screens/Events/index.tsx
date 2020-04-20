@@ -7,7 +7,9 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
+import moment from 'moment';
 import DataContext from '../../context/DataContext';
+import 'moment/locale/ru';
 
 const { width } = Dimensions.get('screen');
 
@@ -26,6 +28,9 @@ export default function EventsScreen(props: EventsScreenParams) {
         <DataContext.Consumer>
           {({ events }) => {
             return events.map((event: any) => {
+              const startDate = moment(event.start).format('D MMMM, dddd');
+              const startTime = moment(event.start).format('HH:mm');
+
               return (
                 <View key={event.id} style={styles.listItemContainer}>
                   <View style={styles.summaryWrap}>
@@ -34,6 +39,19 @@ export default function EventsScreen(props: EventsScreenParams) {
                     </Text>
                   </View>
                   <View style={styles.hr} />
+                  <View style={styles.datetimeContainer}>
+                    <Image
+                      style={styles.iconTime}
+                      source={require('../../assets/img/icon_time_x4.png')}
+                    />
+                    <View>
+                      <Text>{startDate}</Text>
+                      <Text>{startTime}</Text>
+                    </View>
+                  </View>
+                  <View style={styles.addressContainer}>
+                    <Text>{event.location}</Text>
+                  </View>
                   <Image
                     style={styles.eventListItemWave}
                     source={require('../../assets/img/event_list_item_wave_x4.png')}
@@ -96,5 +114,22 @@ const styles = StyleSheet.create({
     left: 0,
     width: width * (300 / FIGMA_WIDTH),
     height: width * (32 / FIGMA_WIDTH),
+  },
+  datetimeContainer: {
+    marginTop: 50,
+    marginHorizontal: 10,
+    flexDirection: 'row',
+  },
+  iconTime: {
+    width: 32,
+    height: 32,
+    marginTop: 2,
+    marginRight: 6,
+  },
+  addressContainer: {
+    marginTop: 10,
+    marginHorizontal: 10,
+    borderColor: 'red',
+    borderWidth: 1,
   },
 });
