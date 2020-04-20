@@ -8,7 +8,6 @@ import {
   Dimensions,
 } from 'react-native';
 import DataContext from '../../context/DataContext';
-import Button from '../../components/Button';
 
 const { width } = Dimensions.get('screen');
 
@@ -35,11 +34,6 @@ export default function EventsScreen(props: EventsScreenParams) {
                     </Text>
                   </View>
                   <View style={styles.hr} />
-                  {/* <Text>...</Text>
-                  <Text>Тут будет компонент элемента списка EventListItem</Text>
-                  <Text>...</Text>
-                  <Text>{event.summary}</Text>
-                  <Text>{event.description}</Text> */}
                   <Image
                     style={styles.eventListItemWave}
                     source={require('../../assets/img/event_list_item_wave_x4.png')}
@@ -49,13 +43,6 @@ export default function EventsScreen(props: EventsScreenParams) {
             });
           }}
         </DataContext.Consumer>
-        <Button
-          color="#EC7B28"
-          title="подробнее"
-          onPress={() => {
-            navigation.navigate('EventSingleScreen');
-          }}
-        />
       </View>
     </ScrollView>
   );
