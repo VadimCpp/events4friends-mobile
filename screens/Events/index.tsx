@@ -50,7 +50,13 @@ export default function EventsScreen(props: EventsScreenParams) {
                     </View>
                   </View>
                   <View style={styles.addressContainer}>
-                    <Text>{event.location}</Text>
+                    <Image
+                      style={styles.iconPlace}
+                      source={require('../../assets/img/icon_place_x4.png')}
+                    />
+                    <View style={styles.address}>
+                      <Text numberOfLines={2}>{event.location}</Text>
+                    </View>
                   </View>
                   <Image
                     style={styles.eventListItemWave}
@@ -127,9 +133,19 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   addressContainer: {
-    marginTop: 10,
+    flexDirection: 'row',
+    marginTop: 5,
     marginHorizontal: 10,
-    borderColor: 'red',
-    borderWidth: 1,
+    height: 38,
+  },
+  iconPlace: {
+    width: 24,
+    height: 34,
+    marginRight: 10,
+    marginLeft: 4,
+  },
+  address: {
+    width: 240,
+    justifyContent: 'center',
   },
 });
