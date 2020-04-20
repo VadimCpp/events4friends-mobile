@@ -1,7 +1,18 @@
 import React from 'react';
-import { Text, ScrollView, View, StyleSheet } from 'react-native';
+import {
+  Text,
+  ScrollView,
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from 'react-native';
 import DataContext from '../../context/DataContext';
 import Button from '../../components/Button';
+
+const { width } = Dimensions.get('screen');
+
+const FIGMA_WIDTH = 375;
 
 interface EventsScreenParams {
   navigation: any;
@@ -29,6 +40,10 @@ export default function EventsScreen(props: EventsScreenParams) {
                   <Text>...</Text>
                   <Text>{event.summary}</Text>
                   <Text>{event.description}</Text> */}
+                  <Image
+                    style={styles.eventListItemWave}
+                    source={require('../../assets/img/event_list_item_wave_x4.png')}
+                  />
                 </View>
               );
             });
@@ -87,5 +102,12 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: '#EC7B28',
     marginHorizontal: 9,
+  },
+  eventListItemWave: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: width * (300 / FIGMA_WIDTH),
+    height: width * (32 / FIGMA_WIDTH),
   },
 });
