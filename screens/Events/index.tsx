@@ -49,15 +49,27 @@ export default function EventsScreen(props: EventsScreenParams) {
                       <Text>{startTime}</Text>
                     </View>
                   </View>
-                  <View style={styles.addressContainer}>
-                    <Image
-                      style={styles.iconPlace}
-                      source={require('../../assets/img/icon_place_x4.png')}
-                    />
-                    <View style={styles.address}>
-                      <Text numberOfLines={2}>{event.location}</Text>
+                  {event.isOnline ? (
+                    <View style={styles.addressContainer}>
+                      <Image
+                        style={styles.iconWww}
+                        source={require('../../assets/img/icon_www_x4.png')}
+                      />
+                      <View style={styles.address}>
+                        <Text numberOfLines={1}>Всемирная паутина</Text>
+                      </View>
                     </View>
-                  </View>
+                  ) : (
+                    <View style={styles.addressContainer}>
+                      <Image
+                        style={styles.iconPlace}
+                        source={require('../../assets/img/icon_place_x4.png')}
+                      />
+                      <View style={styles.address}>
+                        <Text numberOfLines={2}>{event.location}</Text>
+                      </View>
+                    </View>
+                  )}
                   <Image
                     style={styles.eventListItemWave}
                     source={require('../../assets/img/event_list_item_wave_x4.png')}
@@ -137,6 +149,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginHorizontal: 10,
     height: 38,
+  },
+  iconWww: {
+    width: 32,
+    height: 32,
+    marginTop: 2,
+    marginRight: 6,
   },
   iconPlace: {
     width: 24,
