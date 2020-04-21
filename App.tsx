@@ -127,17 +127,27 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{ title: 'events4friends' }}
+            options={{ title: 'Главная' }}
           />
-          <Stack.Screen name="Details" component={EventsScreen} />
-          <Stack.Screen name="Services" component={ServicesScreen} />
+          <Stack.Screen
+            name="Details"
+            component={EventsScreen}
+            options={{ title: 'Все события' }}
+          />
+          <Stack.Screen
+            name="Services"
+            component={ServicesScreen}
+            options={{ title: 'Все услуги' }}
+          />
           <Stack.Screen
             name="EventSingleScreen"
             component={EventSingleScreen}
+            options={{ title: 'Событие' }}
           />
           <Stack.Screen
             name="ServiceSingleScreen"
             component={ServiceSingleScreen}
+            options={{ title: 'Услуга' }}
           />
         </Stack.Navigator>
       </NavigationContainer>
