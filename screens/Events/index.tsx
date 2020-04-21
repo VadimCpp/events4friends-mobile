@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
+import moment from 'moment';
 import DataContext from '../../context/DataContext';
 import EventsListItem from '../../components/EventsListItem';
 
@@ -18,7 +19,26 @@ export default function EventsScreen(props: EventsScreenParams) {
         </View>
         <DataContext.Consumer>
           {({ events }) => {
-            return events.map((event: any) => {
+            const now = new Date();
+            let sortedEvents = [...events];
+
+            //
+            // TODO: add Event interface and fix eslint issues
+            //
+            sortedEvents = sortedEvents.filter(
+              event => moment(event.start).toDate() > now,
+            );
+
+            sortedEvents.sort((a, b) => {
+              if (a.start > b.start) {
+                return 1;
+              } else if (a.start < b.start) {
+                return -1;
+              }
+              return 0;
+            });
+
+            return sortedEvents.map((event: any) => {
               return (
                 <EventsListItem
                   key={event.id}
