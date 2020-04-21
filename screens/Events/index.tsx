@@ -14,9 +14,6 @@ export default function EventsScreen(props: EventsScreenParams) {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Выберите мероприятие</Text>
-        </View>
         <DataContext.Consumer>
           {({ events }) => {
             const now = new Date();
@@ -38,17 +35,32 @@ export default function EventsScreen(props: EventsScreenParams) {
               return 0;
             });
 
-            return sortedEvents.map((event: any) => {
+            if (sortedEvents.length > 0) {
               return (
-                <EventsListItem
-                  key={event.id}
-                  event={event}
-                  onPress={() => {
-                    navigation.navigate('EventSingleScreen', { event });
-                  }}
-                />
+                <View>
+                  <View style={styles.titleContainer}>
+                    <Text style={styles.title}>Выберите мероприятие</Text>
+                  </View>
+                  {sortedEvents.map((event: any) => {
+                    return (
+                      <EventsListItem
+                        key={event.id}
+                        event={event}
+                        onPress={() => {
+                          navigation.navigate('EventSingleScreen', { event });
+                        }}
+                      />
+                    );
+                  })}
+                </View>
               );
-            });
+            } else {
+              return (
+                <View style={styles.titleContainer}>
+                  <Text style={styles.title}>Список пуст</Text>
+                </View>
+              );
+            }
           }}
         </DataContext.Consumer>
       </View>
