@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import DataContext from '../../context/DataContext';
 import EventsListItem from '../../components/EventsListItem';
 
@@ -13,6 +13,9 @@ export default function EventsScreen(props: EventsScreenParams) {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Выберите мероприятие</Text>
+        </View>
         <DataContext.Consumer>
           {({ events }) => {
             return events.map((event: any) => {
@@ -42,5 +45,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 30,
+  },
+  titleContainer: {
+    marginTop: 30,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#404040',
   },
 });
