@@ -22,6 +22,20 @@ export default function EventsListItem(props: EventsListItemParams) {
   const { event, onPress } = props;
   const startDate = moment(event.start).format('D MMMM, dddd');
   const startTime = moment(event.start).format('HH:mm');
+  console.log(event);
+
+  let timezone;
+
+  switch (event.timezone) {
+    case '+0200':
+      timezone = ' (Клд)';
+      break;
+    case '+0300':
+      timezone = ' (Мск)';
+      break;
+    default:
+      timezone = '';
+  }
 
   return (
     <TouchableOpacity
@@ -42,7 +56,10 @@ export default function EventsListItem(props: EventsListItemParams) {
         />
         <View>
           <Text>{startDate}</Text>
-          <Text>{startTime}</Text>
+          <View style={styles.timeLine}>
+            <Text>{startTime}</Text>
+            <Text>{timezone}</Text>
+          </View>
         </View>
       </View>
       {event.isOnline ? (
@@ -121,6 +138,9 @@ const styles = StyleSheet.create({
     height: 32,
     marginTop: 2,
     marginRight: 6,
+  },
+  timeLine: {
+    flexDirection: 'row',
   },
   addressContainer: {
     flexDirection: 'row',
