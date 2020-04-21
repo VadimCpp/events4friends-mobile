@@ -92,9 +92,9 @@ export default function EventsListItem(props: EventsListItemParams) {
 
 const styles = StyleSheet.create({
   listItemContainer: {
-    width: 300,
     height: 200,
-    borderRadius: 9,
+    width: width * (300 / FIGMA_WIDTH),
+    borderRadius: width * (10 / FIGMA_WIDTH),
     marginTop: 16,
     backgroundColor: 'white',
 
@@ -115,10 +115,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   hr: {
-    width: 282,
+    width: width * (282 / FIGMA_WIDTH),
     height: 2,
     backgroundColor: '#EC7B28',
-    marginHorizontal: 9,
+    marginHorizontal: width * (9 / FIGMA_WIDTH),
   },
   eventListItemWave: {
     position: 'absolute',
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: width * (300 / FIGMA_WIDTH),
     height: width * (32 / FIGMA_WIDTH),
+    zIndex: -1,
   },
   datetimeContainer: {
     marginTop: 50,
