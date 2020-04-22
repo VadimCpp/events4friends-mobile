@@ -19,13 +19,16 @@ export default function HomeScreen(props: HomeScreenParams) {
     <View style={styles.container}>
       <MainBackground />
       <ScrollView>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title} numberOfLines={1}>
+        <View style={styles.welcomeContainer}>
+          <Text style={styles.welcome} numberOfLines={1}>
             Добро пожаловать
           </Text>
-          <Text style={styles.title} numberOfLines={1}>
+          <Text style={styles.welcome} numberOfLines={1}>
             в цифровое пространство
           </Text>
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Выберите раздел</Text>
         </View>
         <View style={styles.buttonContainer}>
           <HomeButton
@@ -58,15 +61,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
   },
-  titleContainer: {
+  welcomeContainer: {
     width: width * (295 / FIGMA_WIDTH),
     height: width * (200 / FIGMA_WIDTH),
     justifyContent: 'center',
   },
-  title: {
+  welcome: {
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  titleContainer: {
+    marginTop: 30,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#404040',
+    textAlign: 'center',
   },
   buttonContainer: {
     marginTop: 30,

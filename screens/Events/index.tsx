@@ -85,5 +85,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#404040',
+    textAlign: 'center',
   },
 });
