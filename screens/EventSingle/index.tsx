@@ -35,7 +35,6 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
   return (
     <View style={styles.container}>
       <SingleBackground />
-      <Text>{event.summary}</Text>
       <View style={styles.datePlaceContainer}>
         <View style={styles.datetimeContainer}>
           <Image
@@ -73,6 +72,10 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
         )}
       </View>
       <View style={styles.hr} />
+      <View style={styles.descriptionContainer}>
+        <Text style={styles.summary}>{event.summary}</Text>
+        <Text style={styles.description}>{event.description}</Text>
+      </View>
     </View>
   );
 }
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   datePlaceContainer: {
-    width: '100%', // 375
+    width: '100%',
     paddingHorizontal: width * (30 / FIGMA_WIDTH),
   },
   datetimeContainer: {
@@ -130,5 +133,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#EC7B28',
     marginHorizontal: width * (9 / FIGMA_WIDTH),
     marginTop: 20,
+  },
+  descriptionContainer: {
+    width: '100%',
+    paddingHorizontal: width * (38 / FIGMA_WIDTH),
+  },
+  summary: {
+    marginTop: 30,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#404040',
+  },
+  description: {
+    marginTop: 20,
+    color: '#404040',
   },
 });
