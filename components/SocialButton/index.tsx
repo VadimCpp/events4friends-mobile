@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { Linking } from 'expo';
 
 const { width } = Dimensions.get('screen');
 
@@ -17,7 +18,7 @@ export default function SocialButton(props: SocialButtonParams) {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        alert(`TODO: open ${url}`);
+        Linking.openURL(url);
       }}
     >
       <Image style={styles.img} source={icon} />
