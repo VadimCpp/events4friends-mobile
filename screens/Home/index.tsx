@@ -14,20 +14,24 @@ export default function HomeScreen(props: HomeScreenParams) {
     <View style={styles.container}>
       <MainBackground />
       <Text>Welcome to events4friends!</Text>
-      <HomeButton
-        sourceImage={require('../../assets/img/bike.png')}
-        gradientImage={require('../../assets/img/bike_gradient.png')}
-        onPress={() => {
-          navigation.navigate('Details');
-        }}
-      />
-      <HomeButton
-        sourceImage={require('../../assets/img/brain.png')}
-        gradientImage={require('../../assets/img/brain_gradient.png')}
-        onPress={() => {
-          navigation.navigate('Services');
-        }}
-      />
+      <View style={styles.buttonContainer}>
+        <HomeButton
+          sourceImage={require('../../assets/img/bike.png')}
+          gradientImage={require('../../assets/img/bike_gradient.png')}
+          onPress={() => {
+            navigation.navigate('Details');
+          }}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <HomeButton
+          sourceImage={require('../../assets/img/brain.png')}
+          gradientImage={require('../../assets/img/brain_gradient.png')}
+          onPress={() => {
+            navigation.navigate('Services');
+          }}
+        />
+      </View>
     </View>
   );
 }
@@ -38,5 +42,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonContainer: {
+    marginTop: 30,
   },
 });
