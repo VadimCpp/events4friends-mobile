@@ -108,6 +108,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#404040',
     textAlign: 'center',
+    textShadowColor: 'white',
+    textShadowRadius: 2,
+    textShadowOffset: { height: 1, width: 1 },
   },
   buttonContainer: {
     marginTop: 30,
