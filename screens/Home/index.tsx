@@ -14,7 +14,7 @@ export default function HomeScreen(props: HomeScreenParams) {
     <View style={styles.container}>
       <MainBackground />
       <Text>Welcome to events4friends!</Text>
-      <View>
+      <View style={styles.imageContainer}>
         <Image
           style={styles.imgBike}
           source={require('../../assets/img/bike.png')}
@@ -23,6 +23,9 @@ export default function HomeScreen(props: HomeScreenParams) {
           style={styles.imgBikeGradient}
           source={require('../../assets/img/bike_gradient.png')}
         />
+        <View style={styles.labelContainer}>
+          <Text style={styles.label}>Все события</Text>
+        </View>
       </View>
       <Button
         color="#EC7B28"
@@ -49,6 +52,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  imageContainer: {
+    width: 295,
+    height: 191,
+  },
   imgBike: {
     width: 295,
     height: 191,
@@ -61,5 +68,20 @@ const styles = StyleSheet.create({
     width: 295,
     height: 191,
     borderRadius: 9,
+  },
+  labelContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  label: {
+    color: 'white',
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
