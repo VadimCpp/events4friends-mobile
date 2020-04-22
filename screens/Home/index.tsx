@@ -18,7 +18,10 @@ export default function HomeScreen(props: HomeScreenParams) {
   return (
     <View style={styles.container}>
       <MainBackground />
-      <ScrollView>
+      <ScrollView
+        style={styles.scrollViewContainer}
+        contentContainerStyle={styles.contentContainer}
+      >
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcome} numberOfLines={1}>
             Добро пожаловать
@@ -50,6 +53,9 @@ export default function HomeScreen(props: HomeScreenParams) {
             }}
           />
         </View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Выберите чат</Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -59,6 +65,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    alignItems: 'center',
+    width: '100%',
+  },
+  scrollViewContainer: {
+    width: '100%',
+  },
+  contentContainer: {
     alignItems: 'center',
   },
   welcomeContainer: {
