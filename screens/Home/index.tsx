@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Button from '../../components/Button';
 import MainBackground from '../../components/MainBackground';
 
@@ -14,7 +14,12 @@ export default function HomeScreen(props: HomeScreenParams) {
     <View style={styles.container}>
       <MainBackground />
       <Text>Welcome to events4friends!</Text>
-      <View style={styles.imageContainer}>
+      <TouchableOpacity
+        style={styles.imageContainer}
+        onPress={() => {
+          navigation.navigate('Details');
+        }}
+      >
         <Image
           style={styles.imgBike}
           source={require('../../assets/img/bike.png')}
@@ -26,7 +31,7 @@ export default function HomeScreen(props: HomeScreenParams) {
         <View style={styles.labelContainer}>
           <Text style={styles.label}>Все события</Text>
         </View>
-      </View>
+      </TouchableOpacity>
       <Button
         color="#EC7B28"
         title="перейти"
@@ -55,6 +60,12 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 295,
     height: 191,
+
+    shadowColor: '#444',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
   },
   imgBike: {
     width: 295,
