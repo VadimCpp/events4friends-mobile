@@ -29,6 +29,7 @@ export default function HomeScreen(props: HomeScreenParams) {
         </View>
         <View style={styles.buttonContainer}>
           <HomeButton
+            title="Все события"
             sourceImage={require('../../assets/img/bike.png')}
             gradientImage={require('../../assets/img/bike_gradient.png')}
             onPress={() => {
@@ -38,6 +39,7 @@ export default function HomeScreen(props: HomeScreenParams) {
         </View>
         <View style={styles.buttonContainer}>
           <HomeButton
+            title="Все услуги"
             sourceImage={require('../../assets/img/brain.png')}
             gradientImage={require('../../assets/img/brain_gradient.png')}
             onPress={() => {
