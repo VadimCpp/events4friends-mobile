@@ -106,6 +106,12 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               </View>
             </View>
           )}
+          <View style={styles.eventWaveContainer}>
+            <Image
+              style={styles.eventWave}
+              source={require('../../assets/img/event_wave_x4.png')}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -188,7 +194,7 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     width: '100%',
     paddingHorizontal: width * (15 / FIGMA_WIDTH),
-    paddingBottom: 50,
+    paddingBottom: width * (70 / FIGMA_WIDTH),
   },
   summary: {
     marginTop: 30,
@@ -204,12 +210,27 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-start',
     paddingHorizontal: width * (15 / FIGMA_WIDTH),
-    paddingBottom: 50,
+    paddingBottom: width * (70 / FIGMA_WIDTH),
   },
   locationLabel: {
     marginTop: 30,
     fontSize: 18,
     fontWeight: 'bold',
     color: '#404040',
+  },
+  eventWaveContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    overflow: 'hidden',
+    width: width * (315 / FIGMA_WIDTH),
+    height: width * (60 / FIGMA_WIDTH),
+    borderBottomLeftRadius: width * (10 / FIGMA_WIDTH),
+    borderBottomRightRadius: width * (10 / FIGMA_WIDTH),
+    zIndex: -1,
+  },
+  eventWave: {
+    width: width * (315 / FIGMA_WIDTH),
+    height: width * (60 / FIGMA_WIDTH),
   },
 });
