@@ -22,6 +22,13 @@ export default function HomeScreen(props: HomeScreenParams) {
           navigation.navigate('Details');
         }}
       />
+      <HomeButton
+        sourceImage={require('../../assets/img/brain.png')}
+        gradientImage={require('../../assets/img/brain_gradient.png')}
+        onPress={() => {
+          navigation.navigate('Services');
+        }}
+      />
       <Button
         color="#EC7B28"
         title="перейти"
