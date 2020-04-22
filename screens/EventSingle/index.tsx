@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   Button,
+  ScrollView,
 } from 'react-native';
 import moment from 'moment';
 import SingleBackground from '../../components/SingleBackground';
@@ -42,61 +43,67 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
   return (
     <View style={styles.container}>
       <SingleBackground />
-      <View style={styles.datePlaceContainer}>
-        <View style={styles.datetimeContainer}>
-          <Image
-            style={styles.iconTime}
-            source={require('../../assets/img/icon_time_x4.png')}
-          />
-          <View>
-            <Text>{startDate}</Text>
-            <View style={styles.timeLine}>
-              <Text>{startTime}</Text>
-              <Text>{timezone}</Text>
+      <ScrollView
+        style={styles.scrollViewContainer}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.datePlaceContainer}>
+          <View style={styles.datetimeContainer}>
+            <Image
+              style={styles.iconTime}
+              source={require('../../assets/img/icon_time_x4.png')}
+            />
+            <View>
+              <Text>{startDate}</Text>
+              <View style={styles.timeLine}>
+                <Text>{startTime}</Text>
+                <Text>{timezone}</Text>
+              </View>
             </View>
           </View>
+          {event.isOnline ? (
+            <View style={styles.addressContainer}>
+              <Image
+                style={styles.iconWww}
+                source={require('../../assets/img/icon_www_x4.png')}
+              />
+              <View style={styles.address}>
+                <Text numberOfLines={1}>Всемирная паутина</Text>
+              </View>
+            </View>
+          ) : (
+            <View style={styles.addressContainer}>
+              <Image
+                style={styles.iconPlace}
+                source={require('../../assets/img/icon_place_x4.png')}
+              />
+              <View style={styles.address}>
+                <Text numberOfLines={2}>{event.location}</Text>
+              </View>
+            </View>
+          )}
         </View>
-        {event.isOnline ? (
-          <View style={styles.addressContainer}>
-            <Image
-              style={styles.iconWww}
-              source={require('../../assets/img/icon_www_x4.png')}
-            />
-            <View style={styles.address}>
-              <Text numberOfLines={1}>Всемирная паутина</Text>
-            </View>
-          </View>
-        ) : (
-          <View style={styles.addressContainer}>
-            <Image
-              style={styles.iconPlace}
-              source={require('../../assets/img/icon_place_x4.png')}
-            />
-            <View style={styles.address}>
-              <Text numberOfLines={2}>{event.location}</Text>
-            </View>
-          </View>
-        )}
-      </View>
-      <View style={styles.hr} />
-      <View style={styles.descriptionContainer}>
-        <Text style={styles.summary}>{event.summary}</Text>
-        <Text style={styles.description}>{event.description}</Text>
-      </View>
-      <View style={styles.locationContainer}>
-        {event.isOnline ? (
-          <Text>Ссылка для подключения к онлайн трансляции:</Text>
-        ) : (
-          <Text>Адрес мероприятия:</Text>
-        )}
-        <Button
-          onPress={() => {
-            alert('TODO:')
-          }}
-          title={event.location}
-          color="rgb(47, 124, 246)"
-        />
-      </View>
+        <View style={styles.hr} />
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.summary}>{event.summary}</Text>
+          <Text style={styles.description}>{event.description}</Text>
+          <Text style={styles.description}>{event.description}</Text>
+        </View>
+        <View style={styles.locationContainer}>
+          {event.isOnline ? (
+            <Text>Ссылка для подключения к онлайн трансляции:</Text>
+          ) : (
+            <Text>Адрес мероприятия:</Text>
+          )}
+          <Button
+            onPress={() => {
+              alert('TODO:')
+            }}
+            title={event.location}
+            color="rgb(47, 124, 246)"
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -106,11 +113,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%',
+  },
+  scrollViewContainer: {
+    width: '100%',
+  },
+  contentContainer: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginHorizontal: width * (30 / FIGMA_WIDTH),
   },
   datePlaceContainer: {
     width: '100%',
-    paddingHorizontal: width * (30 / FIGMA_WIDTH),
   },
   datetimeContainer: {
     marginTop: 50,
@@ -157,7 +171,7 @@ const styles = StyleSheet.create({
   },
   descriptionContainer: {
     width: '100%',
-    paddingHorizontal: width * (38 / FIGMA_WIDTH),
+    paddingHorizontal: width * (8 / FIGMA_WIDTH),
   },
   summary: {
     marginTop: 30,
@@ -172,7 +186,6 @@ const styles = StyleSheet.create({
   locationContainer: {
     marginTop: 100,
     width: '100%',
-    paddingHorizontal: width * (30 / FIGMA_WIDTH),
     alignItems: 'flex-start',
   },
 });
