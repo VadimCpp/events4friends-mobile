@@ -1,7 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions } from 'react-native';
 import moment from 'moment';
 import SingleBackground from '../../components/SingleBackground';
+
+const { width } = Dimensions.get('screen');
+
+const FIGMA_WIDTH = 375;
 
 interface EventSingleScreenParams {
   route: any;
@@ -68,6 +72,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
           </View>
         )}
       </View>
+      <View style={styles.hr} />
     </View>
   );
 }
@@ -80,8 +85,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   datePlaceContainer: {
-    width: '100%',
-    paddingHorizontal: 30,
+    width: '100%', // 375
+    paddingHorizontal: width * (30 / FIGMA_WIDTH),
   },
   datetimeContainer: {
     marginTop: 50,
@@ -118,5 +123,12 @@ const styles = StyleSheet.create({
   address: {
     width: 240,
     justifyContent: 'center',
+  },
+  hr: {
+    width: width * (315 / FIGMA_WIDTH),
+    height: 2,
+    backgroundColor: '#EC7B28',
+    marginHorizontal: width * (9 / FIGMA_WIDTH),
+    marginTop: 20,
   },
 });
