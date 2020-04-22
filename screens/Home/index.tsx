@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Button from '../../components/Button';
 import HomeButton from '../../components/HomeButton';
 import MainBackground from '../../components/MainBackground';
 
@@ -25,20 +24,6 @@ export default function HomeScreen(props: HomeScreenParams) {
       <HomeButton
         sourceImage={require('../../assets/img/brain.png')}
         gradientImage={require('../../assets/img/brain_gradient.png')}
-        onPress={() => {
-          navigation.navigate('Services');
-        }}
-      />
-      <Button
-        color="#EC7B28"
-        title="перейти"
-        onPress={() => {
-          navigation.navigate('Details');
-        }}
-      />
-      <Button
-        color="#24BA7B"
-        title="перейти"
         onPress={() => {
           navigation.navigate('Services');
         }}
