@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import moment from 'moment';
+import { Linking } from 'expo';
 import SingleBackground from '../../components/SingleBackground';
 
 const { width } = Dimensions.get('screen');
@@ -88,22 +89,23 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
           <View style={styles.descriptionContainer}>
             <Text style={styles.summary}>{event.summary}</Text>
             <Text style={styles.description}>{event.description}</Text>
-            <Text style={styles.description}>{event.description}</Text>
           </View>
-          <View style={styles.locationContainer}>
-            {event.isOnline ? (
-              <Text>Ссылка для подключения к онлайн трансляции:</Text>
-            ) : (
-              <Text>Адрес мероприятия:</Text>
-            )}
-            <Button
-              onPress={() => {
-                alert('TODO:')
-              }}
-              title={event.location}
-              color="rgb(47, 124, 246)"
-            />
-          </View>
+          {event.isOnline && (
+            <View style={styles.locationContainer}>
+              <View>
+                <Text style={styles.locationLabel}>
+                  Ссылка для подключения:
+                </Text>
+                <Button
+                  onPress={() => {
+                    Linking.openURL(event.location);
+                  }}
+                  title={event.location}
+                  color="rgb(47, 124, 246)"
+                />
+              </View>
+            </View>
+          )}
         </View>
       </ScrollView>
     </View>
@@ -124,6 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   innerContainer: {
+    width: width * (315 / FIGMA_WIDTH),
     backgroundColor: 'white',
     marginTop: 30,
     marginBottom: 50,
@@ -176,15 +179,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   hr: {
-    width: width * (300 / FIGMA_WIDTH),
+    width: width * (295 / FIGMA_WIDTH),
     height: 2,
     backgroundColor: '#EC7B28',
-    marginHorizontal: width * (9 / FIGMA_WIDTH),
+    marginHorizontal: width * (10 / FIGMA_WIDTH),
     marginTop: 20,
   },
   descriptionContainer: {
     width: '100%',
-    paddingHorizontal: width * (8 / FIGMA_WIDTH),
+    paddingHorizontal: width * (15 / FIGMA_WIDTH),
+    paddingBottom: 50,
   },
   summary: {
     marginTop: 30,
@@ -197,8 +201,15 @@ const styles = StyleSheet.create({
     color: '#404040',
   },
   locationContainer: {
-    marginTop: 100,
     width: '100%',
     alignItems: 'flex-start',
+    paddingHorizontal: width * (15 / FIGMA_WIDTH),
+    paddingBottom: 50,
+  },
+  locationLabel: {
+    marginTop: 30,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#404040',
   },
 });
