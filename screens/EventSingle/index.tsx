@@ -47,61 +47,63 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
       >
-        <View style={styles.datePlaceContainer}>
-          <View style={styles.datetimeContainer}>
-            <Image
-              style={styles.iconTime}
-              source={require('../../assets/img/icon_time_x4.png')}
-            />
-            <View>
-              <Text>{startDate}</Text>
-              <View style={styles.timeLine}>
-                <Text>{startTime}</Text>
-                <Text>{timezone}</Text>
+        <View style={styles.innerContainer}>
+          <View style={styles.datePlaceContainer}>
+            <View style={styles.datetimeContainer}>
+              <Image
+                style={styles.iconTime}
+                source={require('../../assets/img/icon_time_x4.png')}
+              />
+              <View>
+                <Text>{startDate}</Text>
+                <View style={styles.timeLine}>
+                  <Text>{startTime}</Text>
+                  <Text>{timezone}</Text>
+                </View>
               </View>
             </View>
+            {event.isOnline ? (
+              <View style={styles.addressContainer}>
+                <Image
+                  style={styles.iconWww}
+                  source={require('../../assets/img/icon_www_x4.png')}
+                />
+                <View style={styles.address}>
+                  <Text numberOfLines={1}>Всемирная паутина</Text>
+                </View>
+              </View>
+            ) : (
+              <View style={styles.addressContainer}>
+                <Image
+                  style={styles.iconPlace}
+                  source={require('../../assets/img/icon_place_x4.png')}
+                />
+                <View style={styles.address}>
+                  <Text numberOfLines={2}>{event.location}</Text>
+                </View>
+              </View>
+            )}
           </View>
-          {event.isOnline ? (
-            <View style={styles.addressContainer}>
-              <Image
-                style={styles.iconWww}
-                source={require('../../assets/img/icon_www_x4.png')}
-              />
-              <View style={styles.address}>
-                <Text numberOfLines={1}>Всемирная паутина</Text>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.addressContainer}>
-              <Image
-                style={styles.iconPlace}
-                source={require('../../assets/img/icon_place_x4.png')}
-              />
-              <View style={styles.address}>
-                <Text numberOfLines={2}>{event.location}</Text>
-              </View>
-            </View>
-          )}
-        </View>
-        <View style={styles.hr} />
-        <View style={styles.descriptionContainer}>
-          <Text style={styles.summary}>{event.summary}</Text>
-          <Text style={styles.description}>{event.description}</Text>
-          <Text style={styles.description}>{event.description}</Text>
-        </View>
-        <View style={styles.locationContainer}>
-          {event.isOnline ? (
-            <Text>Ссылка для подключения к онлайн трансляции:</Text>
-          ) : (
-            <Text>Адрес мероприятия:</Text>
-          )}
-          <Button
-            onPress={() => {
-              alert('TODO:')
-            }}
-            title={event.location}
-            color="rgb(47, 124, 246)"
-          />
+          <View style={styles.hr} />
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.summary}>{event.summary}</Text>
+            <Text style={styles.description}>{event.description}</Text>
+            <Text style={styles.description}>{event.description}</Text>
+          </View>
+          <View style={styles.locationContainer}>
+            {event.isOnline ? (
+              <Text>Ссылка для подключения к онлайн трансляции:</Text>
+            ) : (
+              <Text>Адрес мероприятия:</Text>
+            )}
+            <Button
+              onPress={() => {
+                alert('TODO:')
+              }}
+              title={event.location}
+              color="rgb(47, 124, 246)"
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -120,8 +122,19 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'center',
+  },
+  innerContainer: {
     backgroundColor: 'white',
+    marginTop: 30,
+    marginBottom: 50,
     marginHorizontal: width * (30 / FIGMA_WIDTH),
+    borderRadius: width * (10 / FIGMA_WIDTH),
+
+    shadowColor: '#444',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
   },
   datePlaceContainer: {
     width: '100%',
@@ -163,7 +176,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   hr: {
-    width: width * (315 / FIGMA_WIDTH),
+    width: width * (300 / FIGMA_WIDTH),
     height: 2,
     backgroundColor: '#EC7B28',
     marginHorizontal: width * (9 / FIGMA_WIDTH),
