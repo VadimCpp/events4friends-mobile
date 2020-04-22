@@ -1,5 +1,12 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, Dimensions } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Button,
+} from 'react-native';
 import moment from 'moment';
 import SingleBackground from '../../components/SingleBackground';
 
@@ -76,6 +83,20 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
         <Text style={styles.summary}>{event.summary}</Text>
         <Text style={styles.description}>{event.description}</Text>
       </View>
+      <View style={styles.locationContainer}>
+        {event.isOnline ? (
+          <Text>Ссылка для подключения к онлайн трансляции:</Text>
+        ) : (
+          <Text>Адрес мероприятия:</Text>
+        )}
+        <Button
+          onPress={() => {
+            alert('TODO:')
+          }}
+          title={event.location}
+          color="rgb(47, 124, 246)"
+        />
+      </View>
     </View>
   );
 }
@@ -147,5 +168,11 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 20,
     color: '#404040',
+  },
+  locationContainer: {
+    marginTop: 100,
+    width: '100%',
+    paddingHorizontal: width * (30 / FIGMA_WIDTH),
+    alignItems: 'flex-start',
   },
 });
