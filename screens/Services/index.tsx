@@ -1,8 +1,7 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import moment from 'moment';
 import DataContext from '../../context/DataContext';
-import EventsListItem from '../../components/EventsListItem';
+import ServicesListItem from '../../components/ServicesListItem';
 import EventsBackground from '../../components/EventsBackground/';
 
 interface ServicesScreenParams {
@@ -18,39 +17,22 @@ export default function ServicesScreen(props: ServicesScreenParams) {
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <DataContext.Consumer>
-            {({ events }) => {
-              const now = new Date();
-              let sortedEvents = [...events];
-
-              //
-              // TODO: add Event interface and fix eslint issues
-              //
-              sortedEvents = sortedEvents.filter(
-                event => moment(event.start).toDate() > now,
-              );
-
-              sortedEvents.sort((a, b) => {
-                if (a.start > b.start) {
-                  return 1;
-                } else if (a.start < b.start) {
-                  return -1;
-                }
-                return 0;
-              });
-
-              if (sortedEvents.length > 0) {
+            {({ services }) => {
+              if (services.length > 0) {
                 return (
                   <View>
                     <View style={styles.titleContainer}>
-                      <Text style={styles.title}>Выберите мероприятие</Text>
+                      <Text style={styles.title}>Выберите услугу</Text>
                     </View>
-                    {sortedEvents.map((event: any) => {
+                    {services.map((service: any) => {
                       return (
-                        <EventsListItem
-                          key={event.id}
-                          event={event}
+                        <ServicesListItem
+                          key={service.id}
+                          service={service}
                           onPress={() => {
-                            navigation.navigate('EventSingleScreen', { event });
+                            navigation.navigate('ServiceSingleScreen', {
+                              service,
+                            });
                           }}
                         />
                       );
