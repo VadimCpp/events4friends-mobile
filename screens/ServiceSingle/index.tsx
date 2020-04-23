@@ -2,11 +2,19 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SingBackground from '../../components/SingleBackground';
 
-export default function ServiceSingleScreen() {
+interface ServiceSingleScreenParams {
+  route: any;
+  navigation: any;
+}
+
+export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
+  const { route } = props;
+  const { service } = route.params;
+
   return (
     <View style={styles.container}>
       <SingBackground />
-      <Text>Single Service Screen</Text>
+      <Text>{service.name}</Text>
     </View>
   );
 }
