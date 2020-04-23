@@ -40,6 +40,7 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
               {service.name}
             </Text>
           </View>
+          {/* isFree, instagram, website, price, whatsapp, telegram, vkontakte */}
           <View style={styles.hr} />
           <View style={styles.descriptionContainer}>
             <Text>{service.description}</Text>
