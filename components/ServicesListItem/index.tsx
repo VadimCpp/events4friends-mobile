@@ -26,12 +26,14 @@ export default function ServicesListItem(props: ServicesListItemParams) {
       style={styles.listItemContainer}
       onPress={onPress}
     >
+      {/* TODO: rename summary* to service* */}
       <View style={styles.summaryWrap}>
         <Text style={styles.summary} numberOfLines={1}>
           {service.service}
         </Text>
       </View>
       <View style={styles.hr} />
+      {/* TODO: download masked image from Figma and remove eventWaveContainer */}
       <View style={styles.serviceWaveContainer}>
         <Image
           style={styles.serviceListItemWave}
