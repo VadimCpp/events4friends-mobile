@@ -30,8 +30,17 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
         contentContainerStyle={styles.contentContainer}
       >
         <View style={styles.innerContainer}>
-          <Text>{service.service}</Text>
-          <Text>{service.name}</Text>
+          <View style={styles.serviceWrap}>
+            <Text style={styles.service} numberOfLines={1}>
+              {service.service}
+            </Text>
+          </View>
+          <View style={styles.nameWrap}>
+            <Text style={styles.name} numberOfLines={1}>
+              {service.name}
+            </Text>
+          </View>
+          <View style={styles.hr} />
           <View style={styles.descriptionContainer}>
             <Text>{service.description}</Text>
           </View>
@@ -75,8 +84,38 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
   },
+  serviceWrap: {
+    height: 40,
+    paddingTop: 11,
+    paddingHorizontal: 13,
+  },
+  service: {
+    fontSize: 18,
+    color: '#24BA7B',
+    fontWeight: 'bold',
+  },
+  nameWrap: {
+    height: 40,
+    paddingTop: 11,
+    paddingHorizontal: 13,
+  },
+  name: {
+    fontSize: 18,
+    color: '#404040',
+    fontWeight: 'bold',
+  },
+  hr: {
+    width: width * (295 / FIGMA_WIDTH),
+    height: 2,
+    backgroundColor: '#24BA7B',
+    marginHorizontal: width * (10 / FIGMA_WIDTH),
+    marginTop: 20,
+  },
   descriptionContainer: {
-    marginBottom: 100,
+    marginTop: 20,
+    width: '100%',
+    paddingHorizontal: width * (15 / FIGMA_WIDTH),
+    paddingBottom: width * (70 / FIGMA_WIDTH),
   },
   eventWaveContainer: {
     position: 'absolute',

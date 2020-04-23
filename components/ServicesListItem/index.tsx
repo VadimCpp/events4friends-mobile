@@ -26,6 +26,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
       style={styles.listItemContainer}
       onPress={onPress}
     >
+      {/* TODO: rename summary* to service* */}
       <View style={styles.summaryWrap}>
         <Text style={styles.summary} numberOfLines={1}>
           {service.service}
