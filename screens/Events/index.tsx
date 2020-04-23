@@ -21,14 +21,14 @@ export default function EventsScreen(props: EventsScreenParams) {
             {({ events }) => {
               const now = new Date();
               let sortedEvents = [...events];
-  
+
               //
               // TODO: add Event interface and fix eslint issues
               //
               sortedEvents = sortedEvents.filter(
                 event => moment(event.start).toDate() > now,
               );
-  
+
               sortedEvents.sort((a, b) => {
                 if (a.start > b.start) {
                   return 1;
@@ -37,7 +37,7 @@ export default function EventsScreen(props: EventsScreenParams) {
                 }
                 return 0;
               });
-  
+
               if (sortedEvents.length > 0) {
                 return (
                   <View>
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    width: '100%',
   },
   container: {
     flex: 1,
