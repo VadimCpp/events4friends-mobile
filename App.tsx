@@ -30,7 +30,9 @@ function initializeApp() {
   }
 }
 
-function subscribeToServiceChanges(): Function | null {
+function subscribeToServiceChanges(
+  onServicesUpdated: Function,
+): Function | null {
   const db = firebase.firestore();
   db.collection('services')
     .get()
@@ -39,7 +41,7 @@ function subscribeToServiceChanges(): Function | null {
         ...item.data(),
         id: item.id,
       }));
-      console.log('Got some services', services);
+      onServicesUpdated(services);
     })
     .catch(function(error) {
       console.warn('Error getting services, skip: ', error);
@@ -64,6 +66,7 @@ const Stack = createStackNavigator();
 export default function App() {
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     initializeApp();
@@ -98,7 +101,11 @@ export default function App() {
     let unsubscribeFromEvents: Function | null = null;
 
     if (user) {
-      unsubscribeFromServices = subscribeToServiceChanges();
+      unsubscribeFromServices = subscribeToServiceChanges(
+        (aSevices: Array<never>) => {
+          setServices(aSevices);
+        },
+      );
       unsubscribeFromEvents = subscribeToEventsChanges(
         (anEvents: Array<never>) => {
           setEvents(anEvents);
@@ -120,6 +127,7 @@ export default function App() {
     <DataContext.Provider
       value={{
         events,
+        services,
       }}
     >
       <NavigationContainer>
