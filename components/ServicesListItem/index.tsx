@@ -32,10 +32,12 @@ export default function ServicesListItem(props: ServicesListItemParams) {
         </Text>
       </View>
       <View style={styles.hr} />
-      <Image
-        style={styles.eventListItemWave}
-        source={require('../../assets/img/event_list_item_wave_x4.png')}
-      />
+      <View style={styles.serviceWaveContainer}>
+        <Image
+          style={styles.serviceListItemWave}
+          source={require('../../assets/img/service_list_item_wave_x4.png')}
+        />
+      </View>
     </TouchableOpacity>
   );
 }
@@ -67,15 +69,22 @@ const styles = StyleSheet.create({
   hr: {
     width: width * (282 / FIGMA_WIDTH),
     height: 2,
-    backgroundColor: '#EC7B28',
+    backgroundColor: '#24BA7B',
     marginHorizontal: width * (9 / FIGMA_WIDTH),
   },
-  eventListItemWave: {
+  serviceWaveContainer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
+    overflow: 'hidden',
     width: width * (300 / FIGMA_WIDTH),
-    height: width * (32 / FIGMA_WIDTH),
+    height: width * (37 / FIGMA_WIDTH),
+    borderBottomLeftRadius: width * (10 / FIGMA_WIDTH),
+    borderBottomRightRadius: width * (10 / FIGMA_WIDTH),
     zIndex: -1,
+  },
+  serviceListItemWave: {
+    width: width * (300 / FIGMA_WIDTH),
+    height: width * (37 / FIGMA_WIDTH),
   },
 });
