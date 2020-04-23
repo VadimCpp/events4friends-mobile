@@ -32,6 +32,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
         </Text>
       </View>
       <View style={styles.hr} />
+      {/* TODO: download masked image from Figma and remove eventWaveContainer */}
       <View style={styles.serviceWaveContainer}>
         <Image
           style={styles.serviceListItemWave}

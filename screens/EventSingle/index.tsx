@@ -106,6 +106,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               </View>
             </View>
           )}
+          {/* TODO: download masked image from Figma and remove eventWaveContainer */}
           <View style={styles.eventWaveContainer}>
             <Image
               style={styles.eventWave}
