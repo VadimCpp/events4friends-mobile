@@ -25,11 +25,11 @@
       "**/*"
     ],
     "android": {
-      "versionCode": 6
+      "versionCode": 7
     },
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "6"
+      "buildNumber": "7"
     }
   }
 }

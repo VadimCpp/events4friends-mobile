@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Asset } from 'expo-asset';
+import { AppLoading } from 'expo';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
@@ -64,6 +66,7 @@ function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [isAppReady, setIsAppReady] = useState(false);
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
   const [services, setServices] = useState([]);
@@ -123,7 +126,41 @@ export default function App() {
     };
   }, [user]);
 
-  return (
+  function cacheResourcesAsync(): Promise<void> {
+    const images = [
+      require('./assets/img/bike_gradient.png'),
+      require('./assets/img/bike.png'),
+      require('./assets/img/brain_gradient.png'),
+      require('./assets/img/brain.png'),
+      require('./assets/img/event_list_item_wave_x4.png'),
+      require('./assets/img/event_wave_x4.png'),
+      require('./assets/img/icon_place_x4.png'),
+      require('./assets/img/icon_telegram_x4.png'),
+      require('./assets/img/icon_time_x4.png'),
+      require('./assets/img/icon_viber_x4.png'),
+      require('./assets/img/icon_whatsapp_x4.png'),
+      require('./assets/img/icon_www_x4.png'),
+      require('./assets/img/main_bg_bottom_x4.png'),
+      require('./assets/img/main_bg_top_x4.png'),
+      require('./assets/img/main_bg_wave_x4.png'),
+      require('./assets/img/main_bg_wave2_x4.png'),
+      require('./assets/img/service_list_item_wave_x4.png'),
+      require('./assets/img/service_wave_x4.png'),
+      require('./assets/img/VectorEvents_x4.png'),
+      require('./assets/img/VectorSingleEvent_x4.png'),
+      require('./assets/img/wave1Events_x4.png'),
+      require('./assets/img/wave1SingleEvent_x4.png'),
+      require('./assets/img/wave2Events_x4.png'),
+      require('./assets/img/wave2SingleEvent_x4.png'),
+    ];
+
+    const cacheImages = images.map(image => {
+      return Asset.fromModule(image).downloadAsync();
+    });
+    return (Promise.all(cacheImages) as unknown) as Promise<void>;
+  }
+
+  return isAppReady ? (
     <DataContext.Provider
       value={{
         events,
@@ -160,5 +197,11 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </DataContext.Provider>
+  ) : (
+    <AppLoading
+      startAsync={cacheResourcesAsync}
+      onFinish={() => setIsAppReady(true)}
+      onError={console.warn}
+    />
   );
 }
