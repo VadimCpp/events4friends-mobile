@@ -20,6 +20,14 @@ interface ServicesListItemParams {
 export default function ServicesListItem(props: ServicesListItemParams) {
   const { service, onPress } = props;
 
+  let priceTag;
+
+  if (service.isFree) {
+    priceTag = <Text style={styles.serviceFree}>бесплатно</Text>;
+  } else if (service.price) {
+    priceTag = <Text style={styles.summary}>от {service.price} руб.</Text>;
+  }
+
   return (
     <TouchableOpacity
       key={service.id}
@@ -33,6 +41,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
         </Text>
       </View>
       <View style={styles.hr} />
+      <View style={styles.priceTagContainer}>{priceTag}</View>
       {/* TODO: download masked image from Figma and remove eventWaveContainer */}
       <View style={styles.serviceWaveContainer}>
         <Image
@@ -68,11 +77,21 @@ const styles = StyleSheet.create({
     color: '#404040',
     fontWeight: 'bold',
   },
+  serviceFree: {
+    fontSize: 18,
+    color: '#24BA7B',
+    fontWeight: 'bold',
+  },
   hr: {
     width: width * (282 / FIGMA_WIDTH),
     height: 2,
     backgroundColor: '#24BA7B',
     marginHorizontal: width * (9 / FIGMA_WIDTH),
+  },
+  priceTagContainer: {
+    position: 'absolute',
+    top: 120,
+    right: 12,
   },
   serviceWaveContainer: {
     position: 'absolute',
