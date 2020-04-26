@@ -25,6 +25,7 @@
       "assets/**/*"
     ],
     "android": {
+      "package": "com.roscomputing.events4friends",
       "versionCode": 7
     },
     "ios": {
