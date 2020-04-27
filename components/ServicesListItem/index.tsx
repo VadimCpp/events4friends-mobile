@@ -26,7 +26,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
   if (service.isFree) {
     priceTag = <Text style={styles.serviceFree}>бесплатно</Text>;
   } else if (service.price) {
-    priceTag = <Text style={styles.summary}>от {service.price} руб.</Text>;
+    priceTag = <Text style={styles.price}>от {service.price} руб.</Text>;
   }
 
   return (
@@ -36,13 +36,17 @@ export default function ServicesListItem(props: ServicesListItemParams) {
       onPress={onPress}
       activeOpacity={DEFAUTL_ACTIVE_OPACITY}
     >
-      {/* TODO: rename summary* to service* */}
-      <View style={styles.summaryWrap}>
-        <Text style={styles.summary} numberOfLines={1}>
+      <View style={styles.serviceWrap}>
+        <Text style={styles.service} numberOfLines={1}>
           {service.service}
         </Text>
       </View>
       <View style={styles.hr} />
+      <View style={styles.nameWrap}>
+        <Text style={styles.name} numberOfLines={1}>
+          {service.name}
+        </Text>
+      </View>
       <View style={styles.priceTagContainer}>{priceTag}</View>
       {/* TODO: download masked image from Figma and remove eventWaveContainer */}
       <View style={styles.serviceWaveContainer}>
@@ -69,19 +73,14 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
   },
-  summaryWrap: {
+  serviceWrap: {
     height: 40,
     paddingTop: 11,
     paddingHorizontal: 13,
   },
-  summary: {
+  service: {
     fontSize: 18,
     color: '#404040',
-    fontWeight: 'bold',
-  },
-  serviceFree: {
-    fontSize: 18,
-    color: '#24BA7B',
     fontWeight: 'bold',
   },
   hr: {
@@ -90,10 +89,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#24BA7B',
     marginHorizontal: width * (9 / FIGMA_WIDTH),
   },
+  nameWrap: {
+    height: 40,
+    paddingTop: 5,
+    paddingHorizontal: 13,
+  },
+  name: {
+    fontSize: 14,
+    color: '#404040',
+  },
   priceTagContainer: {
     position: 'absolute',
     top: 120,
     right: 12,
+  },
+  serviceFree: {
+    fontSize: 18,
+    color: '#24BA7B',
+  },
+  price: {
+    fontSize: 18,
+    color: '#404040',
   },
   serviceWaveContainer: {
     position: 'absolute',
