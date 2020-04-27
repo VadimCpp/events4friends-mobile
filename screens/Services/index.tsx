@@ -21,9 +21,6 @@ export default function ServicesScreen(props: ServicesScreenParams) {
               if (services.length > 0) {
                 return (
                   <View>
-                    <View style={styles.titleContainer}>
-                      <Text style={styles.title}>Выберите услугу</Text>
-                    </View>
                     {services.map((service: any) => {
                       return (
                         <ServicesListItem
@@ -41,8 +38,8 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                 );
               } else {
                 return (
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Список пуст</Text>
+                  <View>
+                    <Text style={styles.emptyLabel}>Список пуст</Text>
                   </View>
                 );
               }
@@ -70,11 +67,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 30,
-  },
-  titleContainer: {
     marginTop: 30,
   },
-  title: {
+  emptyLabel: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#404040',

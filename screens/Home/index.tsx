@@ -30,9 +30,6 @@ export default function HomeScreen(props: HomeScreenParams) {
             в цифровое пространство
           </Text>
         </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Выберите раздел</Text>
-        </View>
         <View style={styles.buttonContainer}>
           <HomeButton
             title="Все события"
@@ -94,6 +91,7 @@ const styles = StyleSheet.create({
     width: width * (295 / FIGMA_WIDTH),
     height: width * (200 / FIGMA_WIDTH),
     justifyContent: 'center',
+    marginBottom: 30,
   },
   welcome: {
     color: 'white',
