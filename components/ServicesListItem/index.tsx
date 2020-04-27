@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
 
 const { width } = Dimensions.get('screen');
 
@@ -33,6 +34,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
       key={service.id}
       style={styles.listItemContainer}
       onPress={onPress}
+      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
     >
       {/* TODO: rename summary* to service* */}
       <View style={styles.summaryWrap}>

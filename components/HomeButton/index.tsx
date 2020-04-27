@@ -7,6 +7,7 @@ import {
   View,
   Dimensions,
 } from 'react-native';
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
 
 const { width } = Dimensions.get('screen');
 
@@ -23,7 +24,11 @@ export default function HomeButton(props: HomeButtonParams) {
   const { title, sourceImage, gradientImage, onPress } = props;
 
   return (
-    <TouchableOpacity style={styles.imageContainer} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.imageContainer}
+      onPress={onPress}
+      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
+    >
       <Image style={styles.imgBike} source={sourceImage} />
       <Image style={styles.imgBikeGradient} source={gradientImage} />
       <View style={styles.labelContainer}>

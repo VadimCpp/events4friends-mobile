@@ -1,0 +1,1 @@
+export const DEFAUTL_ACTIVE_OPACITY = 0.6;

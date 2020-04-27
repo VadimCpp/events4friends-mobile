@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
 
 interface ButtonParams {
   color: string;
@@ -19,7 +20,7 @@ export default function Button(props: ButtonParams) {
           backgroundColor: color,
         },
       ]}
-      activeOpacity={0.6}
+      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
     >
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>

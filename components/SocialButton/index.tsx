@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Linking } from 'expo';
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
 
 const { width } = Dimensions.get('screen');
 
@@ -20,6 +21,7 @@ export default function SocialButton(props: SocialButtonParams) {
       onPress={() => {
         Linking.openURL(url);
       }}
+      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
     >
       <Image style={styles.img} source={icon} />
     </TouchableOpacity>

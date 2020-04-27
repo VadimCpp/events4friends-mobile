@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import moment from 'moment';
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
 
 const { width } = Dimensions.get('screen');
 
@@ -41,6 +42,7 @@ export default function EventsListItem(props: EventsListItemParams) {
       key={event.id}
       style={styles.listItemContainer}
       onPress={onPress}
+      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
     >
       <View style={styles.summaryWrap}>
         <Text style={styles.summary} numberOfLines={1}>
