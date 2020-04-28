@@ -11,6 +11,7 @@ import {
 import moment from 'moment';
 import { Linking } from 'expo';
 import SingleBackground from '../../components/SingleBackground';
+import { removeTags } from '../../utils/Misc';
 
 const { width } = Dimensions.get('screen');
 
@@ -88,7 +89,9 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
           <View style={styles.hr} />
           <View style={styles.descriptionContainer}>
             <Text style={styles.summary}>{event.summary}</Text>
-            <Text style={styles.description}>{event.description}</Text>
+            <Text style={styles.description}>
+              {removeTags(event.description)}
+            </Text>
           </View>
           {event.isOnline && (
             <View style={styles.locationContainer}>
