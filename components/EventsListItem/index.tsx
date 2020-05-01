@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   summaryWrap: {
     height: 40,
     paddingTop: 11,
-    paddingHorizontal: 13,
+    paddingHorizontal: calcSize(13),
   },
   summary: {
     fontSize: 18,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   datetimeContainer: {
     marginTop: 50,
-    marginHorizontal: 10,
+    marginHorizontal: calcSize(10),
     flexDirection: 'row',
   },
   iconTime: {
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   addressContainer: {
     flexDirection: 'row',
     marginTop: 5,
-    marginHorizontal: 10,
+    marginHorizontal: calcSize(10),
     height: 38,
   },
   iconWww: {

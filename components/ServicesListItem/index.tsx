@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   serviceWrap: {
     height: 40,
     paddingTop: 11,
-    paddingHorizontal: 13,
+    paddingHorizontal: calcSize(13),
   },
   service: {
     fontSize: 18,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   nameWrap: {
     height: 40,
     paddingTop: 5,
-    paddingHorizontal: 13,
+    paddingHorizontal: calcSize(13),
   },
   name: {
     fontSize: 14,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   priceTagContainer: {
     position: 'absolute',
     top: 120,
-    right: 12,
+    right: calcSize(12),
   },
   serviceFree: {
     fontSize: 18,

@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   serviceWrap: {
     height: 40,
     paddingTop: 11,
-    paddingHorizontal: 13,
+    paddingHorizontal: calcSize(13),
   },
   service: {
     fontSize: 18,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   nameWrap: {
     height: 40,
     paddingTop: 11,
-    paddingHorizontal: 13,
+    paddingHorizontal: calcSize(13),
   },
   name: {
     fontSize: 18,

@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   datetimeContainer: {
     marginTop: 50,
-    marginHorizontal: 10,
+    marginHorizontal: calcSize(10),
     flexDirection: 'row',
   },
   iconTime: {
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   addressContainer: {
     flexDirection: 'row',
     marginTop: 5,
-    marginHorizontal: 10,
+    marginHorizontal: calcSize(10),
     height: 38,
   },
   iconWww: {
