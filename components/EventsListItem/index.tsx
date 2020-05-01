@@ -1,18 +1,8 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-  Image,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import moment from 'moment';
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
-
-const { width } = Dimensions.get('screen');
-
-const FIGMA_WIDTH = 375;
+import { calcSize } from '../../utils/Misc';
 
 interface EventsListItemParams {
   event: any;
@@ -95,8 +85,8 @@ export default function EventsListItem(props: EventsListItemParams) {
 const styles = StyleSheet.create({
   listItemContainer: {
     height: 200,
-    width: width * (300 / FIGMA_WIDTH),
-    borderRadius: width * (10 / FIGMA_WIDTH),
+    width: calcSize(300),
+    borderRadius: calcSize(10),
     marginTop: 16,
     backgroundColor: 'white',
 
@@ -117,17 +107,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   hr: {
-    width: width * (282 / FIGMA_WIDTH),
+    width: calcSize(282),
     height: 2,
     backgroundColor: '#EC7B28',
-    marginHorizontal: width * (9 / FIGMA_WIDTH),
+    marginHorizontal: calcSize(9),
   },
   eventListItemWave: {
     position: 'absolute',
     bottom: 0,
     left: 0,
-    width: width * (300 / FIGMA_WIDTH),
-    height: width * (32 / FIGMA_WIDTH),
+    width: calcSize(300),
+    height: calcSize(32),
     zIndex: -1,
   },
   datetimeContainer: {

@@ -1,12 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import HomeButton from '../../components/HomeButton';
 import SocialButton from '../../components/SocialButton';
 import MainBackground from '../../components/MainBackground';
-
-const { width } = Dimensions.get('screen');
-
-const FIGMA_WIDTH = 375;
+import { calcSize } from '../../utils/Misc';
 
 interface HomeScreenParams {
   navigation: any;
@@ -88,8 +85,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   welcomeContainer: {
-    width: width * (295 / FIGMA_WIDTH),
-    height: width * (200 / FIGMA_WIDTH),
+    width: calcSize(295),
+    height: calcSize(200),
     justifyContent: 'center',
     marginBottom: 30,
   },
@@ -118,6 +115,6 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: width * (285 / FIGMA_WIDTH),
+    width: calcSize(285),
   },
 });

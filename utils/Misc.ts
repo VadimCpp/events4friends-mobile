@@ -1,3 +1,16 @@
+import { Dimensions } from 'react-native';
+
+//
+// NOTE!
+// This is important function which scales all sizes from Figma design:
+// https://www.figma.com/file/EuJMgLEbXfMdhAe1aOfOpF/events4friends---v2
+//
+const { width } = Dimensions.get('screen');
+const FIGMA_WIDTH = 375;
+export function calcSize(figmaSize: number): number {
+  return width * (figmaSize / FIGMA_WIDTH);
+}
+
 //
 // NOTE!
 // This method is used in EventSingle screen

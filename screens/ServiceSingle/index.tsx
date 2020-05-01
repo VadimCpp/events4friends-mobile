@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-  Image,
-} from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Image } from 'react-native';
 import SingleBackground from '../../components/SingleBackground';
-
-const { width } = Dimensions.get('screen');
-
-const FIGMA_WIDTH = 375;
+import { calcSize } from '../../utils/Misc';
 
 interface ServiceSingleScreenParams {
   route: any;
@@ -72,12 +62,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   innerContainer: {
-    width: width * (315 / FIGMA_WIDTH),
+    width: calcSize(315),
     backgroundColor: 'white',
     marginTop: 30,
     marginBottom: 50,
-    marginHorizontal: width * (30 / FIGMA_WIDTH),
-    borderRadius: width * (10 / FIGMA_WIDTH),
+    marginHorizontal: calcSize(30),
+    borderRadius: calcSize(10),
 
     shadowColor: '#444',
     shadowOffset: { width: 0, height: 1 },
@@ -106,31 +96,31 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   hr: {
-    width: width * (295 / FIGMA_WIDTH),
+    width: calcSize(295),
     height: 2,
     backgroundColor: '#24BA7B',
-    marginHorizontal: width * (10 / FIGMA_WIDTH),
+    marginHorizontal: calcSize(10),
     marginTop: 20,
   },
   descriptionContainer: {
     marginTop: 20,
     width: '100%',
-    paddingHorizontal: width * (15 / FIGMA_WIDTH),
-    paddingBottom: width * (70 / FIGMA_WIDTH),
+    paddingHorizontal: calcSize(15),
+    paddingBottom: calcSize(70),
   },
   eventWaveContainer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     overflow: 'hidden',
-    width: width * (315 / FIGMA_WIDTH),
-    height: width * (37 / FIGMA_WIDTH),
-    borderBottomLeftRadius: width * (10 / FIGMA_WIDTH),
-    borderBottomRightRadius: width * (10 / FIGMA_WIDTH),
+    width: calcSize(315),
+    height: calcSize(37),
+    borderBottomLeftRadius: calcSize(10),
+    borderBottomRightRadius: calcSize(10),
     zIndex: -1,
   },
   eventWave: {
-    width: width * (315 / FIGMA_WIDTH),
-    height: width * (37 / FIGMA_WIDTH),
+    width: calcSize(315),
+    height: calcSize(37),
   },
 });

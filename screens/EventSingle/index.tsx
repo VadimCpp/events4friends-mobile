@@ -4,18 +4,13 @@ import {
   View,
   StyleSheet,
   Image,
-  Dimensions,
   Button,
   ScrollView,
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
 import SingleBackground from '../../components/SingleBackground';
-import { removeTags } from '../../utils/Misc';
-
-const { width } = Dimensions.get('screen');
-
-const FIGMA_WIDTH = 375;
+import { removeTags, calcSize } from '../../utils/Misc';
 
 interface EventSingleScreenParams {
   route: any;
@@ -136,12 +131,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   innerContainer: {
-    width: width * (315 / FIGMA_WIDTH),
+    width: calcSize(315),
     backgroundColor: 'white',
     marginTop: 30,
     marginBottom: 50,
-    marginHorizontal: width * (30 / FIGMA_WIDTH),
-    borderRadius: width * (10 / FIGMA_WIDTH),
+    marginHorizontal: calcSize(30),
+    borderRadius: calcSize(10),
 
     shadowColor: '#444',
     shadowOffset: { width: 0, height: 1 },
@@ -189,16 +184,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   hr: {
-    width: width * (295 / FIGMA_WIDTH),
+    width: calcSize(295),
     height: 2,
     backgroundColor: '#EC7B28',
-    marginHorizontal: width * (10 / FIGMA_WIDTH),
+    marginHorizontal: calcSize(10),
     marginTop: 20,
   },
   descriptionContainer: {
     width: '100%',
-    paddingHorizontal: width * (15 / FIGMA_WIDTH),
-    paddingBottom: width * (70 / FIGMA_WIDTH),
+    paddingHorizontal: calcSize(15),
+    paddingBottom: calcSize(70),
   },
   summary: {
     marginTop: 30,
@@ -213,8 +208,8 @@ const styles = StyleSheet.create({
   locationContainer: {
     width: '100%',
     alignItems: 'flex-start',
-    paddingHorizontal: width * (15 / FIGMA_WIDTH),
-    paddingBottom: width * (70 / FIGMA_WIDTH),
+    paddingHorizontal: calcSize(15),
+    paddingBottom: calcSize(70),
   },
   locationLabel: {
     marginTop: 30,
@@ -227,14 +222,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     overflow: 'hidden',
-    width: width * (315 / FIGMA_WIDTH),
-    height: width * (60 / FIGMA_WIDTH),
-    borderBottomLeftRadius: width * (10 / FIGMA_WIDTH),
-    borderBottomRightRadius: width * (10 / FIGMA_WIDTH),
+    width: calcSize(315),
+    height: calcSize(60),
+    borderBottomLeftRadius: calcSize(10),
+    borderBottomRightRadius: calcSize(10),
     zIndex: -1,
   },
   eventWave: {
-    width: width * (315 / FIGMA_WIDTH),
-    height: width * (60 / FIGMA_WIDTH),
+    width: calcSize(315),
+    height: calcSize(60),
   },
 });

@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-  Image,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
-
-const { width } = Dimensions.get('screen');
-
-const FIGMA_WIDTH = 375;
+import { calcSize } from '../../utils/Misc';
 
 interface ServicesListItemParams {
   service: any;
@@ -62,8 +52,8 @@ export default function ServicesListItem(props: ServicesListItemParams) {
 const styles = StyleSheet.create({
   listItemContainer: {
     height: 200,
-    width: width * (300 / FIGMA_WIDTH),
-    borderRadius: width * (10 / FIGMA_WIDTH),
+    width: calcSize(300),
+    borderRadius: calcSize(10),
     marginTop: 16,
     backgroundColor: 'white',
 
@@ -84,10 +74,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   hr: {
-    width: width * (282 / FIGMA_WIDTH),
+    width: calcSize(282),
     height: 2,
     backgroundColor: '#24BA7B',
-    marginHorizontal: width * (9 / FIGMA_WIDTH),
+    marginHorizontal: calcSize(9),
   },
   nameWrap: {
     height: 40,
@@ -116,14 +106,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     overflow: 'hidden',
-    width: width * (300 / FIGMA_WIDTH),
-    height: width * (37 / FIGMA_WIDTH),
-    borderBottomLeftRadius: width * (10 / FIGMA_WIDTH),
-    borderBottomRightRadius: width * (10 / FIGMA_WIDTH),
+    width: calcSize(300),
+    height: calcSize(37),
+    borderBottomLeftRadius: calcSize(10),
+    borderBottomRightRadius: calcSize(10),
     zIndex: -1,
   },
   serviceListItemWave: {
-    width: width * (300 / FIGMA_WIDTH),
-    height: width * (37 / FIGMA_WIDTH),
+    width: calcSize(300),
+    height: calcSize(37),
   },
 });

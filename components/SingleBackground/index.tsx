@@ -1,9 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Image, Dimensions } from 'react-native';
-
-const { width } = Dimensions.get('screen');
-
-const FIGMA_WIDTH = 375;
+import { StyleSheet, View, Image } from 'react-native';
+import { calcSize } from '../../utils/Misc';
 
 export default function EventSingleBackground() {
   return (
@@ -33,23 +30,23 @@ const styles = StyleSheet.create({
   },
   wave1Style: {
     position: 'absolute',
-    top: width * (517 / FIGMA_WIDTH),
+    top: calcSize(517),
     left: 0,
     width: '100%',
-    height: width * (150 / FIGMA_WIDTH),
+    height: calcSize(150),
   },
   wave2Style: {
     position: 'absolute',
-    top: width * (195 / FIGMA_WIDTH),
+    top: calcSize(195),
     left: 0,
     width: '100%',
-    height: width * (150 / FIGMA_WIDTH),
+    height: calcSize(150),
   },
   vectorStyle: {
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
-    height: width * (226 / FIGMA_WIDTH),
+    height: calcSize(226),
   },
 });

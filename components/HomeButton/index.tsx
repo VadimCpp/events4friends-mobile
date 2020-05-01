@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  View,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native';
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
-
-const { width } = Dimensions.get('screen');
-
-const FIGMA_WIDTH = 375;
+import { calcSize } from '../../utils/Misc';
 
 interface HomeButtonParams {
   title: string;
@@ -40,8 +30,8 @@ export default function HomeButton(props: HomeButtonParams) {
 
 const styles = StyleSheet.create({
   imageContainer: {
-    width: width * (295 / FIGMA_WIDTH),
-    height: width * (191 / FIGMA_WIDTH),
+    width: calcSize(295),
+    height: calcSize(191),
 
     shadowColor: '#444',
     shadowOffset: { width: 0, height: 1 },
@@ -50,16 +40,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   imgBike: {
-    width: width * (295 / FIGMA_WIDTH),
-    height: width * (191 / FIGMA_WIDTH),
+    width: calcSize(295),
+    height: calcSize(191),
     borderRadius: 9,
   },
   imgBikeGradient: {
     position: 'absolute',
     top: 0,
     left: 0,
-    width: width * (295 / FIGMA_WIDTH),
-    height: width * (191 / FIGMA_WIDTH),
+    width: calcSize(295),
+    height: calcSize(191),
     borderRadius: 9,
   },
   labelContainer: {

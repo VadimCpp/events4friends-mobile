@@ -1,9 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Image, Dimensions } from 'react-native';
-
-const { width } = Dimensions.get('screen');
-
-const FIGMA_WIDTH = 375;
+import { StyleSheet, View, Image } from 'react-native';
+import { calcSize } from '../../utils/Misc';
 
 export default function MainBackground() {
   return (
@@ -40,27 +37,27 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: '100%',
-    height: width * (236 / FIGMA_WIDTH),
+    height: calcSize(236),
   },
   imgBgWave: {
     position: 'absolute',
-    top: width * (177 / FIGMA_WIDTH),
+    top: calcSize(177),
     left: 0,
     width: '100%',
-    height: width * (60 / FIGMA_WIDTH),
+    height: calcSize(60),
   },
   imgBgWave2: {
     position: 'absolute',
-    top: width * (227 / FIGMA_WIDTH),
+    top: calcSize(227),
     left: 0,
     width: '100%',
-    height: width * (227 / FIGMA_WIDTH),
+    height: calcSize(227),
   },
   imgBgBottom: {
     position: 'absolute',
-    top: width * (443 / FIGMA_WIDTH),
+    top: calcSize(443),
     left: 0,
     width: '100%',
-    height: width * (502 / FIGMA_WIDTH),
+    height: calcSize(502),
   },
 });
