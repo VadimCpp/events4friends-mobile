@@ -70,7 +70,7 @@ export default function EventsListItem(props: EventsListItemParams) {
             source={require('../../assets/img/icon_www_x4.png')}
           />
           <View style={styles.address}>
-            <Text numberOfLines={1}>Всемирная паутина</Text>
+            <Text numberOfLines={1}>Онлайн</Text>
           </View>
         </View>
       ) : (
