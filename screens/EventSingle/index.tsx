@@ -4,7 +4,7 @@ import {
   View,
   StyleSheet,
   Image,
-  Button,
+  TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import moment from 'moment';
@@ -94,13 +94,16 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                 <Text style={styles.locationLabel}>
                   Ссылка для подключения:
                 </Text>
-                <Button
+                <TouchableOpacity
                   onPress={() => {
                     Linking.openURL(event.location);
                   }}
-                  title={event.location}
-                  color="rgb(47, 124, 246)"
-                />
+                  style={styles.linkContainer}
+                >
+                  <Text style={styles.link} numberOfLines={1}>
+                    {event.location}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           )}
@@ -216,6 +219,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#404040',
+  },
+  linkContainer: {
+    paddingVertical: 5,
+  },
+  link: {
+    color: 'rgb(47, 124, 246)',
   },
   eventWaveContainer: {
     position: 'absolute',
