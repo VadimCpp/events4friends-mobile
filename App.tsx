@@ -172,7 +172,9 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{ title: 'Главная' }}
+            options={{
+              header: () => null,
+            }}
           />
           <Stack.Screen
             name="Details"
