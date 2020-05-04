@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, ScrollView, Image } from 'react-native';
 import SingleBackground from '../../components/SingleBackground';
-import { calcSize } from '../../utils/Misc';
+import { calcSize, removeTags } from '../../utils/Misc';
 
 interface ServiceSingleScreenParams {
   route: any;
@@ -33,7 +33,7 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
           {/* isFree, instagram, website, price, whatsapp, telegram, vkontakte */}
           <View style={styles.hr} />
           <View style={styles.descriptionContainer}>
-            <Text>{service.description}</Text>
+            <Text>{removeTags(service.description)}</Text>
           </View>
           {/* TODO: download masked image from Figma and remove eventWaveContainer */}
           <View style={styles.eventWaveContainer}>
