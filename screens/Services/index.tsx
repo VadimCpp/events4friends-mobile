@@ -21,6 +21,21 @@ export default function ServicesScreen(props: ServicesScreenParams) {
           <DataContext.Consumer>
             {({ services }) => {
               if (services.length > 0) {
+                //
+                // NOTE!
+                // При сортировке сначала в результате названия с латинскими буквами
+                //
+                let sorted = [];
+                if (sortByName) {
+                  sorted = services.sort((a: any, b: any): number => {
+                    return a.name ? a.name.localeCompare(b.name) : 0;
+                  });
+                } else {
+                  sorted = services.sort((a: any, b: any): number => {
+                    return a.service ? a.service.localeCompare(b.service) : 0;
+                  });
+                }
+
                 return (
                   <View>
                     <View style={styles.sortContainer}>
@@ -44,7 +59,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                         }
                       />
                     </View>
-                    {services.map((service: any) => {
+                    {sorted.map((service: any) => {
                       return (
                         <ServicesListItem
                           key={service.id}
