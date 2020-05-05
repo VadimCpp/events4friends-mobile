@@ -2,7 +2,8 @@ import React from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import DataContext from '../../context/DataContext';
 import ServicesListItem from '../../components/ServicesListItem';
-import EventsBackground from '../../components/EventsBackground/';
+import EventsBackground from '../../components/EventsBackground';
+import Button from '../../components/Button';
 
 interface ServicesScreenParams {
   navigation: any;
@@ -21,6 +22,19 @@ export default function ServicesScreen(props: ServicesScreenParams) {
               if (services.length > 0) {
                 return (
                   <View>
+                    <View style={styles.sortContainer}>
+                      <Text>Сортировка</Text>
+                      <Button
+                        title="Услуга"
+                        onPress={() => {}}
+                        style={styles.sortButton}
+                      />
+                      <Button
+                        title="ФИО"
+                        onPress={() => {}}
+                        style={styles.sortButton}
+                      />
+                    </View>
                     {services.map((service: any) => {
                       return (
                         <ServicesListItem
@@ -68,6 +82,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 30,
     marginTop: 30,
+  },
+  sortContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sortButton: {
+    backgroundColor: '#24BA7B',
+    width: 100,
+    marginLeft: 10,
   },
   emptyLabel: {
     fontSize: 24,
