@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import DataContext from '../../context/DataContext';
 import ServicesListItem from '../../components/ServicesListItem';
@@ -10,6 +10,7 @@ interface ServicesScreenParams {
 }
 
 export default function ServicesScreen(props: ServicesScreenParams) {
+  const [sortByName, setSortByName] = useState(false);
   const { navigation } = props;
 
   return (
@@ -26,13 +27,21 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                       <Text>Сортировка</Text>
                       <Button
                         title="Услуга"
-                        onPress={() => {}}
-                        style={styles.sortButton}
+                        onPress={() => setSortByName(false)}
+                        style={
+                          sortByName
+                            ? styles.sortButton
+                            : styles.sortButtonFocused
+                        }
                       />
                       <Button
-                        title="ФИО"
-                        onPress={() => {}}
-                        style={styles.sortButton}
+                        title="Имя"
+                        onPress={() => setSortByName(true)}
+                        style={
+                          sortByName
+                            ? styles.sortButtonFocused
+                            : styles.sortButton
+                        }
                       />
                     </View>
                     {services.map((service: any) => {
@@ -89,6 +98,11 @@ const styles = StyleSheet.create({
   },
   sortButton: {
     backgroundColor: '#24BA7B',
+    width: 100,
+    marginLeft: 10,
+  },
+  sortButtonFocused: {
+    backgroundColor: '#404040',
     width: 100,
     marginLeft: 10,
   },
