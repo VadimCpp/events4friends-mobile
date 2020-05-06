@@ -10,8 +10,8 @@ interface ServicesScreenParams {
 }
 
 export default function ServicesScreen(props: ServicesScreenParams) {
-  const [sortByName, setSortByName] = useState(false);
   const { navigation } = props;
+  const [sortByName, setSortByName] = useState(false);
 
   return (
     <View style={styles.backgroundContainer}>

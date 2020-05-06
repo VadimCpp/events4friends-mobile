@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import moment from 'moment';
 import DataContext from '../../context/DataContext';
@@ -6,12 +6,19 @@ import EventsListItem from '../../components/EventsListItem';
 import EventsBackground from '../../components/EventsBackground/';
 import Button from '../../components/Button';
 
+enum EventsFilter {
+  Upcoming = 'UPCOMING_EVENTS',
+  Past = 'PAST_EVENTS',
+  // TODO: add more types here
+}
+
 interface EventsScreenParams {
   navigation: any;
 }
 
 export default function EventsScreen(props: EventsScreenParams) {
   const { navigation } = props;
+  const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
 
   return (
     <View style={styles.backgroundContainer}>
@@ -43,16 +50,24 @@ export default function EventsScreen(props: EventsScreenParams) {
                 return (
                   <View>
                     <View style={styles.sortContainer}>
-                      <Text>Сортировка</Text>
+                      <Text>Фильтр</Text>
                       <Button
-                        title="Услуга"
-                        onPress={() => {}}
-                        style={styles.sortButton}
+                        title="Предстоящие"
+                        onPress={() => setFilterType(EventsFilter.Upcoming)}
+                        style={
+                          filterType === EventsFilter.Upcoming
+                            ? styles.sortButtonFocused
+                            : styles.sortButton
+                        }
                       />
                       <Button
-                        title="Имя"
-                        onPress={() => {}}
-                        style={styles.sortButton}
+                        title="Прошедшие"
+                        onPress={() => setFilterType(EventsFilter.Past)}
+                        style={
+                          filterType === EventsFilter.Past
+                            ? styles.sortButtonFocused
+                            : styles.sortButton
+                        }
                       />
                     </View>
                     {sortedEvents.map((event: any) => {
