@@ -4,6 +4,7 @@ import moment from 'moment';
 import DataContext from '../../context/DataContext';
 import EventsListItem from '../../components/EventsListItem';
 import EventsBackground from '../../components/EventsBackground/';
+import Button from '../../components/Button';
 
 interface EventsScreenParams {
   navigation: any;
@@ -41,6 +42,19 @@ export default function EventsScreen(props: EventsScreenParams) {
               if (sortedEvents.length > 0) {
                 return (
                   <View>
+                    <View style={styles.sortContainer}>
+                      <Text>Сортировка</Text>
+                      <Button
+                        title="Услуга"
+                        onPress={() => {}}
+                        style={styles.sortButton}
+                      />
+                      <Button
+                        title="Имя"
+                        onPress={() => {}}
+                        style={styles.sortButton}
+                      />
+                    </View>
                     {sortedEvents.map((event: any) => {
                       return (
                         <EventsListItem
@@ -86,6 +100,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 30,
     marginTop: 30,
+  },
+  sortContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sortButton: {
+    backgroundColor: '#EC7B28',
+    width: 100,
+    marginLeft: 10,
+  },
+  sortButtonFocused: {
+    backgroundColor: '#404040',
+    width: 100,
+    marginLeft: 10,
   },
   emptyLabel: {
     fontSize: 24,
