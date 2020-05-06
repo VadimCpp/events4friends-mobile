@@ -33,8 +33,8 @@ export default function EventsScreen(props: EventsScreenParams) {
 
               if (filterType === EventsFilter.Upcoming) {
                 sortedEvents = sortedEvents.filter((event: any) => {
-                  return event.start
-                    ? moment(event.start).toDate() > now
+                  return event.start && event.timezone
+                    ? moment(`${event.start}${event.timezone}`).toDate() > now
                     : false;
                 });
 
@@ -48,8 +48,8 @@ export default function EventsScreen(props: EventsScreenParams) {
                 });
               } else if (filterType === EventsFilter.Past) {
                 sortedEvents = sortedEvents.filter((event: any) => {
-                  return event.start
-                    ? moment(event.start).toDate() < now
+                  return event.start && event.timezone
+                    ? moment(`${event.start}${event.timezone}`).toDate() < now
                     : false;
                 });
 
