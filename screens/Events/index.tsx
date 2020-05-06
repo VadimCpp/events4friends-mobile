@@ -31,21 +31,37 @@ export default function EventsScreen(props: EventsScreenParams) {
               const now = new Date();
               let sortedEvents = [...events];
 
-              //
-              // TODO: add Event interface and fix eslint issues
-              //
-              sortedEvents = sortedEvents.filter(
-                event => moment(event.start).toDate() > now,
-              );
+              if (filterType === EventsFilter.Upcoming) {
+                sortedEvents = sortedEvents.filter((event: any) => {
+                  return event.start
+                    ? moment(event.start).toDate() > now
+                    : false;
+                });
 
-              sortedEvents.sort((a, b) => {
-                if (a.start > b.start) {
-                  return 1;
-                } else if (a.start < b.start) {
-                  return -1;
-                }
-                return 0;
-              });
+                sortedEvents.sort((a: any, b: any) => {
+                  if (a.start > b.start) {
+                    return 1;
+                  } else if (a.start < b.start) {
+                    return -1;
+                  }
+                  return 0;
+                });
+              } else if (filterType === EventsFilter.Past) {
+                sortedEvents = sortedEvents.filter((event: any) => {
+                  return event.start
+                    ? moment(event.start).toDate() < now
+                    : false;
+                });
+
+                sortedEvents.sort((a: any, b: any) => {
+                  if (a.start < b.start) {
+                    return 1;
+                  } else if (a.start > b.start) {
+                    return -1;
+                  }
+                  return 0;
+                });
+              }
 
               if (sortedEvents.length > 0) {
                 return (
