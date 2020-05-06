@@ -5,6 +5,7 @@ import DataContext from '../../context/DataContext';
 import EventsListItem from '../../components/EventsListItem';
 import EventsBackground from '../../components/EventsBackground/';
 import Button from '../../components/Button';
+import { calcSize } from '../../utils/Misc';
 
 enum EventsFilter {
   Upcoming = 'UPCOMING_EVENTS',
@@ -49,15 +50,15 @@ export default function EventsScreen(props: EventsScreenParams) {
               if (sortedEvents.length > 0) {
                 return (
                   <View>
-                    <View style={styles.sortContainer}>
+                    <View style={styles.filterContainer}>
                       <Text>Фильтр</Text>
                       <Button
                         title="Предстоящие"
                         onPress={() => setFilterType(EventsFilter.Upcoming)}
                         style={
                           filterType === EventsFilter.Upcoming
-                            ? styles.sortButtonFocused
-                            : styles.sortButton
+                            ? styles.filterButtonFocused
+                            : styles.filterButton
                         }
                       />
                       <Button
@@ -65,8 +66,8 @@ export default function EventsScreen(props: EventsScreenParams) {
                         onPress={() => setFilterType(EventsFilter.Past)}
                         style={
                           filterType === EventsFilter.Past
-                            ? styles.sortButtonFocused
-                            : styles.sortButton
+                            ? styles.filterButtonFocused
+                            : styles.filterButton
                         }
                       />
                     </View>
@@ -116,19 +117,23 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 30,
   },
-  sortContainer: {
+  filterContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    width: calcSize(300),
   },
-  sortButton: {
+  filterButton: {
     backgroundColor: '#EC7B28',
-    width: 100,
+    width: 130,
     marginLeft: 10,
+    marginBottom: 10,
   },
-  sortButtonFocused: {
+  filterButtonFocused: {
     backgroundColor: '#404040',
-    width: 100,
+    width: 130,
     marginLeft: 10,
+    marginBottom: 10,
   },
   emptyLabel: {
     fontSize: 24,
