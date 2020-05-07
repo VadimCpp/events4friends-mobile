@@ -20,6 +20,14 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
   const { route } = props;
   const { service } = route.params;
 
+  let priceTag;
+
+  if (service.isFree) {
+    priceTag = <Text style={styles.serviceFree}>бесплатно</Text>;
+  } else if (service.price) {
+    priceTag = <Text style={styles.price}>от {service.price} руб.</Text>;
+  }
+
   return (
     <View style={styles.container}>
       <SingleBackground />
@@ -123,7 +131,7 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
-          {/* isFree, price */}
+          <View style={styles.priceTagContainer}>{priceTag}</View>
           <View style={styles.paddingBottomContainer} />
           {/* TODO: download masked image from Figma and remove eventWaveContainer */}
           <View style={styles.eventWaveContainer}>
@@ -213,6 +221,19 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'rgb(47, 124, 246)',
+  },
+  priceTagContainer: {
+    position: 'absolute',
+    bottom: calcSize(70),
+    right: calcSize(12),
+  },
+  serviceFree: {
+    fontSize: 18,
+    color: '#24BA7B',
+  },
+  price: {
+    fontSize: 18,
+    color: '#404040',
   },
   paddingBottomContainer: {
     paddingBottom: calcSize(70),
