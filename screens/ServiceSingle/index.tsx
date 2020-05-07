@@ -1,5 +1,13 @@
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView, Image } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { Linking } from 'expo';
 import SingleBackground from '../../components/SingleBackground';
 import { calcSize, removeTags } from '../../utils/Misc';
 
@@ -30,11 +38,46 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
               {service.name}
             </Text>
           </View>
-          {/* isFree, instagram, website, price, whatsapp, telegram, vkontakte */}
           <View style={styles.hr} />
           <View style={styles.descriptionContainer}>
             <Text>{removeTags(service.description)}</Text>
           </View>
+          {service.instagram && (
+            <View style={styles.locationContainer}>
+              <View>
+                <Text style={styles.locationLabel}>Инстаграм:</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    Linking.openURL(service.instagram);
+                  }}
+                  style={styles.linkContainer}
+                >
+                  <Text style={styles.link} numberOfLines={1}>
+                    {service.instagram}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+          {service.website && (
+            <View style={styles.locationContainer}>
+              <View>
+                <Text style={styles.locationLabel}>Сайт:</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    Linking.openURL(service.website);
+                  }}
+                  style={styles.linkContainer}
+                >
+                  <Text style={styles.link} numberOfLines={1}>
+                    {service.website}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+          {/* whatsapp, telegram, vkontakte */}
+          {/* isFree, price */}
           {/* TODO: download masked image from Figma and remove eventWaveContainer */}
           <View style={styles.eventWaveContainer}>
             <Image
@@ -107,6 +150,24 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: calcSize(15),
     paddingBottom: calcSize(70),
+  },
+  locationContainer: {
+    width: '100%',
+    alignItems: 'flex-start',
+    paddingHorizontal: calcSize(15),
+    paddingBottom: calcSize(70),
+  },
+  locationLabel: {
+    marginTop: 30,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#404040',
+  },
+  linkContainer: {
+    paddingVertical: 5,
+  },
+  link: {
+    color: 'rgb(47, 124, 246)',
   },
   eventWaveContainer: {
     position: 'absolute',
