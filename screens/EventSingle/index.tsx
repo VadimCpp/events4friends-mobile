@@ -90,21 +90,17 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
           </View>
           {event.isOnline && (
             <View style={styles.locationContainer}>
-              <View>
-                <Text style={styles.locationLabel}>
-                  Ссылка для подключения:
+              <Text style={styles.locationLabel}>Ссылка для подключения:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(event.location);
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {event.location}
                 </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    Linking.openURL(event.location);
-                  }}
-                  style={styles.linkContainer}
-                >
-                  <Text style={styles.link} numberOfLines={1}>
-                    {event.location}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             </View>
           )}
           {/* TODO: download masked image from Figma and remove eventWaveContainer */}

@@ -1,5 +1,13 @@
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView, Image } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { Linking } from 'expo';
 import SingleBackground from '../../components/SingleBackground';
 import { calcSize, removeTags } from '../../utils/Misc';
 
@@ -11,6 +19,14 @@ interface ServiceSingleScreenParams {
 export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
   const { route } = props;
   const { service } = route.params;
+
+  let priceTag = null;
+
+  if (service.isFree) {
+    priceTag = <Text style={styles.serviceFree}>бесплатно</Text>;
+  } else if (service.price) {
+    priceTag = <Text style={styles.price}>от {service.price} руб.</Text>;
+  }
 
   return (
     <View style={styles.container}>
@@ -30,11 +46,93 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
               {service.name}
             </Text>
           </View>
-          {/* isFree, instagram, website, price, whatsapp, telegram, vkontakte */}
           <View style={styles.hr} />
           <View style={styles.descriptionContainer}>
             <Text>{removeTags(service.description)}</Text>
           </View>
+          {service.instagram && (
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationLabel}>Инстаграм:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(service.instagram);
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {service.instagram}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {service.website && (
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationLabel}>Сайт:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(service.website);
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {service.website}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {service.whatsapp && (
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationLabel}>WhatsApp:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(
+                    `https://wa.me/${service.whatsapp}?text=${encodeURI(
+                      'Привет, меня интересует услуга ' +
+                        service.service +
+                        ', которую я нашел на сайте events4friends.ru',
+                    )}`,
+                  );
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {service.whatsapp}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {service.telegram && (
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationLabel}>Telegram:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(`https://tglink.ru/${service.telegram}`);
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {service.telegram}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {service.vkontakte && (
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationLabel}>VKontakte:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(service.vkontakte);
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {service.vkontakte}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {priceTag && <View style={styles.priceTagContainer}>{priceTag}</View>}
+          <View style={styles.paddingBottomContainer} />
           {/* TODO: download masked image from Figma and remove eventWaveContainer */}
           <View style={styles.eventWaveContainer}>
             <Image
@@ -106,6 +204,38 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '100%',
     paddingHorizontal: calcSize(15),
+  },
+  locationContainer: {
+    width: '100%',
+    alignItems: 'flex-start',
+    paddingHorizontal: calcSize(15),
+  },
+  locationLabel: {
+    marginTop: 30,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#404040',
+  },
+  linkContainer: {
+    paddingVertical: 5,
+  },
+  link: {
+    color: 'rgb(47, 124, 246)',
+  },
+  priceTagContainer: {
+    position: 'absolute',
+    bottom: calcSize(70),
+    right: calcSize(12),
+  },
+  serviceFree: {
+    fontSize: 18,
+    color: '#24BA7B',
+  },
+  price: {
+    fontSize: 18,
+    color: '#404040',
+  },
+  paddingBottomContainer: {
     paddingBottom: calcSize(70),
   },
   eventWaveContainer: {
