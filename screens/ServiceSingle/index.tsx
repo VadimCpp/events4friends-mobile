@@ -72,7 +72,28 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
-          {/* whatsapp, telegram, vkontakte */}
+          {service.whatsapp && (
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationLabel}>WhatsApp:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(
+                    `https://wa.me/${service.whatsapp}?text=${encodeURI(
+                      'Привет, меня интересует услуга ' +
+                        service.service +
+                        ', которую я нашел на сайте events4friends.ru',
+                    )}`,
+                  );
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {service.whatsapp}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {/* telegram, vkontakte */}
           {/* isFree, price */}
           {/* TODO: download masked image from Figma and remove eventWaveContainer */}
           <View style={styles.eventWaveContainer}>
