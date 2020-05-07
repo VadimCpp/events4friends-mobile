@@ -64,6 +64,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                         <ServicesListItem
                           key={service.id}
                           service={service}
+                          highlightName={sortByName}
                           onPress={() => {
                             navigation.navigate('ServiceSingleScreen', {
                               service,

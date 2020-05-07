@@ -5,11 +5,12 @@ import { calcSize } from '../../utils/Misc';
 
 interface ServicesListItemParams {
   service: any;
+  highlightName: boolean;
   onPress: () => void;
 }
 
 export default function ServicesListItem(props: ServicesListItemParams) {
-  const { service, onPress } = props;
+  const { service, highlightName, onPress } = props;
 
   let priceTag;
 
@@ -28,13 +29,13 @@ export default function ServicesListItem(props: ServicesListItemParams) {
     >
       <View style={styles.serviceWrap}>
         <Text style={styles.service} numberOfLines={1}>
-          {service.service}
+          {highlightName ? service.name : service.service}
         </Text>
       </View>
       <View style={styles.hr} />
       <View style={styles.nameWrap}>
         <Text style={styles.name} numberOfLines={1}>
-          {service.name}
+          {highlightName ? service.service : service.name}
         </Text>
       </View>
       <View style={styles.priceTagContainer}>{priceTag}</View>
