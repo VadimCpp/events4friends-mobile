@@ -20,7 +20,7 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
   const { route } = props;
   const { service } = route.params;
 
-  let priceTag;
+  let priceTag = null;
 
   if (service.isFree) {
     priceTag = <Text style={styles.serviceFree}>бесплатно</Text>;
@@ -131,7 +131,7 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
-          <View style={styles.priceTagContainer}>{priceTag}</View>
+          {priceTag && <View style={styles.priceTagContainer}>{priceTag}</View>}
           <View style={styles.paddingBottomContainer} />
           {/* TODO: download masked image from Figma and remove eventWaveContainer */}
           <View style={styles.eventWaveContainer}>

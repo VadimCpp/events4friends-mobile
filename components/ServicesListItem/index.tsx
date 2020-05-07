@@ -12,7 +12,7 @@ interface ServicesListItemParams {
 export default function ServicesListItem(props: ServicesListItemParams) {
   const { service, highlightName, onPress } = props;
 
-  let priceTag;
+  let priceTag = null;
 
   if (service.isFree) {
     priceTag = <Text style={styles.serviceFree}>бесплатно</Text>;
@@ -38,7 +38,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
           {highlightName ? service.service : service.name}
         </Text>
       </View>
-      <View style={styles.priceTagContainer}>{priceTag}</View>
+      {priceTag && <View style={styles.priceTagContainer}>{priceTag}</View>}
       {/* TODO: download masked image from Figma and remove eventWaveContainer */}
       <View style={styles.serviceWaveContainer}>
         <Image
