@@ -124,6 +124,7 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
             </View>
           )}
           {/* isFree, price */}
+          <View style={styles.paddingBottomContainer} />
           {/* TODO: download masked image from Figma and remove eventWaveContainer */}
           <View style={styles.eventWaveContainer}>
             <Image
@@ -195,13 +196,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '100%',
     paddingHorizontal: calcSize(15),
-    paddingBottom: calcSize(70),
   },
   locationContainer: {
     width: '100%',
     alignItems: 'flex-start',
     paddingHorizontal: calcSize(15),
-    paddingBottom: calcSize(70),
   },
   locationLabel: {
     marginTop: 30,
@@ -214,6 +213,9 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'rgb(47, 124, 246)',
+  },
+  paddingBottomContainer: {
+    paddingBottom: calcSize(70),
   },
   eventWaveContainer: {
     position: 'absolute',
