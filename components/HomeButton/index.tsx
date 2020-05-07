@@ -18,6 +18,7 @@ export default function HomeButton(props: HomeButtonParams) {
       style={styles.imageContainer}
       onPress={onPress}
       activeOpacity={DEFAUTL_ACTIVE_OPACITY}
+      delayPressIn={50}
     >
       <Image style={styles.imgBike} source={sourceImage} />
       <Image style={styles.imgBikeGradient} source={gradientImage} />
