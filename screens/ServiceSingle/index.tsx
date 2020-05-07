@@ -44,36 +44,32 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
           </View>
           {service.instagram && (
             <View style={styles.locationContainer}>
-              <View>
-                <Text style={styles.locationLabel}>Инстаграм:</Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    Linking.openURL(service.instagram);
-                  }}
-                  style={styles.linkContainer}
-                >
-                  <Text style={styles.link} numberOfLines={1}>
-                    {service.instagram}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              <Text style={styles.locationLabel}>Инстаграм:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(service.instagram);
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {service.instagram}
+                </Text>
+              </TouchableOpacity>
             </View>
           )}
           {service.website && (
             <View style={styles.locationContainer}>
-              <View>
-                <Text style={styles.locationLabel}>Сайт:</Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    Linking.openURL(service.website);
-                  }}
-                  style={styles.linkContainer}
-                >
-                  <Text style={styles.link} numberOfLines={1}>
-                    {service.website}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              <Text style={styles.locationLabel}>Сайт:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(service.website);
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {service.website}
+                </Text>
+              </TouchableOpacity>
             </View>
           )}
           {/* whatsapp, telegram, vkontakte */}
