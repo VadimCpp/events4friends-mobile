@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   filterButtonFocused: {
-    backgroundColor: '#404040',
+    backgroundColor: '#DDD',
     width: 130,
     marginLeft: 10,
     marginBottom: 10,
