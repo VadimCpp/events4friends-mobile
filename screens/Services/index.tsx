@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   sortButtonFocused: {
-    backgroundColor: '#404040',
+    backgroundColor: '#DDD',
     width: 100,
     marginLeft: 10,
   },
