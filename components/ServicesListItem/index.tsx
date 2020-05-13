@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
 import { calcSize } from '../../utils/Misc';
 
@@ -39,20 +39,13 @@ export default function ServicesListItem(props: ServicesListItemParams) {
         </Text>
       </View>
       {priceTag && <View style={styles.priceTagContainer}>{priceTag}</View>}
-      {/* TODO: download masked image from Figma and remove eventWaveContainer */}
-      <View style={styles.serviceWaveContainer}>
-        <Image
-          style={styles.serviceListItemWave}
-          source={require('../../assets/img/service_list_item_wave_x4.png')}
-        />
-      </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   listItemContainer: {
-    height: 200,
+    height: 110,
     width: calcSize(300),
     borderRadius: calcSize(10),
     marginTop: 16,
@@ -91,7 +84,7 @@ const styles = StyleSheet.create({
   },
   priceTagContainer: {
     position: 'absolute',
-    top: 120,
+    top: 80,
     right: calcSize(12),
   },
   serviceFree: {
@@ -101,20 +94,5 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     color: '#404040',
-  },
-  serviceWaveContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    overflow: 'hidden',
-    width: calcSize(300),
-    height: calcSize(37),
-    borderBottomLeftRadius: calcSize(10),
-    borderBottomRightRadius: calcSize(10),
-    zIndex: -1,
-  },
-  serviceListItemWave: {
-    width: calcSize(300),
-    height: calcSize(37),
   },
 });
