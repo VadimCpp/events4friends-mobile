@@ -8,6 +8,7 @@ import Button from '../../components/Button';
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',
   SortByService = 'SORT_BY_SERVICE',
+  SortByPrice = 'SORT_BY_PRICE',
   // TODO: add more sorting types here
 }
 
@@ -42,6 +43,29 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                   sorted = services.sort((a: any, b: any): number => {
                     return a.service ? a.service.localeCompare(b.service) : 0;
                   });
+                } else if (sortingType === ServiceSortingType.SortByPrice) {
+                  sorted = services.sort((a: any, b: any): number => {
+                    //
+                    // NOTE!
+                    // Сначала показываем бесплатные услуги
+                    // Потом по возрастанию цены
+                    // В конце - услуги без указания цены
+                    //
+                    if (a.isFree && b.isFree) {
+                      return 0;
+                    } else if (a.isFree) {
+                      return -1;
+                    } else if (b.isFree) {
+                      return 1;
+                    } else if (a.price && b.price) {
+                      return a.price < b.price ? -1 : 0;
+                    } else if (a.price && !b.price) {
+                      return -1;
+                    } else if (a.price && !b.price) {
+                      return 1;
+                    }
+                    return 0;
+                  });
                 }
 
                 return (
@@ -66,6 +90,17 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                         }
                         style={
                           sortingType === ServiceSortingType.SortByName
+                            ? styles.sortButtonFocused
+                            : styles.sortButton
+                        }
+                      />
+                      <Button
+                        title="Цена"
+                        onPress={() =>
+                          setSortingType(ServiceSortingType.SortByPrice)
+                        }
+                        style={
+                          sortingType === ServiceSortingType.SortByPrice
                             ? styles.sortButtonFocused
                             : styles.sortButton
                         }
