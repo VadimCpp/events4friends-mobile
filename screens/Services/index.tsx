@@ -4,6 +4,7 @@ import DataContext from '../../context/DataContext';
 import ServicesListItem from '../../components/ServicesListItem';
 import EventsBackground from '../../components/EventsBackground';
 import Button from '../../components/Button';
+import { calcSize } from '../../utils/Misc';
 
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',
@@ -160,16 +161,20 @@ const styles = StyleSheet.create({
   sortContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    width: calcSize(300),
   },
   sortButton: {
     backgroundColor: '#24BA7B',
     width: 100,
     marginLeft: 10,
+    marginBottom: 10,
   },
   sortButtonFocused: {
     backgroundColor: '#DDD',
     width: 100,
     marginLeft: 10,
+    marginBottom: 10,
   },
   emptyLabel: {
     fontSize: 24,
