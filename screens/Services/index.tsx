@@ -5,13 +5,21 @@ import ServicesListItem from '../../components/ServicesListItem';
 import EventsBackground from '../../components/EventsBackground';
 import Button from '../../components/Button';
 
+enum ServiceSortingType {
+  SortByName = 'SORT_BY_NAME',
+  SortByService = 'SORT_BY_SERVICE',
+  // TODO: add more sorting types here
+}
+
 interface ServicesScreenParams {
   navigation: any;
 }
 
 export default function ServicesScreen(props: ServicesScreenParams) {
   const { navigation } = props;
-  const [sortByName, setSortByName] = useState(false);
+  const [sortingType, setSortingType] = useState(
+    ServiceSortingType.SortByService,
+  );
 
   return (
     <View style={styles.backgroundContainer}>
@@ -25,12 +33,12 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                 // NOTE!
                 // При сортировке сначала в результате названия с латинскими буквами
                 //
-                let sorted = [];
-                if (sortByName) {
+                let sorted: any = [];
+                if (sortingType === ServiceSortingType.SortByName) {
                   sorted = services.sort((a: any, b: any): number => {
                     return a.name ? a.name.localeCompare(b.name) : 0;
                   });
-                } else {
+                } else if (sortingType === ServiceSortingType.SortByService) {
                   sorted = services.sort((a: any, b: any): number => {
                     return a.service ? a.service.localeCompare(b.service) : 0;
                   });
@@ -42,18 +50,22 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                       <Text>Сортировка</Text>
                       <Button
                         title="Услуга"
-                        onPress={() => setSortByName(false)}
+                        onPress={() =>
+                          setSortingType(ServiceSortingType.SortByService)
+                        }
                         style={
-                          sortByName
-                            ? styles.sortButton
-                            : styles.sortButtonFocused
+                          sortingType === ServiceSortingType.SortByService
+                            ? styles.sortButtonFocused
+                            : styles.sortButton
                         }
                       />
                       <Button
                         title="Имя"
-                        onPress={() => setSortByName(true)}
+                        onPress={() =>
+                          setSortingType(ServiceSortingType.SortByName)
+                        }
                         style={
-                          sortByName
+                          sortingType === ServiceSortingType.SortByName
                             ? styles.sortButtonFocused
                             : styles.sortButton
                         }
@@ -64,7 +76,9 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                         <ServicesListItem
                           key={service.id}
                           service={service}
-                          highlightName={sortByName}
+                          highlightName={
+                            sortingType === ServiceSortingType.SortByName
+                          }
                           onPress={() => {
                             navigation.navigate('ServiceSingleScreen', {
                               service,
