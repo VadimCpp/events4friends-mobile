@@ -45,7 +45,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
 
 const styles = StyleSheet.create({
   listItemContainer: {
-    height: 150,
+    height: 110,
     width: calcSize(300),
     borderRadius: calcSize(10),
     marginTop: 16,
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   priceTagContainer: {
     position: 'absolute',
-    top: 120,
+    top: 80,
     right: calcSize(12),
   },
   serviceFree: {
