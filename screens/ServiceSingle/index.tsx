@@ -131,13 +131,6 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
           )}
           {priceTag && <View style={styles.priceTagContainer}>{priceTag}</View>}
           <View style={styles.paddingBottomContainer} />
-          {/* TODO: download masked image from Figma and remove eventWaveContainer */}
-          <View style={styles.eventWaveContainer}>
-            <Image
-              style={styles.eventWave}
-              source={require('../../assets/img/service_wave_x4.png')}
-            />
-          </View>
         </View>
       </ScrollView>
     </View>
@@ -222,7 +215,7 @@ const styles = StyleSheet.create({
   },
   priceTagContainer: {
     position: 'absolute',
-    bottom: calcSize(70),
+    bottom: calcSize(20),
     right: calcSize(12),
   },
   serviceFree: {
@@ -234,21 +227,6 @@ const styles = StyleSheet.create({
     color: '#404040',
   },
   paddingBottomContainer: {
-    paddingBottom: calcSize(70),
-  },
-  eventWaveContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    overflow: 'hidden',
-    width: calcSize(315),
-    height: calcSize(37),
-    borderBottomLeftRadius: calcSize(10),
-    borderBottomRightRadius: calcSize(10),
-    zIndex: -1,
-  },
-  eventWave: {
-    width: calcSize(315),
-    height: calcSize(37),
+    paddingBottom: calcSize(20),
   },
 });
