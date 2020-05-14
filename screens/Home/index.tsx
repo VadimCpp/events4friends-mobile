@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import HomeButton from '../../components/HomeButton';
 import SocialButton from '../../components/SocialButton';
-import MainBackground from '../../components/MainBackground';
 import { calcSize } from '../../utils/Misc';
 
 interface HomeScreenParams {
@@ -14,7 +13,6 @@ export default function HomeScreen(props: HomeScreenParams) {
 
   return (
     <View style={styles.container}>
-      <MainBackground />
       <ScrollView
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
@@ -22,9 +20,6 @@ export default function HomeScreen(props: HomeScreenParams) {
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcome} numberOfLines={1}>
             Добро пожаловать
-          </Text>
-          <Text style={styles.welcome} numberOfLines={1}>
-            в цифровое пространство
           </Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -86,14 +81,15 @@ const styles = StyleSheet.create({
   },
   welcomeContainer: {
     width: calcSize(295),
-    height: calcSize(200),
-    justifyContent: 'center',
+    height: calcSize(100),
+    justifyContent: 'flex-end',
     marginBottom: 30,
   },
   welcome: {
-    color: 'white',
-    fontSize: 18,
+    color: '#404040',
+    fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   titleContainer: {
     marginTop: 30,

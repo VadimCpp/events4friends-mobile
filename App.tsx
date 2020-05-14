@@ -140,10 +140,6 @@ export default function App() {
       require('./assets/img/icon_viber_x4.png'),
       require('./assets/img/icon_whatsapp_x4.png'),
       require('./assets/img/icon_www_x4.png'),
-      require('./assets/img/main_bg_bottom_x4.png'),
-      require('./assets/img/main_bg_top_x4.png'),
-      require('./assets/img/main_bg_wave_x4.png'),
-      require('./assets/img/main_bg_wave2_x4.png'),
       require('./assets/img/service_wave_x4.png'),
     ];
 
