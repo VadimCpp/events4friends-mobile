@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import DataContext from '../../context/DataContext';
 import ServicesListItem from '../../components/ServicesListItem';
-import EventsBackground from '../../components/EventsBackground';
 import Button from '../../components/Button';
 import { calcSize } from '../../utils/Misc';
 
@@ -25,7 +24,6 @@ export default function ServicesScreen(props: ServicesScreenParams) {
 
   return (
     <View style={styles.backgroundContainer}>
-      <EventsBackground />
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <DataContext.Consumer>

@@ -74,17 +74,13 @@ export default function EventsListItem(props: EventsListItemParams) {
           </View>
         </View>
       )}
-      <Image
-        style={styles.eventListItemWave}
-        source={require('../../assets/img/event_list_item_wave_x4.png')}
-      />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   listItemContainer: {
-    height: 200,
+    height: 160,
     width: calcSize(300),
     borderRadius: calcSize(10),
     marginTop: 16,
@@ -112,16 +108,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#EC7B28',
     marginHorizontal: calcSize(9),
   },
-  eventListItemWave: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: calcSize(300),
-    height: calcSize(32),
-    zIndex: -1,
-  },
   datetimeContainer: {
-    marginTop: 50,
+    marginTop: 20,
     marginHorizontal: calcSize(10),
     flexDirection: 'row',
   },

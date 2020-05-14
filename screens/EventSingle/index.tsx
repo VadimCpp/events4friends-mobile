@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
-import SingleBackground from '../../components/SingleBackground';
 import { removeTags, calcSize } from '../../utils/Misc';
 
 interface EventSingleScreenParams {
@@ -39,7 +38,6 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
 
   return (
     <View style={styles.container}>
-      <SingleBackground />
       <ScrollView
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
@@ -103,13 +101,6 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
-          {/* TODO: download masked image from Figma and remove eventWaveContainer */}
-          <View style={styles.eventWaveContainer}>
-            <Image
-              style={styles.eventWave}
-              source={require('../../assets/img/event_wave_x4.png')}
-            />
-          </View>
         </View>
       </ScrollView>
     </View>
@@ -208,7 +199,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-start',
     paddingHorizontal: calcSize(15),
-    paddingBottom: calcSize(70),
+    paddingBottom: calcSize(30),
   },
   locationLabel: {
     marginTop: 30,
@@ -221,20 +212,5 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'rgb(47, 124, 246)',
-  },
-  eventWaveContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    overflow: 'hidden',
-    width: calcSize(315),
-    height: calcSize(60),
-    borderBottomLeftRadius: calcSize(10),
-    borderBottomRightRadius: calcSize(10),
-    zIndex: -1,
-  },
-  eventWave: {
-    width: calcSize(315),
-    height: calcSize(60),
   },
 });
