@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Linking } from 'expo';
-import SingleBackground from '../../components/SingleBackground';
 import { calcSize, removeTags } from '../../utils/Misc';
 
 interface ServiceSingleScreenParams {
@@ -30,7 +29,6 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
 
   return (
     <View style={styles.container}>
-      <SingleBackground />
       <ScrollView
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}

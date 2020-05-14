@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
-import SingleBackground from '../../components/SingleBackground';
 import { removeTags, calcSize } from '../../utils/Misc';
 
 interface EventSingleScreenParams {
@@ -39,7 +38,6 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
 
   return (
     <View style={styles.container}>
-      <SingleBackground />
       <ScrollView
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
