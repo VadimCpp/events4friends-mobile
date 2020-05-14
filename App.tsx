@@ -145,11 +145,8 @@ export default function App() {
       require('./assets/img/main_bg_wave_x4.png'),
       require('./assets/img/main_bg_wave2_x4.png'),
       require('./assets/img/service_wave_x4.png'),
-      require('./assets/img/VectorEvents_x4.png'),
       require('./assets/img/VectorSingleEvent_x4.png'),
-      require('./assets/img/wave1Events_x4.png'),
       require('./assets/img/wave1SingleEvent_x4.png'),
-      require('./assets/img/wave2Events_x4.png'),
       require('./assets/img/wave2SingleEvent_x4.png'),
     ];
 

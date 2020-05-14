@@ -3,7 +3,6 @@ import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import moment from 'moment';
 import DataContext from '../../context/DataContext';
 import EventsListItem from '../../components/EventsListItem';
-import EventsBackground from '../../components/EventsBackground/';
 import Button from '../../components/Button';
 import { calcSize } from '../../utils/Misc';
 
@@ -23,7 +22,6 @@ export default function EventsScreen(props: EventsScreenParams) {
 
   return (
     <View style={styles.backgroundContainer}>
-      <EventsBackground />
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <DataContext.Consumer>
