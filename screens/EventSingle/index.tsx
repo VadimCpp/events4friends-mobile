@@ -85,6 +85,11 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
             <Text style={styles.description}>
               {removeTags(event.description)}
             </Text>
+            {event.name && (
+              <Text style={styles.description}>
+                {`Организатор мероприятия:\n${event.name}`}
+              </Text>
+            )}
           </View>
           {event.isOnline && (
             <View style={styles.locationContainer}>
