@@ -12,6 +12,7 @@ import moment from 'moment';
 import { Linking } from 'expo';
 import { removeTags, calcSize } from '../../utils/Misc';
 import Button from '../../components/Button';
+import DataContext from '../../context/DataContext';
 
 interface EventSingleScreenParams {
   route: any;
@@ -96,15 +97,25 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
-          <View style={styles.remindButtonContainer}>
-            <Button
-              title="Напомнить"
-              onPress={() => {
-                Alert.alert('Send push');
-              }}
-              style={styles.remindButton}
-            />
-          </View>
+          <DataContext.Consumer>
+            {({ expoPushToken }) => {
+              return expoPushToken ? (
+                <View style={styles.remindButtonContainer}>
+                  <Button
+                    title="Напомнить"
+                    onPress={() => {
+                      Alert.alert(`Token: ${expoPushToken}`);
+                    }}
+                    style={styles.remindButton}
+                  />
+                </View>
+              ) : (
+                <View style={styles.remindButtonContainer}>
+                  <Text>Не удалось получить PUSH токен</Text>
+                </View>
+              );
+            }}
+          </DataContext.Consumer>
         </View>
       </ScrollView>
     </View>

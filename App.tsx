@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Alert, Platform } from 'react-native';
 import { Asset } from 'expo-asset';
-import { AppLoading } from 'expo';
+import { AppLoading, Notifications } from 'expo';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,6 +16,39 @@ import ServicesScreen from './screens/Services';
 import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
 import DataContext from './context/DataContext';
+
+async function registerForPushNotificationsAsync(
+  onGetToken: (token: string) => void,
+) {
+  if (Constants.isDevice) {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS,
+    );
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      Alert.alert('Failed to get push token for push notification!');
+      return;
+    }
+    const token = await Notifications.getExpoPushTokenAsync();
+    console.log(token);
+    onGetToken(token);
+  } else {
+    console.log('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.createChannelAndroidAsync('default', {
+      name: 'default',
+      sound: true,
+      priority: 'max',
+      vibrate: [0, 250, 250, 250],
+    });
+  }
+}
 
 function initializeApp() {
   // Initialize Firebase
@@ -70,8 +106,13 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
   const [services, setServices] = useState([]);
+  const [expoPushToken, setExpoPushToken] = useState('');
 
   useEffect(() => {
+    registerForPushNotificationsAsync((token: string) => {
+      setExpoPushToken(token);
+    });
+
     initializeApp();
 
     firebase.auth().onAuthStateChanged((aUser: any) => {
@@ -151,6 +192,7 @@ export default function App() {
       value={{
         events,
         services,
+        expoPushToken,
       }}
     >
       <NavigationContainer>
