@@ -6,10 +6,12 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
 import { removeTags, calcSize } from '../../utils/Misc';
+import Button from '../../components/Button';
 
 interface EventSingleScreenParams {
   route: any;
@@ -94,6 +96,15 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
+          <View style={styles.remindButtonContainer}>
+            <Button
+              title="Напомнить"
+              onPress={() => {
+                Alert.alert('Send push');
+              }}
+              style={styles.remindButton}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -205,5 +216,13 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'rgb(47, 124, 246)',
+  },
+  remindButtonContainer: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  remindButton: {
+    backgroundColor: '#EC7B28',
+    width: 130,
   },
 });
