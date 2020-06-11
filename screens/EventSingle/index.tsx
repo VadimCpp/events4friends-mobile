@@ -97,10 +97,10 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
-          <DataContext.Consumer>
-            {({ expoPushToken }) => {
-              return expoPushToken ? (
-                <View style={styles.remindButtonContainer}>
+          <View style={styles.remindButtonContainer}>
+            <DataContext.Consumer>
+              {({ expoPushToken }) => {
+                return expoPushToken ? (
                   <Button
                     title="Напомнить"
                     onPress={() => {
@@ -108,14 +108,12 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                     }}
                     style={styles.remindButton}
                   />
-                </View>
-              ) : (
-                <View style={styles.remindButtonContainer}>
+                ) : (
                   <Text>Не удалось получить PUSH токен</Text>
-                </View>
-              );
-            }}
-          </DataContext.Consumer>
+                );
+              }}
+            </DataContext.Consumer>
+          </View>
         </View>
       </ScrollView>
     </View>
