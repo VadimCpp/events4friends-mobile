@@ -11,21 +11,10 @@ interface EventsListItemParams {
 
 export default function EventsListItem(props: EventsListItemParams) {
   const { event, onPress } = props;
-  const startDate = moment(event.start).format('D MMMM, dddd');
-  const startTime = moment(event.start).format('HH:mm');
-
-  let timezone;
-
-  switch (event.timezone) {
-    case '+0200':
-      timezone = ' (Клд)';
-      break;
-    case '+0300':
-      timezone = ' (Мск)';
-      break;
-    default:
-      timezone = '';
-  }
+  const startDate = moment(`${event.start}${event.timezone}`).format(
+    'D MMMM, dddd',
+  );
+  const startTime = moment(`${event.start}${event.timezone}`).format('HH:mm');
 
   return (
     <TouchableOpacity
@@ -49,7 +38,6 @@ export default function EventsListItem(props: EventsListItemParams) {
           <Text>{startDate}</Text>
           <View style={styles.timeLine}>
             <Text>{startTime}</Text>
-            <Text>{timezone}</Text>
           </View>
         </View>
       </View>

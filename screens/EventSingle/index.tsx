@@ -20,21 +20,10 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
   const { route } = props;
   const { event } = route.params;
 
-  const startDate = moment(event.start).format('D MMMM, dddd');
-  const startTime = moment(event.start).format('HH:mm');
-
-  let timezone;
-
-  switch (event.timezone) {
-    case '+0200':
-      timezone = ' (Клд)';
-      break;
-    case '+0300':
-      timezone = ' (Мск)';
-      break;
-    default:
-      timezone = '';
-  }
+  const startDate = moment(`${event.start}${event.timezone}`).format(
+    'D MMMM, dddd',
+  );
+  const startTime = moment(`${event.start}${event.timezone}`).format('HH:mm');
 
   return (
     <View style={styles.container}>
@@ -53,7 +42,6 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                 <Text>{startDate}</Text>
                 <View style={styles.timeLine}>
                   <Text>{startTime}</Text>
-                  <Text>{timezone}</Text>
                 </View>
               </View>
             </View>
