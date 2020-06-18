@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  AsyncStorage,
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
@@ -29,6 +30,30 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
     'D MMMM, dddd',
   );
   const startTime = moment(`${event.start}${event.timezone}`).format('HH:mm');
+
+  useEffect(() => {
+    (async function asyncWrapper() {
+      try {
+        const value = await AsyncStorage.getItem(`${event.id}`);
+        if (value !== null && JSON.parse(value)) {
+          setReminder(true);
+        }
+      } catch (error) {
+        console.log('error get reminder: ', error);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function onReminderChange(value: boolean) {
+    setReminder(value);
+
+    try {
+      await AsyncStorage.setItem(`${event.id}`, JSON.stringify(value));
+    } catch (error) {
+      console.log('error save reminder: ', error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -118,13 +143,13 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
             {reminder ? (
               <Button
                 title="Отменить напоминание"
-                onPress={() => setReminder(false)}
+                onPress={() => onReminderChange(false)}
                 style={styles.cancelRemindButton}
               />
             ) : (
               <Button
                 title="Напомнить"
-                onPress={() => setReminder(true)}
+                onPress={() => onReminderChange(true)}
                 style={styles.remindButton}
               />
             )}
