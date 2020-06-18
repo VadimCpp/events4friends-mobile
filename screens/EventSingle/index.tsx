@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  AsyncStorage,
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
@@ -23,10 +24,36 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
   const { route } = props;
   const { event } = route.params;
 
+  const [reminder, setReminder] = useState(false);
+
   const startDate = moment(`${event.start}${event.timezone}`).format(
     'D MMMM, dddd',
   );
   const startTime = moment(`${event.start}${event.timezone}`).format('HH:mm');
+
+  useEffect(() => {
+    (async function asyncWrapper() {
+      try {
+        const value = await AsyncStorage.getItem(`${event.id}`);
+        if (value !== null && JSON.parse(value)) {
+          setReminder(true);
+        }
+      } catch (error) {
+        console.log('error get reminder: ', error);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function onReminderChange(value: boolean) {
+    setReminder(value);
+
+    try {
+      await AsyncStorage.setItem(`${event.id}`, JSON.stringify(value));
+    } catch (error) {
+      console.log('error save reminder: ', error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -113,6 +140,19 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                 );
               }}
             </DataContext.Consumer>
+            {reminder ? (
+              <Button
+                title="Отменить напоминание"
+                onPress={() => onReminderChange(false)}
+                style={styles.cancelRemindButton}
+              />
+            ) : (
+              <Button
+                title="Напомнить"
+                onPress={() => onReminderChange(true)}
+                style={styles.remindButton}
+              />
+            )}
           </View>
         </View>
       </ScrollView>
@@ -229,6 +269,10 @@ const styles = StyleSheet.create({
   remindButtonContainer: {
     alignItems: 'center',
     marginBottom: 30,
+  },
+  cancelRemindButton: {
+    backgroundColor: '#404040',
+    width: 220,
   },
   remindButton: {
     backgroundColor: '#EC7B28',
