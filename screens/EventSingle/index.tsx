@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -22,6 +22,8 @@ interface EventSingleScreenParams {
 export default function EventSingleScreen(props: EventSingleScreenParams) {
   const { route } = props;
   const { event } = route.params;
+
+  const [reminder, setReminder] = useState(false);
 
   const startDate = moment(`${event.start}${event.timezone}`).format(
     'D MMMM, dddd',
@@ -113,6 +115,19 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                 );
               }}
             </DataContext.Consumer>
+            {reminder ? (
+              <Button
+                title="Отменить напоминание"
+                onPress={() => setReminder(false)}
+                style={styles.cancelRemindButton}
+              />
+            ) : (
+              <Button
+                title="Напомнить"
+                onPress={() => setReminder(true)}
+                style={styles.remindButton}
+              />
+            )}
           </View>
         </View>
       </ScrollView>
@@ -229,6 +244,10 @@ const styles = StyleSheet.create({
   remindButtonContainer: {
     alignItems: 'center',
     marginBottom: 30,
+  },
+  cancelRemindButton: {
+    backgroundColor: '#404040',
+    width: 220,
   },
   remindButton: {
     backgroundColor: '#EC7B28',
