@@ -30,7 +30,9 @@ async function registerForPushNotificationsAsync(
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      Alert.alert('Failed to get push token for push notification!');
+      Alert.alert(
+        'Пожалуйста, разрешите приложению отправку push-уведомлений.',
+      );
       return;
     }
     const token = await Notifications.getExpoPushTokenAsync();
@@ -99,6 +101,31 @@ function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
   });
 }
 
+function updateReminders(
+  value: boolean,
+  eventId: string,
+  expoPushToken: string,
+  onStored: Function,
+): void {
+  const db = firebase.firestore();
+  db.collection('reminders')
+    .doc(`${expoPushToken}${eventId}`)
+    .set({
+      value,
+      eventId,
+      expoPushToken,
+    })
+    .then(function() {
+      onStored();
+    })
+    .catch(function(error) {
+      Alert.alert(
+        'Ошибка',
+        `Пожалуйста, сообщите в техническую поддержку: ${error}`,
+      );
+    });
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -109,10 +136,6 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
 
   useEffect(() => {
-    registerForPushNotificationsAsync((token: string) => {
-      setExpoPushToken(token);
-    });
-
     initializeApp();
 
     firebase.auth().onAuthStateChanged((aUser: any) => {
@@ -187,12 +210,27 @@ export default function App() {
     return (Promise.all(cacheImages) as unknown) as Promise<void>;
   }
 
+  function storeReminder(
+    value: boolean,
+    eventId: string,
+    onStored: Function,
+  ): void {
+    if (!expoPushToken) {
+      registerForPushNotificationsAsync((token: string) => {
+        setExpoPushToken(token);
+        updateReminders(value, eventId, expoPushToken, onStored);
+      });
+    } else {
+      updateReminders(value, eventId, expoPushToken, onStored);
+    }
+  }
+
   return isAppReady ? (
     <DataContext.Provider
       value={{
         events,
         services,
-        expoPushToken,
+        storeReminder,
       }}
     >
       <NavigationContainer>
