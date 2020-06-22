@@ -101,6 +101,31 @@ function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
   });
 }
 
+function updateReminders(
+  value: boolean,
+  eventId: string,
+  expoPushToken: string,
+  onStored: Function,
+): void {
+  const db = firebase.firestore();
+  db.collection('reminders')
+    .doc(`${expoPushToken}${eventId}`)
+    .set({
+      value,
+      eventId,
+      expoPushToken,
+    })
+    .then(function() {
+      onStored();
+    })
+    .catch(function(error) {
+      Alert.alert(
+        'Ошибка',
+        `Пожалуйста, сообщите в техническую поддержку: ${error}`,
+      );
+    });
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -191,15 +216,12 @@ export default function App() {
     onStored: Function,
   ): void {
     if (!expoPushToken) {
-      console.log('Obtain expoPushToken');
       registerForPushNotificationsAsync((token: string) => {
         setExpoPushToken(token);
-        console.log('TODO with expoPushToken:', value, expoPushToken, eventId);
-        onStored();
+        updateReminders(value, eventId, expoPushToken, onStored);
       });
     } else {
-      console.log('TODO with expoPushToken:', value, expoPushToken, eventId);
-      onStored();
+      updateReminders(value, eventId, expoPushToken, onStored);
     }
   }
 
