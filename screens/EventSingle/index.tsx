@@ -6,7 +6,6 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Alert,
   AsyncStorage,
 } from 'react-native';
 import moment from 'moment';
@@ -126,33 +125,30 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
           )}
           <View style={styles.remindButtonContainer}>
             <DataContext.Consumer>
-              {({ expoPushToken }) => {
-                return expoPushToken ? (
+              {({ storeReminder }) => {
+                return reminder ? (
+                  <Button
+                    title="Отменить напоминание"
+                    onPress={() => {
+                      storeReminder(false, event.id, () => {
+                        onReminderChange(false);
+                      });
+                    }}
+                    style={styles.cancelRemindButton}
+                  />
+                ) : (
                   <Button
                     title="Напомнить"
                     onPress={() => {
-                      Alert.alert(`Token: ${expoPushToken}`);
+                      storeReminder(true, event.id, () => {
+                        onReminderChange(true);
+                      });
                     }}
                     style={styles.remindButton}
                   />
-                ) : (
-                  <Text>Не удалось получить PUSH токен</Text>
                 );
               }}
             </DataContext.Consumer>
-            {reminder ? (
-              <Button
-                title="Отменить напоминание"
-                onPress={() => onReminderChange(false)}
-                style={styles.cancelRemindButton}
-              />
-            ) : (
-              <Button
-                title="Напомнить"
-                onPress={() => onReminderChange(true)}
-                style={styles.remindButton}
-              />
-            )}
           </View>
         </View>
       </ScrollView>

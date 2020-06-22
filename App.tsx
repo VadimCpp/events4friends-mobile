@@ -30,7 +30,9 @@ async function registerForPushNotificationsAsync(
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      Alert.alert('Failed to get push token for push notification!');
+      Alert.alert(
+        'Пожалуйста, разрешите приложению отправку push-уведомлений.',
+      );
       return;
     }
     const token = await Notifications.getExpoPushTokenAsync();
@@ -109,10 +111,6 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
 
   useEffect(() => {
-    registerForPushNotificationsAsync((token: string) => {
-      setExpoPushToken(token);
-    });
-
     initializeApp();
 
     firebase.auth().onAuthStateChanged((aUser: any) => {
@@ -187,12 +185,30 @@ export default function App() {
     return (Promise.all(cacheImages) as unknown) as Promise<void>;
   }
 
+  function storeReminder(
+    value: boolean,
+    eventId: string,
+    onStored: Function,
+  ): void {
+    if (!expoPushToken) {
+      console.log('Obtain expoPushToken');
+      registerForPushNotificationsAsync((token: string) => {
+        setExpoPushToken(token);
+        console.log('TODO with expoPushToken:', value, expoPushToken, eventId);
+        onStored();
+      });
+    } else {
+      console.log('TODO with expoPushToken:', value, expoPushToken, eventId);
+      onStored();
+    }
+  }
+
   return isAppReady ? (
     <DataContext.Provider
       value={{
         events,
         services,
-        expoPushToken,
+        storeReminder,
       }}
     >
       <NavigationContainer>
