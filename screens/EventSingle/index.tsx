@@ -127,15 +127,20 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
             <DataContext.Consumer>
               {({ storeReminder }) => {
                 return reminder ? (
-                  <Button
-                    title="Отменить напоминание"
-                    onPress={() => {
-                      storeReminder(false, event.id, () => {
-                        onReminderChange(false);
-                      });
-                    }}
-                    style={styles.cancelRemindButton}
-                  />
+                  <View style={styles.remindBlock}>
+                    <Text style={styles.remindLabel}>
+                      Напомним Вам об этом мероприятии
+                    </Text>
+                    <Button
+                      title="Отменить напоминание"
+                      onPress={() => {
+                        storeReminder(false, event.id, () => {
+                          onReminderChange(false);
+                        });
+                      }}
+                      style={styles.cancelRemindButton}
+                    />
+                  </View>
                 ) : (
                   <Button
                     title="Напомнить"
@@ -265,6 +270,15 @@ const styles = StyleSheet.create({
   remindButtonContainer: {
     alignItems: 'center',
     marginBottom: 30,
+  },
+  remindBlock: {
+    width: calcSize(300),
+    alignItems: 'center',
+    paddingHorizontal: calcSize(10),
+  },
+  remindLabel: {
+    width: '100%',
+    marginBottom: calcSize(10),
   },
   cancelRemindButton: {
     backgroundColor: '#404040',
