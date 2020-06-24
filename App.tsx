@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Alert, Platform } from 'react-native';
 import { Asset } from 'expo-asset';
-import { AppLoading } from 'expo';
+import { AppLoading, Notifications } from 'expo';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,6 +16,41 @@ import ServicesScreen from './screens/Services';
 import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
 import DataContext from './context/DataContext';
+
+async function registerForPushNotificationsAsync(
+  onGetToken: (token: string) => void,
+) {
+  if (Constants.isDevice) {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS,
+    );
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      Alert.alert(
+        'Пожалуйста, разрешите приложению отправку push-уведомлений.',
+      );
+      return;
+    }
+    const token = await Notifications.getExpoPushTokenAsync();
+    console.log(token);
+    onGetToken(token);
+  } else {
+    console.log('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.createChannelAndroidAsync('default', {
+      name: 'default',
+      sound: true,
+      priority: 'max',
+      vibrate: [0, 250, 250, 250],
+    });
+  }
+}
 
 function initializeApp() {
   // Initialize Firebase
@@ -63,6 +101,31 @@ function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
   });
 }
 
+function updateReminders(
+  value: boolean,
+  eventId: string,
+  expoPushToken: string,
+  onStored: Function,
+): void {
+  const db = firebase.firestore();
+  db.collection('reminders')
+    .doc(`${expoPushToken}${eventId}`)
+    .set({
+      value,
+      eventId,
+      expoPushToken,
+    })
+    .then(function() {
+      onStored();
+    })
+    .catch(function(error) {
+      Alert.alert(
+        'Ошибка',
+        `Пожалуйста, сообщите в техническую поддержку: ${error}`,
+      );
+    });
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -70,6 +133,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
   const [services, setServices] = useState([]);
+  const [expoPushToken, setExpoPushToken] = useState('');
 
   useEffect(() => {
     initializeApp();
@@ -146,11 +210,27 @@ export default function App() {
     return (Promise.all(cacheImages) as unknown) as Promise<void>;
   }
 
+  function storeReminder(
+    value: boolean,
+    eventId: string,
+    onStored: Function,
+  ): void {
+    if (!expoPushToken) {
+      registerForPushNotificationsAsync((token: string) => {
+        setExpoPushToken(token);
+        updateReminders(value, eventId, expoPushToken, onStored);
+      });
+    } else {
+      updateReminders(value, eventId, expoPushToken, onStored);
+    }
+  }
+
   return isAppReady ? (
     <DataContext.Provider
       value={{
         events,
         services,
+        storeReminder,
       }}
     >
       <NavigationContainer>

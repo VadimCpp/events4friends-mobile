@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -6,10 +6,13 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  AsyncStorage,
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
 import { removeTags, calcSize } from '../../utils/Misc';
+import Button from '../../components/Button';
+import DataContext from '../../context/DataContext';
 
 interface EventSingleScreenParams {
   route: any;
@@ -20,10 +23,36 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
   const { route } = props;
   const { event } = route.params;
 
+  const [reminder, setReminder] = useState(false);
+
   const startDate = moment(`${event.start}${event.timezone}`).format(
     'D MMMM, dddd',
   );
   const startTime = moment(`${event.start}${event.timezone}`).format('HH:mm');
+
+  useEffect(() => {
+    (async function asyncWrapper() {
+      try {
+        const value = await AsyncStorage.getItem(`${event.id}`);
+        if (value !== null && JSON.parse(value)) {
+          setReminder(true);
+        }
+      } catch (error) {
+        console.log('error get reminder: ', error);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function onReminderChange(value: boolean) {
+    setReminder(value);
+
+    try {
+      await AsyncStorage.setItem(`${event.id}`, JSON.stringify(value));
+    } catch (error) {
+      console.log('error save reminder: ', error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -94,6 +123,38 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
+          <View style={styles.remindButtonContainer}>
+            <DataContext.Consumer>
+              {({ storeReminder }) => {
+                return reminder ? (
+                  <View style={styles.remindBlock}>
+                    <Text style={styles.remindLabel}>
+                      Напомним Вам об этом мероприятии
+                    </Text>
+                    <Button
+                      title="Отменить напоминание"
+                      onPress={() => {
+                        storeReminder(false, event.id, () => {
+                          onReminderChange(false);
+                        });
+                      }}
+                      style={styles.cancelRemindButton}
+                    />
+                  </View>
+                ) : (
+                  <Button
+                    title="Напомнить"
+                    onPress={() => {
+                      storeReminder(true, event.id, () => {
+                        onReminderChange(true);
+                      });
+                    }}
+                    style={styles.remindButton}
+                  />
+                );
+              }}
+            </DataContext.Consumer>
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -205,5 +266,26 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'rgb(47, 124, 246)',
+  },
+  remindButtonContainer: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  remindBlock: {
+    width: calcSize(300),
+    alignItems: 'center',
+    paddingHorizontal: calcSize(10),
+  },
+  remindLabel: {
+    width: '100%',
+    marginBottom: calcSize(10),
+  },
+  cancelRemindButton: {
+    backgroundColor: '#404040',
+    width: 220,
+  },
+  remindButton: {
+    backgroundColor: '#EC7B28',
+    width: 130,
   },
 });
