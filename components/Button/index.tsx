@@ -6,6 +6,7 @@ interface ButtonParams {
   title: string;
   onPress: () => void;
   style?: Object;
+  disabled?: boolean;
 }
 
 export default function Button(props: ButtonParams) {
@@ -14,6 +15,7 @@ export default function Button(props: ButtonParams) {
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={props.disabled || false}
       style={[styles.button, props.style ? props.style : null]}
       activeOpacity={DEFAUTL_ACTIVE_OPACITY}
     >

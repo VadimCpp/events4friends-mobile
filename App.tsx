@@ -19,7 +19,7 @@ import DataContext from './context/DataContext';
 
 async function registerForPushNotificationsAsync(
   onGetToken: (token: string) => void,
-  onGetTokenFailed: () => void,
+  onGetTokenFailed: (error: string) => void,
 ) {
   let token = null;
 
@@ -33,7 +33,7 @@ async function registerForPushNotificationsAsync(
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      Alert.alert(
+      onGetTokenFailed(
         'Пожалуйста, разрешите приложению отправку push-уведомлений.',
       );
       return;
@@ -42,11 +42,11 @@ async function registerForPushNotificationsAsync(
     if (token) {
       onGetToken(token);
     } else {
-      onGetTokenFailed();
+      onGetTokenFailed('Не удалось отменить напоминание, попробуйте еще раз');
     }
   } else {
     console.log('Must use physical device for Push Notifications');
-    onGetTokenFailed();
+    onGetTokenFailed('Не удалось отменить напоминание, попробуйте еще раз');
   }
 
   if (Platform.OS === 'android') {
@@ -229,8 +229,8 @@ export default function App() {
           setExpoPushToken(token);
           updateReminders(value, eventId, expoPushToken, onStored);
         },
-        () => {
-          onStoredFailed();
+        (error: string) => {
+          onStoredFailed(error);
         },
       );
     } else {

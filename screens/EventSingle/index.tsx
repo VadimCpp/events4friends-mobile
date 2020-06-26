@@ -25,6 +25,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
   const { event } = route.params;
 
   const [reminder, setReminder] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const startDate = moment(`${event.start}${event.timezone}`).format(
     'D MMMM, dddd',
@@ -134,18 +135,19 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                     </Text>
                     <Button
                       title="Отменить напоминание"
+                      disabled={disabled}
                       onPress={() => {
+                        setDisabled(true);
                         storeReminder(
                           false,
                           event.id,
                           () => {
+                            setDisabled(false);
                             onReminderChange(false);
                           },
-                          () => {
-                            Alert.alert(
-                              'Ошибка',
-                              'Не удалось отменить напоминание, попробуйте еще раз',
-                            );
+                          (error: string) => {
+                            setDisabled(false);
+                            Alert.alert('Ошибка', error);
                           },
                         );
                       }}
@@ -155,18 +157,19 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                 ) : (
                   <Button
                     title="Напомнить"
+                    disabled={disabled}
                     onPress={() => {
+                      setDisabled(true);
                       storeReminder(
                         true,
                         event.id,
                         () => {
+                          setDisabled(false);
                           onReminderChange(true);
                         },
-                        () => {
-                          Alert.alert(
-                            'Ошибка',
-                            'Не удалось установить напоминание, попробуйте еще раз',
-                          );
+                        (error: string) => {
+                          setDisabled(false);
+                          Alert.alert('Ошибка', error);
                         },
                       );
                     }}
