@@ -12,6 +12,8 @@
     "@react-navigation/native": "^5.1.5",
     "@react-navigation/stack": "^5.2.10",
     "expo": "~37.0.3",
+    "expo-constants": "~9.0.0",
+    "expo-permissions": "~8.1.0",
     "firebase": "7.9.0",
     "moment": "^2.24.0",
     "react": "~16.9.0",

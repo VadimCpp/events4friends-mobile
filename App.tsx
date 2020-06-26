@@ -21,8 +21,6 @@ async function registerForPushNotificationsAsync(
   onGetToken: (token: string) => void,
   onGetTokenFailed: (error: string) => void,
 ) {
-  let token = null;
-
   if (Constants.isDevice) {
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS,
@@ -38,15 +36,15 @@ async function registerForPushNotificationsAsync(
       );
       return;
     }
-    token = await Notifications.getExpoPushTokenAsync();
+    const token = await Notifications.getExpoPushTokenAsync();
     if (token) {
       onGetToken(token);
     } else {
-      onGetTokenFailed('Не удалось отменить напоминание, попробуйте еще раз');
+      onGetTokenFailed('Не удалось :(, попробуйте еще раз');
     }
   } else {
     console.log('Must use physical device for Push Notifications');
-    onGetTokenFailed('Не удалось отменить напоминание, попробуйте еще раз');
+    onGetTokenFailed('Не удалось :(, попробуйте еще раз');
   }
 
   if (Platform.OS === 'android') {
@@ -227,7 +225,7 @@ export default function App() {
       registerForPushNotificationsAsync(
         (token: string) => {
           setExpoPushToken(token);
-          updateReminders(value, eventId, expoPushToken, onStored);
+          updateReminders(value, eventId, token, onStored);
         },
         (error: string) => {
           onStoredFailed(error);
