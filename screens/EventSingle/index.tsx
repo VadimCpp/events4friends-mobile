@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   AsyncStorage,
+  Alert,
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
@@ -134,9 +135,19 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                     <Button
                       title="Отменить напоминание"
                       onPress={() => {
-                        storeReminder(false, event.id, () => {
-                          onReminderChange(false);
-                        });
+                        storeReminder(
+                          false,
+                          event.id,
+                          () => {
+                            onReminderChange(false);
+                          },
+                          () => {
+                            Alert.alert(
+                              'Ошибка',
+                              'Не удалось отменить напоминание, попробуйте еще раз',
+                            );
+                          },
+                        );
                       }}
                       style={styles.cancelRemindButton}
                     />
@@ -145,9 +156,19 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                   <Button
                     title="Напомнить"
                     onPress={() => {
-                      storeReminder(true, event.id, () => {
-                        onReminderChange(true);
-                      });
+                      storeReminder(
+                        true,
+                        event.id,
+                        () => {
+                          onReminderChange(true);
+                        },
+                        () => {
+                          Alert.alert(
+                            'Ошибка',
+                            'Не удалось установить напоминание, попробуйте еще раз',
+                          );
+                        },
+                      );
                     }}
                     style={styles.remindButton}
                   />

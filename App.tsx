@@ -19,7 +19,10 @@ import DataContext from './context/DataContext';
 
 async function registerForPushNotificationsAsync(
   onGetToken: (token: string) => void,
+  onGetTokenFailed: () => void,
 ) {
+  let token = null;
+
   if (Constants.isDevice) {
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS,
@@ -35,11 +38,15 @@ async function registerForPushNotificationsAsync(
       );
       return;
     }
-    const token = await Notifications.getExpoPushTokenAsync();
-    console.log(token);
-    onGetToken(token);
+    token = await Notifications.getExpoPushTokenAsync();
+    if (token) {
+      onGetToken(token);
+    } else {
+      onGetTokenFailed();
+    }
   } else {
     console.log('Must use physical device for Push Notifications');
+    onGetTokenFailed();
   }
 
   if (Platform.OS === 'android') {
@@ -214,12 +221,18 @@ export default function App() {
     value: boolean,
     eventId: string,
     onStored: Function,
+    onStoredFailed: Function,
   ): void {
     if (!expoPushToken) {
-      registerForPushNotificationsAsync((token: string) => {
-        setExpoPushToken(token);
-        updateReminders(value, eventId, expoPushToken, onStored);
-      });
+      registerForPushNotificationsAsync(
+        (token: string) => {
+          setExpoPushToken(token);
+          updateReminders(value, eventId, expoPushToken, onStored);
+        },
+        () => {
+          onStoredFailed();
+        },
+      );
     } else {
       updateReminders(value, eventId, expoPushToken, onStored);
     }
