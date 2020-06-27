@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
 const defaultData = {
   events: [],
   services: [],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  storeReminder: (value: boolean, eventId: string, onStored: Function) => {},
+  storeReminder: (
+    value: boolean,
+    eventId: string,
+    onStored: Function,
+    onStoredFailed: Function,
+  ) => {},
 };
 
 const DataContext = React.createContext(defaultData);

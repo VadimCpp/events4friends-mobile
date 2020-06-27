@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   AsyncStorage,
+  Alert,
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
@@ -24,6 +25,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
   const { event } = route.params;
 
   const [reminder, setReminder] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const startDate = moment(`${event.start}${event.timezone}`).format(
     'D MMMM, dddd',
@@ -133,10 +135,21 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                     </Text>
                     <Button
                       title="Отменить напоминание"
+                      disabled={disabled}
                       onPress={() => {
-                        storeReminder(false, event.id, () => {
-                          onReminderChange(false);
-                        });
+                        setDisabled(true);
+                        storeReminder(
+                          false,
+                          event.id,
+                          () => {
+                            setDisabled(false);
+                            onReminderChange(false);
+                          },
+                          (error: string) => {
+                            setDisabled(false);
+                            Alert.alert('Ошибка', error);
+                          },
+                        );
                       }}
                       style={styles.cancelRemindButton}
                     />
@@ -144,10 +157,21 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                 ) : (
                   <Button
                     title="Напомнить"
+                    disabled={disabled}
                     onPress={() => {
-                      storeReminder(true, event.id, () => {
-                        onReminderChange(true);
-                      });
+                      setDisabled(true);
+                      storeReminder(
+                        true,
+                        event.id,
+                        () => {
+                          setDisabled(false);
+                          onReminderChange(true);
+                        },
+                        (error: string) => {
+                          setDisabled(false);
+                          Alert.alert('Ошибка', error);
+                        },
+                      );
                     }}
                     style={styles.remindButton}
                   />

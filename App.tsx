@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Alert, Platform, AsyncStorage } from 'react-native';
 import { Asset } from 'expo-asset';
 import { AppLoading, Notifications } from 'expo';
 import Constants from 'expo-constants';
@@ -19,6 +19,7 @@ import DataContext from './context/DataContext';
 
 async function registerForPushNotificationsAsync(
   onGetToken: (token: string) => void,
+  onGetTokenFailed: (error: string) => void,
 ) {
   if (Constants.isDevice) {
     const { status: existingStatus } = await Permissions.getAsync(
@@ -30,16 +31,25 @@ async function registerForPushNotificationsAsync(
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      Alert.alert(
+      onGetTokenFailed(
         'Пожалуйста, разрешите приложению отправку push-уведомлений.',
       );
       return;
     }
     const token = await Notifications.getExpoPushTokenAsync();
-    console.log(token);
-    onGetToken(token);
+    if (token) {
+      try {
+        await AsyncStorage.setItem('expoPushToken', token);
+      } catch (error) {
+        console.log('error save expoPushToken: ', error);
+      }
+      onGetToken(token);
+    } else {
+      onGetTokenFailed('Не удалось :(, попробуйте еще раз');
+    }
   } else {
     console.log('Must use physical device for Push Notifications');
+    onGetTokenFailed('Не удалось :(, попробуйте еще раз');
   }
 
   if (Platform.OS === 'android') {
@@ -190,6 +200,20 @@ export default function App() {
     };
   }, [user]);
 
+  useEffect(() => {
+    (async function asyncWrapper() {
+      try {
+        const value = await AsyncStorage.getItem('expoPushToken');
+        if (value !== null) {
+          console.log(`Got expoPushToken from AsyncStogage: ${value}`);
+          setExpoPushToken(value);
+        }
+      } catch (error) {
+        console.log('Error get expoPushToken: ', error);
+      }
+    })();
+  }, []);
+
   function cacheResourcesAsync(): Promise<void> {
     const images = [
       require('./assets/img/bike_gradient.png'),
@@ -214,12 +238,18 @@ export default function App() {
     value: boolean,
     eventId: string,
     onStored: Function,
+    onStoredFailed: Function,
   ): void {
     if (!expoPushToken) {
-      registerForPushNotificationsAsync((token: string) => {
-        setExpoPushToken(token);
-        updateReminders(value, eventId, expoPushToken, onStored);
-      });
+      registerForPushNotificationsAsync(
+        (token: string) => {
+          setExpoPushToken(token);
+          updateReminders(value, eventId, token, onStored);
+        },
+        (error: string) => {
+          onStoredFailed(error);
+        },
+      );
     } else {
       updateReminders(value, eventId, expoPushToken, onStored);
     }
