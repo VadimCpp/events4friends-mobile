@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Alert, Platform, AsyncStorage } from 'react-native';
 import { Asset } from 'expo-asset';
 import { AppLoading, Notifications } from 'expo';
 import Constants from 'expo-constants';
@@ -38,6 +38,11 @@ async function registerForPushNotificationsAsync(
     }
     const token = await Notifications.getExpoPushTokenAsync();
     if (token) {
+      try {
+        await AsyncStorage.setItem('expoPushToken', token);
+      } catch (error) {
+        console.log('error save expoPushToken: ', error);
+      }
       onGetToken(token);
     } else {
       onGetTokenFailed('Не удалось :(, попробуйте еще раз');
@@ -194,6 +199,20 @@ export default function App() {
       }
     };
   }, [user]);
+
+  useEffect(() => {
+    (async function asyncWrapper() {
+      try {
+        const value = await AsyncStorage.getItem('expoPushToken');
+        if (value !== null) {
+          console.log(`Got expoPushToken from AsyncStogage: ${value}`);
+          setExpoPushToken(value);
+        }
+      } catch (error) {
+        console.log('Error get expoPushToken: ', error);
+      }
+    })();
+  }, []);
 
   function cacheResourcesAsync(): Promise<void> {
     const images = [
