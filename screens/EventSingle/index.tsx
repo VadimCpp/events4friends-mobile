@@ -58,6 +58,11 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
     }
   }
 
+  // eslint-disable-next-line no-shadow
+  function onLinkPress(event: any, href: string) {
+    Linking.openURL(href);
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -109,6 +114,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               <HTML
                 html={event.description}
                 imagesMaxWidth={Dimensions.get('window').width}
+                onLinkPress={onLinkPress}
               />
             </ScrollView>
             {event.name && (
