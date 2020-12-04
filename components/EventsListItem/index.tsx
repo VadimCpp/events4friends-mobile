@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import moment from 'moment';
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
-import { calcSize } from '../../utils/Misc';
+import { calcSize, timeZoneToCityName } from '../../utils/Misc';
 
 interface EventsListItemParams {
   event: any;
@@ -11,10 +11,10 @@ interface EventsListItemParams {
 
 export default function EventsListItem(props: EventsListItemParams) {
   const { event, onPress } = props;
-  const startDate = moment(`${event.start}${event.timezone}`).format(
+  const startDate = moment(`${event.start}`).format(
     'D MMMM, dddd',
   );
-  const startTime = moment(`${event.start}${event.timezone}`).format('HH:mm');
+  const startTime = `${moment(event.start).format('HH:mm')} ${timeZoneToCityName(event.timezone)}`;
 
   return (
     <TouchableOpacity
