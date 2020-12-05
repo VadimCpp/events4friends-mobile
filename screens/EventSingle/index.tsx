@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import { Linking } from 'expo';
-import {removeTags, calcSize, timeZoneToCityName} from '../../utils/Misc';
+import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
 import Button from '../../components/Button';
 import DataContext from '../../context/DataContext';
 
