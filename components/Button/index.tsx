@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
 
 interface ButtonParams {
@@ -7,10 +7,11 @@ interface ButtonParams {
   onPress: () => void;
   style?: Object;
   disabled?: boolean;
+  selected?: boolean;
 }
 
 export default function Button(props: ButtonParams) {
-  const { title, onPress } = props;
+  const { title, onPress, selected } = props;
 
   return (
     <TouchableOpacity
@@ -19,7 +20,14 @@ export default function Button(props: ButtonParams) {
       style={[styles.button, props.style ? props.style : null]}
       activeOpacity={DEFAUTL_ACTIVE_OPACITY}
     >
-      <Text style={styles.text}>{title}</Text>
+      {selected ? (
+        <View style={styles.circleWrap}>
+          <View style={styles.circle} />
+          <Text style={styles.text}>{title}</Text>
+        </View>
+      ) : (
+        <Text style={styles.text}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 }
@@ -36,5 +44,18 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 16,
+  },
+  circleWrap: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  circle: {
+    backgroundColor: 'white',
+    borderRadius: 3,
+    width: 6,
+    height: 6,
+    marginRight: 4,
   },
 });

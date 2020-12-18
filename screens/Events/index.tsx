@@ -74,6 +74,7 @@ export default function EventsScreen(props: EventsScreenParams) {
                             ? styles.filterButtonFocused
                             : styles.filterButton
                         }
+                        selected={filterType === EventsFilter.Upcoming}
                       />
                       <Button
                         title="Прошедшие"
@@ -83,6 +84,7 @@ export default function EventsScreen(props: EventsScreenParams) {
                             ? styles.filterButtonFocused
                             : styles.filterButton
                         }
+                        selected={filterType === EventsFilter.Past}
                       />
                     </View>
                     {sortedEvents.map((event: any) => {
@@ -139,12 +141,13 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     backgroundColor: '#EC7B28',
+    color: '#eee',
     width: 130,
     marginLeft: 10,
     marginBottom: 10,
   },
   filterButtonFocused: {
-    backgroundColor: '#DDD',
+    backgroundColor: '#903e01',
     width: 130,
     marginLeft: 10,
     marginBottom: 10,
