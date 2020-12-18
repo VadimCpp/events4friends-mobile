@@ -81,6 +81,9 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                             ? styles.sortButtonFocused
                             : styles.sortButton
                         }
+                        selected={
+                          sortingType === ServiceSortingType.SortByService
+                        }
                       />
                       <Button
                         title="Имя"
@@ -92,6 +95,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                             ? styles.sortButtonFocused
                             : styles.sortButton
                         }
+                        selected={sortingType === ServiceSortingType.SortByName}
                       />
                       <Button
                         title="Цена"
@@ -102,6 +106,9 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                           sortingType === ServiceSortingType.SortByPrice
                             ? styles.sortButtonFocused
                             : styles.sortButton
+                        }
+                        selected={
+                          sortingType === ServiceSortingType.SortByPrice
                         }
                       />
                     </View>
@@ -169,7 +176,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   sortButtonFocused: {
-    backgroundColor: '#DDD',
+    backgroundColor: '#007946',
+    color: '#aaa',
     width: 100,
     marginLeft: 10,
     marginBottom: 10,
