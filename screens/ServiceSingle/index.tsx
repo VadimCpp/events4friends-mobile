@@ -103,7 +103,7 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
               <Text style={styles.locationLabel}>Telegram:</Text>
               <TouchableOpacity
                 onPress={() => {
-                  Linking.openURL(`https://tglink.ru/${service.telegram}`);
+                  Linking.openURL(`tg://resolve?domain=${service.telegram}`);
                 }}
                 style={styles.linkContainer}
               >

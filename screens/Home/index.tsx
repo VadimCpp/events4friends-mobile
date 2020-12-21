@@ -54,7 +54,7 @@ export default function HomeScreen(props: HomeScreenParams) {
           />
           <SocialButton
             icon={require('../../assets/img/icon_telegram_x4.png')}
-            url={'https://tglink.ru/events4friends'}
+            url={'tg://resolve?domain=events4friends'}
           />
           <SocialButton
             icon={require('../../assets/img/icon_whatsapp_x4.png')}
