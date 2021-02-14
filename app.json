@@ -9,14 +9,14 @@
       "android",
       "web"
     ],
-    "version": "1.7",
+    "version": "1.8",
     "githubUrl": "https://github.com/VadimCpp/events4friends-mobile", 
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.jpg",
       "resizeMode": "cover",
-      "backgroundColor": "white"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -26,11 +26,11 @@
     ],
     "android": {
       "package": "com.roscomputing.events4friends",
-      "versionCode": 20
+      "versionCode": 21
     },
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "20",
+      "buildNumber": "21",
       "bundleIdentifier": "com.roscomputing.events4friends"
     }
   }

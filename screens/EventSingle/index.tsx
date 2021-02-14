@@ -140,7 +140,17 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
               </TouchableOpacity>
             </View>
           )}
-          <View style={styles.remindButtonContainer}>
+          {/*
+            NOTE!
+            Этот функционал ниже отключен.
+            В телеграм боте @events4friendsbot реализована команда /remind,
+            которая отправляет напоминания о мероприятии.
+            В астоматическом режиме напоминания не работают.
+
+            TODO:
+            реализовать сервис автоматических уведомлений и вернуть код ниже
+           */}
+          {/* <View style={styles.remindButtonContainer}>
             <DataContext.Consumer>
               {({ storeReminder }) => {
                 return reminder ? (
@@ -193,7 +203,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                 );
               }}
             </DataContext.Consumer>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </View>
