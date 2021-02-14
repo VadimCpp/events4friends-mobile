@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Platform, AsyncStorage } from 'react-native';
 import { Asset } from 'expo-asset';
-import { AppLoading, Notifications } from 'expo';
+import { Notifications } from 'expo';
+import AppLoading from 'expo-app-loading';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
