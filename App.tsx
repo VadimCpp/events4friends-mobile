@@ -17,7 +17,7 @@ import ServicesScreen from './screens/Services';
 import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
 
-// context
+// contexts
 import AuthContext from './context/AuthContext';
 import DataContext from './context/DataContext';
 

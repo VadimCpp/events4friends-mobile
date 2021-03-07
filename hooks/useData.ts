@@ -8,7 +8,6 @@ import * as firebase from 'firebase';
 //
 function subscribeToServiceChanges(
   onServicesUpdated: Function,
-  afterSuccess: Function,
 ): Function | null {
   const db = firebase.firestore();
   db.collection('services')
@@ -19,7 +18,6 @@ function subscribeToServiceChanges(
         id: item.id,
       }));
       onServicesUpdated(services);
-      afterSuccess(true);
     })
     .catch(function(error) {
       console.warn('Error getting services, skip: ', error);
@@ -32,10 +30,7 @@ function subscribeToServiceChanges(
 // Get realtime updates with Cloud Firestore
 // https://firebase.google.com/docs/firestore/query-data/listen
 //
-function subscribeToEventsChanges(
-  onEventsUpdated: Function,
-  afterSuccess: Function,
-): Function | null {
+function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
   const db = firebase.firestore();
   return db.collection('events').onSnapshot(async snapshot => {
     if (snapshot && snapshot.docs && snapshot.docs.length) {
@@ -43,7 +38,6 @@ function subscribeToEventsChanges(
         return [...result, { ...item.data(), id: item.id }];
       }, []);
       onEventsUpdated(events);
-      afterSuccess(true);
     }
   });
 }
@@ -58,14 +52,14 @@ const useData = () => {
     const unsubscribeFromServices = subscribeToServiceChanges(
       (aSevices: Array<never>) => {
         setServices(aSevices);
+        setLoadingServices(false);
       },
-      setLoadingServices,
     );
     const unsubscribeFromEvents = subscribeToEventsChanges(
       (anEvents: Array<never>) => {
         setEvents(anEvents);
+        setLoadingEvents(false);
       },
-      setLoadingEvents,
     );
 
     return () => {
