@@ -128,7 +128,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                         sortingType === ServiceSortingType.SortByName
                       }
                       onPress={() => {
-                        navigation.navigate('ServiceSingleScreen', {
+                        navigation.navigate('ServiceScreen', {
                           service,
                         });
                       }}

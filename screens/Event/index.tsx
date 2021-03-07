@@ -15,22 +15,16 @@ import moment from 'moment';
 import { Linking } from 'expo';
 import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
 import Button from '../../components/Button';
-import NoDataContainer from '../../components/NoDataContainer';
-import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
-import { NOTICE_CONNECTING } from '../../constants';
 
-interface EventSingleScreenParams {
+interface EventScreenParams {
   route: any;
   navigation: any;
 }
 
-export default function EventSingleScreen(props: EventSingleScreenParams) {
+export default function EventScreen(props: EventScreenParams) {
   const { route } = props;
   const { event } = route.params;
-
-  const authContext = useContext(AuthContext);
-  const { connectingToFirebase } = authContext;
 
   const [reminder, setReminder] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -75,133 +69,106 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
       >
-        {connectingToFirebase ? (
-          <NoDataContainer label={NOTICE_CONNECTING} />
-        ) : (
-          <View style={styles.innerContainer}>
-            <View style={styles.datePlaceContainer}>
-              <View style={styles.datetimeContainer}>
-                <Image
-                  style={styles.iconTime}
-                  source={require('../../assets/img/icon_time_x4.png')}
-                />
-                <View>
-                  <Text>{startDate}</Text>
-                  <View style={styles.timeLine}>
-                    <Text>{startTime}</Text>
-                  </View>
-                </View>
-              </View>
-              {event.isOnline ? (
-                <View style={styles.addressContainer}>
-                  <Image
-                    style={styles.iconWww}
-                    source={require('../../assets/img/icon_www_x4.png')}
-                  />
-                  <View style={styles.address}>
-                    <Text numberOfLines={1}>Онлайн</Text>
-                  </View>
-                </View>
-              ) : (
-                <View style={styles.addressContainer}>
-                  <Image
-                    style={styles.iconPlace}
-                    source={require('../../assets/img/icon_place_x4.png')}
-                  />
-                  <View style={styles.address}>
-                    <Text numberOfLines={2}>{event.location}</Text>
-                  </View>
-                </View>
-              )}
-            </View>
-            <View style={styles.hr} />
-            <View style={styles.descriptionContainer}>
+        <View style={styles.innerContainer}>
+          <View style={styles.datePlaceContainer}>
+            <View style={styles.datetimeContainer}>
+              <Image
+                style={styles.iconTime}
+                source={require('../../assets/img/icon_time_x4.png')}
+              />
               <View>
-                <Text style={styles.summary}>{event.summary}</Text>
-              </View>
-              <ScrollView style={styles.description}>
-                <HTML
-                  html={event.description}
-                  imagesMaxWidth={Dimensions.get('window').width}
-                  onLinkPress={onLinkPress}
-                />
-              </ScrollView>
-              {event.name && (
-                <View>
-                  <Text style={styles.description}>
-                    {`Организатор мероприятия:\n${event.name}`}
-                  </Text>
+                <Text>{startDate}</Text>
+                <View style={styles.timeLine}>
+                  <Text>{startTime}</Text>
                 </View>
-              )}
+              </View>
             </View>
-            {event.isOnline && (
-              <View style={styles.locationContainer}>
-                <Text style={styles.locationLabel}>
-                  Ссылка для подключения:
-                </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    Linking.openURL(event.location);
-                  }}
-                  style={styles.linkContainer}
-                >
-                  <Text style={styles.link} numberOfLines={1}>
-                    {event.location}
-                  </Text>
-                </TouchableOpacity>
+            {event.isOnline ? (
+              <View style={styles.addressContainer}>
+                <Image
+                  style={styles.iconWww}
+                  source={require('../../assets/img/icon_www_x4.png')}
+                />
+                <View style={styles.address}>
+                  <Text numberOfLines={1}>Онлайн</Text>
+                </View>
+              </View>
+            ) : (
+              <View style={styles.addressContainer}>
+                <Image
+                  style={styles.iconPlace}
+                  source={require('../../assets/img/icon_place_x4.png')}
+                />
+                <View style={styles.address}>
+                  <Text numberOfLines={2}>{event.location}</Text>
+                </View>
               </View>
             )}
-            {/*
-              NOTE!
-              Этот функционал ниже отключен.
-              В телеграм боте @events4friendsbot реализована команда /remind,
-              которая отправляет напоминания о мероприятии.
-              В астоматическом режиме напоминания не работают.
+          </View>
+          <View style={styles.hr} />
+          <View style={styles.descriptionContainer}>
+            <View>
+              <Text style={styles.summary}>{event.summary}</Text>
+            </View>
+            <ScrollView style={styles.description}>
+              <HTML
+                html={event.description}
+                imagesMaxWidth={Dimensions.get('window').width}
+                onLinkPress={onLinkPress}
+              />
+            </ScrollView>
+            {event.name && (
+              <View>
+                <Text style={styles.description}>
+                  {`Организатор мероприятия:\n${event.name}`}
+                </Text>
+              </View>
+            )}
+          </View>
+          {event.isOnline && (
+            <View style={styles.locationContainer}>
+              <Text style={styles.locationLabel}>Ссылка для подключения:</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL(event.location);
+                }}
+                style={styles.linkContainer}
+              >
+                <Text style={styles.link} numberOfLines={1}>
+                  {event.location}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {/*
+            NOTE!
+            Этот функционал ниже отключен.
+            В телеграм боте @events4friendsbot реализована команда /remind,
+            которая отправляет напоминания о мероприятии.
+            В астоматическом режиме напоминания не работают.
 
-              TODO:
-              реализовать сервис автоматических уведомлений и вернуть код ниже
-            */}
-            {/* <View style={styles.remindButtonContainer}>
-              <DataContext.Consumer>
-                {({ storeReminder }) => {
-                  return reminder ? (
-                    <View style={styles.remindBlock}>
-                      <Text style={styles.remindLabel}>
-                        Напомним Вам об этом мероприятии
-                      </Text>
-                      <Button
-                        title="Отменить напоминание"
-                        disabled={disabled}
-                        onPress={() => {
-                          setDisabled(true);
-                          storeReminder(
-                            false,
-                            event.id,
-                            () => {
-                              setDisabled(false);
-                              onReminderChange(false);
-                            },
-                            (error: string) => {
-                              setDisabled(false);
-                              Alert.alert('Ошибка', error);
-                            },
-                          );
-                        }}
-                        style={styles.cancelRemindButton}
-                      />
-                    </View>
-                  ) : (
+            TODO:
+            реализовать сервис автоматических уведомлений и вернуть код ниже
+          */}
+          {/* <View style={styles.remindButtonContainer}>
+            <DataContext.Consumer>
+              {({ storeReminder }) => {
+                return reminder ? (
+                  <View style={styles.remindBlock}>
+                    <Text style={styles.remindLabel}>
+                      Напомним Вам об этом мероприятии
+                    </Text>
                     <Button
-                      title="Напомнить"
+                      title="Отменить напоминание"
                       disabled={disabled}
                       onPress={() => {
                         setDisabled(true);
                         storeReminder(
-                          true,
+                          false,
                           event.id,
                           () => {
                             setDisabled(false);
-                            onReminderChange(true);
+                            onReminderChange(false);
                           },
                           (error: string) => {
                             setDisabled(false);
@@ -209,14 +176,35 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
                           },
                         );
                       }}
-                      style={styles.remindButton}
+                      style={styles.cancelRemindButton}
                     />
-                  );
-                }}
-              </DataContext.Consumer>
-            </View> */}
-          </View>
-        )}
+                  </View>
+                ) : (
+                  <Button
+                    title="Напомнить"
+                    disabled={disabled}
+                    onPress={() => {
+                      setDisabled(true);
+                      storeReminder(
+                        true,
+                        event.id,
+                        () => {
+                          setDisabled(false);
+                          onReminderChange(true);
+                        },
+                        (error: string) => {
+                          setDisabled(false);
+                          Alert.alert('Ошибка', error);
+                        },
+                      );
+                    }}
+                    style={styles.remindButton}
+                  />
+                );
+              }}
+            </DataContext.Consumer>
+          </View> */}
+        </View>
       </ScrollView>
     </View>
   );

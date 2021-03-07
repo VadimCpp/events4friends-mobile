@@ -104,7 +104,7 @@ export default function EventsScreen(props: EventsScreenParams) {
                       key={event.id}
                       event={event}
                       onPress={() => {
-                        navigation.navigate('EventSingleScreen', {
+                        navigation.navigate('EventScreen', {
                           event,
                         });
                       }}
