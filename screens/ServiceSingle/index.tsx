@@ -10,11 +10,7 @@ import { Linking } from 'expo';
 import NoDataContainer from '../../components/NoDataContainer';
 import { calcSize, removeTags } from '../../utils/Misc';
 import AuthContext from '../../context/AuthContext';
-
-const NOTICES = {
-  CONNECT: 'Подключаемся к базе данных...',
-  LOADING: 'Загружаем события...',
-};
+import { NOTICE_CONNECTING } from '../../constants';
 
 interface ServiceSingleScreenParams {
   route: any;
@@ -43,7 +39,7 @@ export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
         contentContainerStyle={styles.contentContainer}
       >
         {connectingToFirebase ? (
-          <NoDataContainer label={NOTICES.CONNECT} />
+          <NoDataContainer label={NOTICE_CONNECTING} />
         ) : (
           <View style={styles.innerContainer}>
             <View style={styles.serviceWrap}>

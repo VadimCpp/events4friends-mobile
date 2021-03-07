@@ -18,11 +18,7 @@ import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
-
-const NOTICES = {
-  CONNECT: 'Подключаемся к базе данных...',
-  LOADING: 'Загружаем события...',
-};
+import { NOTICE_CONNECTING } from '../../constants';
 
 interface EventSingleScreenParams {
   route: any;
@@ -80,7 +76,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
         contentContainerStyle={styles.contentContainer}
       >
         {connectingToFirebase ? (
-          <NoDataContainer label={NOTICES.CONNECT} />
+          <NoDataContainer label={NOTICE_CONNECTING} />
         ) : (
           <View style={styles.innerContainer}>
             <View style={styles.datePlaceContainer}>

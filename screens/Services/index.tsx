@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 import { calcSize } from '../../utils/Misc';
 import AuthContext from '../../context/AuthContext';
+import { NOTICE_CONNECTING } from '../../constants';
 
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',
@@ -13,11 +14,6 @@ enum ServiceSortingType {
   SortByPrice = 'SORT_BY_PRICE',
   // TODO: add more sorting types here
 }
-
-const NOTICES = {
-  CONNECT: 'Подключаемся к базе данных...',
-  LOADING: 'Загружаем события...',
-};
 
 interface ServicesScreenParams {
   navigation: any;
@@ -35,7 +31,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
     <View style={styles.backgroundContainer}>
       <ScrollView style={styles.scrollView}>
         {connectingToFirebase ? (
-          <NoDataContainer label={NOTICES.CONNECT} />
+          <NoDataContainer label={NOTICE_CONNECTING} />
         ) : (
           <View style={styles.container}>
             <DataContext.Consumer>

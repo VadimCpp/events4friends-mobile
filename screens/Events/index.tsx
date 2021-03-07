@@ -7,17 +7,13 @@ import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 import { calcSize } from '../../utils/Misc';
 import AuthContext from '../../context/AuthContext';
+import { NOTICE_CONNECTING } from '../../constants';
 
 enum EventsFilter {
   Upcoming = 'UPCOMING_EVENTS',
   Past = 'PAST_EVENTS',
   // TODO: add more types here
 }
-
-const NOTICES = {
-  CONNECT: 'Подключаемся к базе данных...',
-  LOADING: 'Загружаем события...',
-};
 
 interface EventsScreenParams {
   navigation: any;
@@ -32,8 +28,8 @@ export default function EventsScreen(props: EventsScreenParams) {
   return (
     <View style={styles.backgroundContainer}>
       <ScrollView style={styles.scrollView}>
-        {!connectingToFirebase ? (
-          <NoDataContainer label={NOTICES.CONNECT} />
+        {connectingToFirebase ? (
+          <NoDataContainer label={NOTICE_CONNECTING} />
         ) : (
           <View style={styles.container}>
             <DataContext.Consumer>
