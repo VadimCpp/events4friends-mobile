@@ -1,7 +1,12 @@
 import React from 'react';
 
-const defaultData = {
-  user: undefined, // object or undefined - текущий авторизованный пользователь firebase
+interface IDefaultData {
+  user: Object | null;
+  connectingToFirebase: boolean;
+}
+
+const defaultData: IDefaultData = {
+  user: null, // object or undefined - текущий авторизованный пользователь firebase
   connectingToFirebase: true, // флаг, который обозначает процесс подключения к базе firebase
 };
 

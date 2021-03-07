@@ -18,6 +18,7 @@ import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
 import AuthContext from './context/AuthContext';
 import DataContext from './context/DataContext';
+import useAuth from './hooks/useAuth';
 
 async function registerForPushNotificationsAsync(
   onGetToken: (token: string) => void,
@@ -61,24 +62,6 @@ async function registerForPushNotificationsAsync(
       priority: 'max',
       vibrate: [0, 250, 250, 250],
     });
-  }
-}
-
-function initializeApp() {
-  // Initialize Firebase
-  const firebaseConfig = {
-    apiKey: 'AIzaSyBjAQdqx3qkki7MVb6dd1eASw-0UGs2Bg0',
-    authDomain: 'events4friends.firebaseapp.com',
-    databaseURL: 'https://events4friends.firebaseio.com',
-    projectId: 'events4friends',
-    storageBucket: 'events4friends.appspot.com',
-    messagingSenderId: '610960096409',
-    appId: '1:610960096409:web:337ff9ec4ca355a6c28c08',
-    measurementId: 'G-4T13RKFFSG',
-  };
-
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
   }
 }
 
@@ -141,37 +124,14 @@ function updateReminders(
 const Stack = createStackNavigator();
 
 export default function App() {
+  const { user, connectingToFirebase } = useAuth();
+
   const [isAppReady, setIsAppReady] = useState(false);
-  const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
   const [services, setServices] = useState([]);
   const [expoPushToken, setExpoPushToken] = useState('');
 
   useEffect(() => {
-    initializeApp();
-
-    firebase.auth().onAuthStateChanged((aUser: any) => {
-      if (aUser) {
-        if (aUser.isAnonymous) {
-          console.log('onAuthStateChanged: user is logged in anonymously');
-        } else {
-          console.log('onAuthStateChanged: user is logged in successfully');
-        }
-
-        setUser(aUser);
-      } else {
-        console.log(
-          'onAuthStateChanged: user is not loggen in, login anonymously',
-        );
-        firebase
-          .auth()
-          .signInAnonymously()
-          .catch(function(error) {
-            console.warn('Error signing in anonymously, skip: ', error);
-          });
-      }
-    });
-
     moment.locale('ru');
   }, []);
 
@@ -257,13 +217,10 @@ export default function App() {
     }
   }
 
-  const currentUser = undefined;
-  const connectingToFirebase = true;
-
   return isAppReady ? (
     <AuthContext.Provider
       value={{
-        user: currentUser,
+        user,
         connectingToFirebase,
       }}
     >
