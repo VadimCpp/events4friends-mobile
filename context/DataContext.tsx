@@ -4,6 +4,8 @@ import React from 'react';
 const defaultData = {
   events: [],
   services: [],
+  loadingEvents: true,
+  loadingServices: true,
   storeReminder: (
     value: boolean,
     eventId: string,
