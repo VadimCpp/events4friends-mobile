@@ -9,13 +9,17 @@ import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+// moment
 import moment from 'moment';
 import 'moment/locale/ru';
-import HomeScreen from './screens/Home';
+
+// screens
+import EventScreen from './screens/Event';
 import EventsScreen from './screens/Events';
+import HomeScreen from './screens/Home';
+import ServiceScreen from './screens/Service';
 import ServicesScreen from './screens/Services';
-import EventSingleScreen from './screens/EventSingle';
-import ServiceSingleScreen from './screens/ServiceSingle';
 
 // contexts
 import AuthContext from './context/AuthContext';
@@ -199,13 +203,13 @@ export default function App() {
               options={{ title: 'Все услуги' }}
             />
             <Stack.Screen
-              name="EventSingleScreen"
-              component={EventSingleScreen}
+              name="EventScreen"
+              component={EventScreen}
               options={{ title: 'Событие' }}
             />
             <Stack.Screen
-              name="ServiceSingleScreen"
-              component={ServiceSingleScreen}
+              name="ServiceScreen"
+              component={ServiceScreen}
               options={{ title: 'Услуга' }}
             />
           </Stack.Navigator>
