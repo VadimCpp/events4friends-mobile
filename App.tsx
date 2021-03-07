@@ -16,9 +16,14 @@ import EventsScreen from './screens/Events';
 import ServicesScreen from './screens/Services';
 import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
+
+// context
 import AuthContext from './context/AuthContext';
 import DataContext from './context/DataContext';
+
+// hooks
 import useAuth from './hooks/useAuth';
+import useData from './hooks/useData';
 
 async function registerForPushNotificationsAsync(
   onGetToken: (token: string) => void,
@@ -65,37 +70,6 @@ async function registerForPushNotificationsAsync(
   }
 }
 
-function subscribeToServiceChanges(
-  onServicesUpdated: Function,
-): Function | null {
-  const db = firebase.firestore();
-  db.collection('services')
-    .get()
-    .then(function(querySnapshot) {
-      const services = querySnapshot.docs.map(item => ({
-        ...item.data(),
-        id: item.id,
-      }));
-      onServicesUpdated(services);
-    })
-    .catch(function(error) {
-      console.warn('Error getting services, skip: ', error);
-    });
-  return null;
-}
-
-function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
-  const db = firebase.firestore();
-  return db.collection('events').onSnapshot(async snapshot => {
-    if (snapshot && snapshot.docs && snapshot.docs.length) {
-      const events = snapshot.docs.reduce((result: Array<any>, item: any) => {
-        return [...result, { ...item.data(), id: item.id }];
-      }, []);
-      onEventsUpdated(events);
-    }
-  });
-}
-
 function updateReminders(
   value: boolean,
   eventId: string,
@@ -125,42 +99,14 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const { user, connectingToFirebase } = useAuth();
+  const { events, services } = useData();
 
   const [isAppReady, setIsAppReady] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [services, setServices] = useState([]);
   const [expoPushToken, setExpoPushToken] = useState('');
 
   useEffect(() => {
     moment.locale('ru');
   }, []);
-
-  useEffect(() => {
-    let unsubscribeFromServices: Function | null = null;
-    let unsubscribeFromEvents: Function | null = null;
-
-    if (user) {
-      unsubscribeFromServices = subscribeToServiceChanges(
-        (aSevices: Array<never>) => {
-          setServices(aSevices);
-        },
-      );
-      unsubscribeFromEvents = subscribeToEventsChanges(
-        (anEvents: Array<never>) => {
-          setEvents(anEvents);
-        },
-      );
-    }
-
-    return () => {
-      if (unsubscribeFromServices) {
-        unsubscribeFromServices();
-      }
-      if (unsubscribeFromEvents) {
-        unsubscribeFromEvents();
-      }
-    };
-  }, [user]);
 
   useEffect(() => {
     (async function asyncWrapper() {
