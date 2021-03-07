@@ -15,6 +15,7 @@ import moment from 'moment';
 import { Linking } from 'expo';
 import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
 import Button from '../../components/Button';
+import NoDataContainer from '../../components/NoDataContainer';
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
 
@@ -79,9 +80,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
         contentContainerStyle={styles.contentContainer}
       >
         {connectingToFirebase ? (
-          <View style={styles.noDataContainer}>
-            <Text>{NOTICES.CONNECT}</Text>
-          </View>
+          <NoDataContainer label={NOTICES.CONNECT} />
         ) : (
           <View style={styles.innerContainer}>
             <View style={styles.datePlaceContainer}>
@@ -239,11 +238,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'center',
-  },
-  noDataContainer: {
-    height: 600,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   innerContainer: {
     width: calcSize(315),

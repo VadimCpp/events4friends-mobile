@@ -4,6 +4,7 @@ import moment from 'moment';
 import DataContext from '../../context/DataContext';
 import EventsListItem from '../../components/EventsListItem';
 import Button from '../../components/Button';
+import NoDataContainer from '../../components/NoDataContainer';
 import { calcSize } from '../../utils/Misc';
 import AuthContext from '../../context/AuthContext';
 
@@ -31,10 +32,10 @@ export default function EventsScreen(props: EventsScreenParams) {
   return (
     <View style={styles.backgroundContainer}>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.container}>
-          {connectingToFirebase ? (
-            <Text>{NOTICES.CONNECT}</Text>
-          ) : (
+        {!connectingToFirebase ? (
+          <NoDataContainer label={NOTICES.CONNECT} />
+        ) : (
+          <View style={styles.container}>
             <DataContext.Consumer>
               {({ events }) => {
                 const now = new Date();
@@ -122,8 +123,8 @@ export default function EventsScreen(props: EventsScreenParams) {
                 }
               }}
             </DataContext.Consumer>
-          )}
-        </View>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
