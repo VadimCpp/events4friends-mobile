@@ -16,6 +16,7 @@ import EventsScreen from './screens/Events';
 import ServicesScreen from './screens/Services';
 import EventSingleScreen from './screens/EventSingle';
 import ServiceSingleScreen from './screens/ServiceSingle';
+import AuthContext from './context/AuthContext';
 import DataContext from './context/DataContext';
 
 async function registerForPushNotificationsAsync(
@@ -256,46 +257,56 @@ export default function App() {
     }
   }
 
+  const currentUser = undefined;
+  const connectingToFirebase = true;
+
   return isAppReady ? (
-    <DataContext.Provider
+    <AuthContext.Provider
       value={{
-        events,
-        services,
-        storeReminder,
+        user: currentUser,
+        connectingToFirebase,
       }}
     >
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              header: () => null,
-            }}
-          />
-          <Stack.Screen
-            name="Details"
-            component={EventsScreen}
-            options={{ title: 'Все события' }}
-          />
-          <Stack.Screen
-            name="Services"
-            component={ServicesScreen}
-            options={{ title: 'Все услуги' }}
-          />
-          <Stack.Screen
-            name="EventSingleScreen"
-            component={EventSingleScreen}
-            options={{ title: 'Событие' }}
-          />
-          <Stack.Screen
-            name="ServiceSingleScreen"
-            component={ServiceSingleScreen}
-            options={{ title: 'Услуга' }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </DataContext.Provider>
+      <DataContext.Provider
+        value={{
+          events,
+          services,
+          storeReminder,
+        }}
+      >
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                header: () => null,
+              }}
+            />
+            <Stack.Screen
+              name="Details"
+              component={EventsScreen}
+              options={{ title: 'Все события' }}
+            />
+            <Stack.Screen
+              name="Services"
+              component={ServicesScreen}
+              options={{ title: 'Все услуги' }}
+            />
+            <Stack.Screen
+              name="EventSingleScreen"
+              component={EventSingleScreen}
+              options={{ title: 'Событие' }}
+            />
+            <Stack.Screen
+              name="ServiceSingleScreen"
+              component={ServiceSingleScreen}
+              options={{ title: 'Услуга' }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </DataContext.Provider>
+    </AuthContext.Provider>
   ) : (
     <AppLoading
       startAsync={cacheResourcesAsync}
