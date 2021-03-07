@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import DataContext from '../../context/DataContext';
 import ServicesListItem from '../../components/ServicesListItem';
 import Button from '../../components/Button';
+import NoDataContainer from '../../components/NoDataContainer';
 import { calcSize } from '../../utils/Misc';
+import AuthContext from '../../context/AuthContext';
 
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',
@@ -12,12 +14,19 @@ enum ServiceSortingType {
   // TODO: add more sorting types here
 }
 
+const NOTICES = {
+  CONNECT: 'Подключаемся к базе данных...',
+  LOADING: 'Загружаем события...',
+};
+
 interface ServicesScreenParams {
   navigation: any;
 }
 
 export default function ServicesScreen(props: ServicesScreenParams) {
   const { navigation } = props;
+  const authContext = useContext(AuthContext);
+  const { connectingToFirebase } = authContext;
   const [sortingType, setSortingType] = useState(
     ServiceSortingType.SortByService,
   );
@@ -25,121 +34,127 @@ export default function ServicesScreen(props: ServicesScreenParams) {
   return (
     <View style={styles.backgroundContainer}>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.container}>
-          <DataContext.Consumer>
-            {({ services }) => {
-              if (services.length > 0) {
-                //
-                // NOTE!
-                // При сортировке сначала в результате названия с латинскими буквами
-                //
-                let sorted: any = [];
-                if (sortingType === ServiceSortingType.SortByName) {
-                  sorted = services.sort((a: any, b: any): number => {
-                    return a.name ? a.name.localeCompare(b.name) : 0;
-                  });
-                } else if (sortingType === ServiceSortingType.SortByService) {
-                  sorted = services.sort((a: any, b: any): number => {
-                    return a.service ? a.service.localeCompare(b.service) : 0;
-                  });
-                } else if (sortingType === ServiceSortingType.SortByPrice) {
-                  sorted = services.sort((a: any, b: any): number => {
-                    //
-                    // NOTE!
-                    // Сначала показываем бесплатные услуги
-                    // Потом по возрастанию цены
-                    // В конце - услуги без указания цены
-                    //
-                    if (a.isFree && b.isFree) {
+        {connectingToFirebase ? (
+          <NoDataContainer label={NOTICES.CONNECT} />
+        ) : (
+          <View style={styles.container}>
+            <DataContext.Consumer>
+              {({ services }) => {
+                if (services.length > 0) {
+                  //
+                  // NOTE!
+                  // При сортировке сначала в результате названия с латинскими буквами
+                  //
+                  let sorted: any = [];
+                  if (sortingType === ServiceSortingType.SortByName) {
+                    sorted = services.sort((a: any, b: any): number => {
+                      return a.name ? a.name.localeCompare(b.name) : 0;
+                    });
+                  } else if (sortingType === ServiceSortingType.SortByService) {
+                    sorted = services.sort((a: any, b: any): number => {
+                      return a.service ? a.service.localeCompare(b.service) : 0;
+                    });
+                  } else if (sortingType === ServiceSortingType.SortByPrice) {
+                    sorted = services.sort((a: any, b: any): number => {
+                      //
+                      // NOTE!
+                      // Сначала показываем бесплатные услуги
+                      // Потом по возрастанию цены
+                      // В конце - услуги без указания цены
+                      //
+                      if (a.isFree && b.isFree) {
+                        return 0;
+                      } else if (a.isFree) {
+                        return -1;
+                      } else if (b.isFree) {
+                        return 1;
+                      } else if (a.price && b.price) {
+                        return a.price < b.price ? -1 : 0;
+                      } else if (a.price && !b.price) {
+                        return -1;
+                      } else if (a.price && !b.price) {
+                        return 1;
+                      }
                       return 0;
-                    } else if (a.isFree) {
-                      return -1;
-                    } else if (b.isFree) {
-                      return 1;
-                    } else if (a.price && b.price) {
-                      return a.price < b.price ? -1 : 0;
-                    } else if (a.price && !b.price) {
-                      return -1;
-                    } else if (a.price && !b.price) {
-                      return 1;
-                    }
-                    return 0;
-                  });
-                }
+                    });
+                  }
 
-                return (
-                  <View>
-                    <View style={styles.sortContainer}>
-                      <Text>Сортировка</Text>
-                      <Button
-                        title="Услуга"
-                        onPress={() =>
-                          setSortingType(ServiceSortingType.SortByService)
-                        }
-                        style={
-                          sortingType === ServiceSortingType.SortByService
-                            ? styles.sortButtonFocused
-                            : styles.sortButton
-                        }
-                        selected={
-                          sortingType === ServiceSortingType.SortByService
-                        }
-                      />
-                      <Button
-                        title="Имя"
-                        onPress={() =>
-                          setSortingType(ServiceSortingType.SortByName)
-                        }
-                        style={
-                          sortingType === ServiceSortingType.SortByName
-                            ? styles.sortButtonFocused
-                            : styles.sortButton
-                        }
-                        selected={sortingType === ServiceSortingType.SortByName}
-                      />
-                      <Button
-                        title="Цена"
-                        onPress={() =>
-                          setSortingType(ServiceSortingType.SortByPrice)
-                        }
-                        style={
-                          sortingType === ServiceSortingType.SortByPrice
-                            ? styles.sortButtonFocused
-                            : styles.sortButton
-                        }
-                        selected={
-                          sortingType === ServiceSortingType.SortByPrice
-                        }
-                      />
-                    </View>
-                    {sorted.map((service: any) => {
-                      return (
-                        <ServicesListItem
-                          key={service.id}
-                          service={service}
-                          highlightName={
+                  return (
+                    <View>
+                      <View style={styles.sortContainer}>
+                        <Text>Сортировка</Text>
+                        <Button
+                          title="Услуга"
+                          onPress={() =>
+                            setSortingType(ServiceSortingType.SortByService)
+                          }
+                          style={
+                            sortingType === ServiceSortingType.SortByService
+                              ? styles.sortButtonFocused
+                              : styles.sortButton
+                          }
+                          selected={
+                            sortingType === ServiceSortingType.SortByService
+                          }
+                        />
+                        <Button
+                          title="Имя"
+                          onPress={() =>
+                            setSortingType(ServiceSortingType.SortByName)
+                          }
+                          style={
+                            sortingType === ServiceSortingType.SortByName
+                              ? styles.sortButtonFocused
+                              : styles.sortButton
+                          }
+                          selected={
                             sortingType === ServiceSortingType.SortByName
                           }
-                          onPress={() => {
-                            navigation.navigate('ServiceSingleScreen', {
-                              service,
-                            });
-                          }}
                         />
-                      );
-                    })}
-                  </View>
-                );
-              } else {
-                return (
-                  <View>
-                    <Text style={styles.emptyLabel}>Список пуст</Text>
-                  </View>
-                );
-              }
-            }}
-          </DataContext.Consumer>
-        </View>
+                        <Button
+                          title="Цена"
+                          onPress={() =>
+                            setSortingType(ServiceSortingType.SortByPrice)
+                          }
+                          style={
+                            sortingType === ServiceSortingType.SortByPrice
+                              ? styles.sortButtonFocused
+                              : styles.sortButton
+                          }
+                          selected={
+                            sortingType === ServiceSortingType.SortByPrice
+                          }
+                        />
+                      </View>
+                      {sorted.map((service: any) => {
+                        return (
+                          <ServicesListItem
+                            key={service.id}
+                            service={service}
+                            highlightName={
+                              sortingType === ServiceSortingType.SortByName
+                            }
+                            onPress={() => {
+                              navigation.navigate('ServiceSingleScreen', {
+                                service,
+                              });
+                            }}
+                          />
+                        );
+                      })}
+                    </View>
+                  );
+                } else {
+                  return (
+                    <View>
+                      <Text style={styles.emptyLabel}>Список пуст</Text>
+                    </View>
+                  );
+                }
+              }}
+            </DataContext.Consumer>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
