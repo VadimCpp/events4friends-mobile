@@ -6,7 +6,7 @@ interface IDefaultData {
 }
 
 const defaultData: IDefaultData = {
-  user: null, // object or undefined - текущий авторизованный пользователь firebase
+  user: null, // object or null - текущий авторизованный пользователь firebase
   connectingToFirebase: true, // флаг, который обозначает процесс подключения к базе firebase
 };
 

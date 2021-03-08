@@ -33,11 +33,12 @@ export default function EventsScreen(props: EventsScreenParams) {
   let sortedEvents = [...events];
 
   if (filterType === EventsFilter.Upcoming) {
-    sortedEvents = sortedEvents.filter((event: any) => {
-      return event.start && event.timezone
-        ? moment(`${event.start}${event.timezone}`).toDate() > now
-        : false;
-    });
+    sortedEvents = sortedEvents.filter(
+      (event: any) =>
+        event.start &&
+        event.timezone &&
+        moment(`${event.start}${event.timezone}`).toDate() > now,
+    );
 
     sortedEvents.sort((a: any, b: any) => {
       if (a.start > b.start) {
@@ -48,11 +49,12 @@ export default function EventsScreen(props: EventsScreenParams) {
       return 0;
     });
   } else if (filterType === EventsFilter.Past) {
-    sortedEvents = sortedEvents.filter((event: any) => {
-      return event.start && event.timezone
-        ? moment(`${event.start}${event.timezone}`).toDate() < now
-        : false;
-    });
+    sortedEvents = sortedEvents.filter(
+      (event: any) =>
+        event.start &&
+        event.timezone &&
+        moment(`${event.start}${event.timezone}`).toDate() < now,
+    );
 
     sortedEvents.sort((a: any, b: any) => {
       if (a.start < b.start) {
