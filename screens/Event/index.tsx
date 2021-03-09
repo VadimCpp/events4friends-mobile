@@ -21,14 +21,14 @@ import Button from '../../components/Button';
 import DataContext from '../../context/DataContext';
 
 // interfaces
-import { IEvent } from '../../interfaces';
+import { IEvent, INavigation } from '../../interfaces';
 
 // utils
 import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
 
 interface EventScreenParams {
   route: { params: { event: IEvent } };
-  navigation: { navigate: (route: string, params?: Object) => void };
+  navigation: INavigation;
 }
 
 export default function EventScreen(props: EventScreenParams) {

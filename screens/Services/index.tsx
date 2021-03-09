@@ -14,7 +14,7 @@ import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
 
 // interfaces
-import { IService } from '../../interfaces';
+import { IService, INavigation } from '../../interfaces';
 
 // utils
 import { calcSize } from '../../utils/Misc';
@@ -27,7 +27,7 @@ enum ServiceSortingType {
 }
 
 interface ServicesScreenParams {
-  navigation: { navigate: (route: string, params?: Object) => void };
+  navigation: INavigation;
 }
 
 export default function ServicesScreen(props: ServicesScreenParams) {

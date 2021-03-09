@@ -25,3 +25,11 @@ export interface IService {
   vkontakte?: string;
   phone?: string;
 }
+
+export interface INavigation {
+  navigate: (route: string, params?: Object) => void;
+}
+
+export interface IRoute {
+  params: { service: IService };
+}

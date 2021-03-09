@@ -9,14 +9,14 @@ import {
 import { Linking } from 'expo';
 
 // interfaces
-import { IService } from '../../interfaces';
+import { IService, INavigation, IRoute } from '../../interfaces';
 
 // utils
 import { calcSize, removeTags } from '../../utils/Misc';
 
 interface ServiceScreenParams {
-  route: { params: { service: IService } };
-  navigation: { navigate: (route: string, params?: Object) => void };
+  route: IRoute;
+  navigation: INavigation;
 }
 
 export default function ServiceScreen(props: ServiceScreenParams) {
