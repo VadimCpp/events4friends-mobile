@@ -1,15 +1,24 @@
 import React, { useState, useContext, useCallback } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import moment from 'moment';
+
+// components
 import EventsListItem from '../../components/EventsListItem';
 import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
-import { calcSize } from '../../utils/Misc';
+
+// constants
 import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
+
+// interfaces
+import { IEvent } from '../../interfaces';
+
+// utils
+import { calcSize } from '../../utils/Misc';
 
 enum EventsFilter {
   Upcoming = 'UPCOMING_EVENTS',
@@ -43,13 +52,13 @@ export default function EventsScreen(props: EventsScreenParams) {
 
   if (filterType === EventsFilter.Upcoming) {
     sortedEvents = sortedEvents.filter(
-      (event: any) =>
+      (event: IEvent) =>
         event.start &&
         event.timezone &&
         moment(`${event.start}${event.timezone}`).toDate() > now,
     );
 
-    sortedEvents.sort((a: any, b: any) => {
+    sortedEvents.sort((a: IEvent, b: IEvent) => {
       if (a.start > b.start) {
         return 1;
       } else if (a.start < b.start) {
@@ -59,13 +68,13 @@ export default function EventsScreen(props: EventsScreenParams) {
     });
   } else if (filterType === EventsFilter.Past) {
     sortedEvents = sortedEvents.filter(
-      (event: any) =>
+      (event: IEvent) =>
         event.start &&
         event.timezone &&
         moment(`${event.start}${event.timezone}`).toDate() < now,
     );
 
-    sortedEvents.sort((a: any, b: any) => {
+    sortedEvents.sort((a: IEvent, b: IEvent) => {
       if (a.start < b.start) {
         return 1;
       } else if (a.start > b.start) {
@@ -109,7 +118,7 @@ export default function EventsScreen(props: EventsScreenParams) {
                     selected={filterType === EventsFilter.Past}
                   />
                 </View>
-                {sortedEvents.map((event: any) => {
+                {sortedEvents.map((event: IEvent) => {
                   return (
                     <EventsListItem
                       key={event.id}
