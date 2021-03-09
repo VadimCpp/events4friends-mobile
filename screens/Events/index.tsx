@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import moment from 'moment';
-import DataContext from '../../context/DataContext';
 import EventsListItem from '../../components/EventsListItem';
 import Button from '../../components/Button';
+import NoDataContainer from '../../components/NoDataContainer';
 import { calcSize } from '../../utils/Misc';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../constants';
+
+// contexts
+import AuthContext from '../../context/AuthContext';
+import DataContext from '../../context/DataContext';
 
 enum EventsFilter {
   Upcoming = 'UPCOMING_EVENTS',
@@ -18,98 +23,109 @@ interface EventsScreenParams {
 
 export default function EventsScreen(props: EventsScreenParams) {
   const { navigation } = props;
+  const authContext = useContext(AuthContext);
+  const dataContext = useContext(DataContext);
+  const { connectingToFirebase } = authContext;
+  const { events, loadingEvents } = dataContext;
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
+
+  const onEventPress = useCallback(
+    event => {
+      navigation.navigate('EventScreen', {
+        event,
+      });
+    },
+    [navigation],
+  );
+
+  const now = new Date();
+  let sortedEvents = [...events];
+
+  if (filterType === EventsFilter.Upcoming) {
+    sortedEvents = sortedEvents.filter(
+      (event: any) =>
+        event.start &&
+        event.timezone &&
+        moment(`${event.start}${event.timezone}`).toDate() > now,
+    );
+
+    sortedEvents.sort((a: any, b: any) => {
+      if (a.start > b.start) {
+        return 1;
+      } else if (a.start < b.start) {
+        return -1;
+      }
+      return 0;
+    });
+  } else if (filterType === EventsFilter.Past) {
+    sortedEvents = sortedEvents.filter(
+      (event: any) =>
+        event.start &&
+        event.timezone &&
+        moment(`${event.start}${event.timezone}`).toDate() < now,
+    );
+
+    sortedEvents.sort((a: any, b: any) => {
+      if (a.start < b.start) {
+        return 1;
+      } else if (a.start > b.start) {
+        return -1;
+      }
+      return 0;
+    });
+  }
 
   return (
     <View style={styles.backgroundContainer}>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.container}>
-          <DataContext.Consumer>
-            {({ events }) => {
-              const now = new Date();
-              let sortedEvents = [...events];
-
-              if (filterType === EventsFilter.Upcoming) {
-                sortedEvents = sortedEvents.filter((event: any) => {
-                  return event.start && event.timezone
-                    ? moment(`${event.start}${event.timezone}`).toDate() > now
-                    : false;
-                });
-
-                sortedEvents.sort((a: any, b: any) => {
-                  if (a.start > b.start) {
-                    return 1;
-                  } else if (a.start < b.start) {
-                    return -1;
-                  }
-                  return 0;
-                });
-              } else if (filterType === EventsFilter.Past) {
-                sortedEvents = sortedEvents.filter((event: any) => {
-                  return event.start && event.timezone
-                    ? moment(`${event.start}${event.timezone}`).toDate() < now
-                    : false;
-                });
-
-                sortedEvents.sort((a: any, b: any) => {
-                  if (a.start < b.start) {
-                    return 1;
-                  } else if (a.start > b.start) {
-                    return -1;
-                  }
-                  return 0;
-                });
-              }
-
-              if (sortedEvents.length > 0) {
-                return (
-                  <View>
-                    <View style={styles.filterContainer}>
-                      <Text>Фильтр</Text>
-                      <Button
-                        title="Предстоящие"
-                        onPress={() => setFilterType(EventsFilter.Upcoming)}
-                        style={
-                          filterType === EventsFilter.Upcoming
-                            ? styles.filterButtonFocused
-                            : styles.filterButton
-                        }
-                        selected={filterType === EventsFilter.Upcoming}
-                      />
-                      <Button
-                        title="Прошедшие"
-                        onPress={() => setFilterType(EventsFilter.Past)}
-                        style={
-                          filterType === EventsFilter.Past
-                            ? styles.filterButtonFocused
-                            : styles.filterButton
-                        }
-                        selected={filterType === EventsFilter.Past}
-                      />
-                    </View>
-                    {sortedEvents.map((event: any) => {
-                      return (
-                        <EventsListItem
-                          key={event.id}
-                          event={event}
-                          onPress={() => {
-                            navigation.navigate('EventSingleScreen', { event });
-                          }}
-                        />
-                      );
-                    })}
-                  </View>
-                );
-              } else {
-                return (
-                  <View>
-                    <Text style={styles.emptyLabel}>Список пуст</Text>
-                  </View>
-                );
-              }
-            }}
-          </DataContext.Consumer>
-        </View>
+        {connectingToFirebase || loadingEvents ? (
+          <NoDataContainer
+            label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING}
+          />
+        ) : (
+          <View style={styles.container}>
+            {sortedEvents.length > 0 ? (
+              <View>
+                <View style={styles.filterContainer}>
+                  <Text>Фильтр</Text>
+                  <Button
+                    title="Предстоящие"
+                    onPress={() => setFilterType(EventsFilter.Upcoming)}
+                    style={
+                      filterType === EventsFilter.Upcoming
+                        ? styles.filterButtonFocused
+                        : styles.filterButton
+                    }
+                    selected={filterType === EventsFilter.Upcoming}
+                  />
+                  <Button
+                    title="Прошедшие"
+                    onPress={() => setFilterType(EventsFilter.Past)}
+                    style={
+                      filterType === EventsFilter.Past
+                        ? styles.filterButtonFocused
+                        : styles.filterButton
+                    }
+                    selected={filterType === EventsFilter.Past}
+                  />
+                </View>
+                {sortedEvents.map((event: any) => {
+                  return (
+                    <EventsListItem
+                      key={event.id}
+                      event={event}
+                      onPress={() => onEventPress(event)}
+                    />
+                  );
+                })}
+              </View>
+            ) : (
+              <View>
+                <Text style={styles.emptyLabel}>Список пуст</Text>
+              </View>
+            )}
+          </View>
+        )}
       </ScrollView>
     </View>
   );

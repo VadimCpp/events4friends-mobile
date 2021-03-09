@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Text,
   View,
@@ -17,12 +17,12 @@ import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
 import Button from '../../components/Button';
 import DataContext from '../../context/DataContext';
 
-interface EventSingleScreenParams {
+interface EventScreenParams {
   route: any;
   navigation: any;
 }
 
-export default function EventSingleScreen(props: EventSingleScreenParams) {
+export default function EventScreen(props: EventScreenParams) {
   const { route } = props;
   const { event } = route.params;
 
@@ -149,7 +149,7 @@ export default function EventSingleScreen(props: EventSingleScreenParams) {
 
             TODO:
             реализовать сервис автоматических уведомлений и вернуть код ниже
-           */}
+          */}
           {/* <View style={styles.remindButtonContainer}>
             <DataContext.Consumer>
               {({ storeReminder }) => {

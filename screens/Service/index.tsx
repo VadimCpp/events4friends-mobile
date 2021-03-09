@@ -9,12 +9,12 @@ import {
 import { Linking } from 'expo';
 import { calcSize, removeTags } from '../../utils/Misc';
 
-interface ServiceSingleScreenParams {
+interface ServiceScreenParams {
   route: any;
   navigation: any;
 }
 
-export default function ServiceSingleScreen(props: ServiceSingleScreenParams) {
+export default function ServiceScreen(props: ServiceScreenParams) {
   const { route } = props;
   const { service } = route.params;
 
