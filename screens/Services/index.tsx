@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import ServicesListItem from '../../components/ServicesListItem';
 import Button from '../../components/Button';
@@ -29,6 +29,15 @@ export default function ServicesScreen(props: ServicesScreenParams) {
   const { services, loadingServices } = dataContext;
   const [sortingType, setSortingType] = useState(
     ServiceSortingType.SortByService,
+  );
+
+  const onServicePress = useCallback(
+    service => {
+      navigation.navigate('ServiceScreen', {
+        service,
+      });
+    },
+    [navigation],
   );
 
   //
@@ -127,11 +136,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                       highlightName={
                         sortingType === ServiceSortingType.SortByName
                       }
-                      onPress={() => {
-                        navigation.navigate('ServiceScreen', {
-                          service,
-                        });
-                      }}
+                      onPress={() => onServicePress(service)}
                     />
                   );
                 })}

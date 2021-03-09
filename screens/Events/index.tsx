@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import moment from 'moment';
 import EventsListItem from '../../components/EventsListItem';
@@ -28,6 +28,15 @@ export default function EventsScreen(props: EventsScreenParams) {
   const { connectingToFirebase } = authContext;
   const { events, loadingEvents } = dataContext;
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
+
+  const onEventPress = useCallback(
+    event => {
+      navigation.navigate('EventScreen', {
+        event,
+      });
+    },
+    [navigation],
+  );
 
   const now = new Date();
   let sortedEvents = [...events];
@@ -105,11 +114,7 @@ export default function EventsScreen(props: EventsScreenParams) {
                     <EventsListItem
                       key={event.id}
                       event={event}
-                      onPress={() => {
-                        navigation.navigate('EventScreen', {
-                          event,
-                        });
-                      }}
+                      onPress={() => onEventPress(event)}
                     />
                   );
                 })}
