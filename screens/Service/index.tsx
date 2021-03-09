@@ -7,6 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Linking } from 'expo';
+
+// interfaces
+import { IService } from '../../interfaces';
+
+// utils
 import { calcSize, removeTags } from '../../utils/Misc';
 
 interface ServiceScreenParams {
@@ -16,7 +21,7 @@ interface ServiceScreenParams {
 
 export default function ServiceScreen(props: ServiceScreenParams) {
   const { route } = props;
-  const { service } = route.params;
+  const { service }: { service: IService } = route.params;
 
   let priceTag = null;
 
