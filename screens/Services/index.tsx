@@ -1,14 +1,23 @@
 import React, { useState, useContext, useCallback } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
+
+// components
 import ServicesListItem from '../../components/ServicesListItem';
 import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
-import { calcSize } from '../../utils/Misc';
+
+// constants
 import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
+
+// interfaces
+import { IService, INavigation } from '../../interfaces';
+
+// utils
+import { calcSize } from '../../utils/Misc';
 
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',
@@ -18,7 +27,7 @@ enum ServiceSortingType {
 }
 
 interface ServicesScreenParams {
-  navigation: any;
+  navigation: INavigation;
 }
 
 export default function ServicesScreen(props: ServicesScreenParams) {
@@ -44,17 +53,17 @@ export default function ServicesScreen(props: ServicesScreenParams) {
   // NOTE!
   // При сортировке сначала в результате названия с латинскими буквами
   //
-  let sorted: any = [];
+  let sorted: Array<IService> = [];
   if (sortingType === ServiceSortingType.SortByName) {
-    sorted = services.sort((a: any, b: any): number => {
+    sorted = services.sort((a: IService, b: IService): number => {
       return a.name ? a.name.localeCompare(b.name) : 0;
     });
   } else if (sortingType === ServiceSortingType.SortByService) {
-    sorted = services.sort((a: any, b: any): number => {
+    sorted = services.sort((a: IService, b: IService): number => {
       return a.service ? a.service.localeCompare(b.service) : 0;
     });
   } else if (sortingType === ServiceSortingType.SortByPrice) {
-    sorted = services.sort((a: any, b: any): number => {
+    sorted = services.sort((a: IService, b: IService): number => {
       //
       // NOTE!
       // Сначала показываем бесплатные услуги
@@ -128,7 +137,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                     selected={sortingType === ServiceSortingType.SortByPrice}
                   />
                 </View>
-                {sorted.map((service: any) => {
+                {sorted.map((service: IService) => {
                   return (
                     <ServicesListItem
                       key={service.id}

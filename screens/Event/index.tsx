@@ -13,13 +13,22 @@ import {
 import HTML from 'react-native-render-html';
 import moment from 'moment';
 import { Linking } from 'expo';
-import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
+
+// components
 import Button from '../../components/Button';
+
+// contexts
 import DataContext from '../../context/DataContext';
 
+// interfaces
+import { IEvent, INavigation } from '../../interfaces';
+
+// utils
+import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
+
 interface EventScreenParams {
-  route: any;
-  navigation: any;
+  route: { params: { event: IEvent } };
+  navigation: INavigation;
 }
 
 export default function EventScreen(props: EventScreenParams) {
@@ -59,7 +68,7 @@ export default function EventScreen(props: EventScreenParams) {
   }
 
   // eslint-disable-next-line no-shadow
-  function onLinkPress(event: any, href: string) {
+  function onLinkPress(event: IEvent, href: string) {
     Linking.openURL(href);
   }
 

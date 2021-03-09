@@ -1,11 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+
+// components
 import HomeButton from '../../components/HomeButton';
 import SocialButton from '../../components/SocialButton';
+
+// interfaces
+import { INavigation } from '../../interfaces';
+
+// utils
 import { calcSize } from '../../utils/Misc';
 
 interface HomeScreenParams {
-  navigation: any;
+  navigation: INavigation;
 }
 
 export default function HomeScreen(props: HomeScreenParams) {
