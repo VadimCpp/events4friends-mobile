@@ -5,7 +5,7 @@ import SocialButton from '../../components/SocialButton';
 import { calcSize } from '../../utils/Misc';
 
 interface HomeScreenParams {
-  navigation: any;
+  navigation: { navigate: (route: string, params?: Object) => void };
 }
 
 export default function HomeScreen(props: HomeScreenParams) {

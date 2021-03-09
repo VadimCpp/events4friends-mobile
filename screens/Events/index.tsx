@@ -27,7 +27,7 @@ enum EventsFilter {
 }
 
 interface EventsScreenParams {
-  navigation: any;
+  navigation: { navigate: (route: string, params?: Object) => void };
 }
 
 export default function EventsScreen(props: EventsScreenParams) {

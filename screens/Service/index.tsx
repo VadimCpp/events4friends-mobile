@@ -15,8 +15,8 @@ import { IService } from '../../interfaces';
 import { calcSize, removeTags } from '../../utils/Misc';
 
 interface ServiceScreenParams {
-  route: any;
-  navigation: any;
+  route: { params: { service: IService } };
+  navigation: { navigate: (route: string, params?: Object) => void };
 }
 
 export default function ServiceScreen(props: ServiceScreenParams) {

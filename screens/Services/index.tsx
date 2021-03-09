@@ -27,7 +27,7 @@ enum ServiceSortingType {
 }
 
 interface ServicesScreenParams {
-  navigation: any;
+  navigation: { navigate: (route: string, params?: Object) => void };
 }
 
 export default function ServicesScreen(props: ServicesScreenParams) {

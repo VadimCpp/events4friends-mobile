@@ -27,8 +27,8 @@ import { IEvent } from '../../interfaces';
 import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
 
 interface EventScreenParams {
-  route: any;
-  navigation: any;
+  route: { params: { event: IEvent } };
+  navigation: { navigate: (route: string, params?: Object) => void };
 }
 
 export default function EventScreen(props: EventScreenParams) {
