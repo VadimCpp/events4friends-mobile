@@ -1,6 +1,5 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import moment from 'moment';
 
 // components
 import EventsListItem from '../../components/EventsListItem';
@@ -17,14 +16,14 @@ import DataContext from '../../context/DataContext';
 // interfaces
 import { IEvent, INavigation } from '../../interfaces';
 
+// enums
+import { EventsFilter } from '../../enums';
+
 // utils
 import { calcSize } from '../../utils/Misc';
 
-enum EventsFilter {
-  Upcoming = 'UPCOMING_EVENTS',
-  Past = 'PAST_EVENTS',
-  // TODO: add more types here
-}
+// local
+import useSortedEvents from './hooks/useSortedEvents';
 
 interface EventsScreenParams {
   navigation: INavigation;
@@ -37,6 +36,7 @@ export default function EventsScreen(props: EventsScreenParams) {
   const { connectingToFirebase } = authContext;
   const { events, loadingEvents } = dataContext;
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
+  const [sortedEvents, setSortedEvents] = useState<Array<IEvent>>([]);
 
   const onEventPress = useCallback(
     event => {
@@ -47,76 +47,11 @@ export default function EventsScreen(props: EventsScreenParams) {
     [navigation],
   );
 
-  const getStartDate = useCallback((event: IEvent): Date | null => {
-    let start = null;
-    if (event.start && event.timezone) {
-      start = moment(`${event.start}${event.timezone}`).toDate();
-    }
-    return start;
-  }, []);
+  const { getSortedEvents } = useSortedEvents();
 
-  const getEndDate = useCallback((event: IEvent): Date | null => {
-    let end = null;
-    if (event.end && event.timezone) {
-      end = moment(`${event.end}${event.timezone}`).toDate();
-    } else if (event.start && event.timezone) {
-      //
-      // NOTE!
-      // if no end time set, use start time + 1 hour
-      //
-      end = moment(`${event.start}${event.timezone}`).toDate(); // convert to js Date object
-      end.setTime(end.getTime() + 1 * 60 * 60 * 1000); // add an hour
-    }
-    return end;
-  }, []);
-
-  const now = new Date();
-  let sortedEvents = [...events];
-
-  if (filterType === EventsFilter.Upcoming) {
-    sortedEvents = sortedEvents.filter((event: IEvent) => {
-      let end = getEndDate(event);
-      return end && end > now;
-    });
-
-    sortedEvents.sort((a: IEvent, b: IEvent) => {
-      if (a.start > b.start) {
-        return 1;
-      } else if (a.start < b.start) {
-        return -1;
-      }
-      return 0;
-    });
-  } else if (filterType === EventsFilter.Past) {
-    const currentEvents = sortedEvents.filter((event: IEvent) => {
-      let end = getEndDate(event);
-      let start = getStartDate(event);
-      return end && end > now && start && start < now;
-    });
-    currentEvents.sort((a: IEvent, b: IEvent) => {
-      if (a.start < b.start) {
-        return 1;
-      } else if (a.start > b.start) {
-        return -1;
-      }
-      return 0;
-    });
-
-    const pastEvents = sortedEvents.filter((event: IEvent) => {
-      let end = getEndDate(event);
-      return end && end < now;
-    });
-    pastEvents.sort((a: IEvent, b: IEvent) => {
-      if (a.start < b.start) {
-        return 1;
-      } else if (a.start > b.start) {
-        return -1;
-      }
-      return 0;
-    });
-
-    sortedEvents = [...currentEvents, ...pastEvents];
-  }
+  useEffect(() => {
+    setSortedEvents(getSortedEvents(new Date(), filterType, events));
+  }, [events, filterType, getSortedEvents]);
 
   return (
     <View style={styles.backgroundContainer}>

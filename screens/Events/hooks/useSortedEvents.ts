@@ -1,0 +1,98 @@
+import { useCallback } from 'react';
+import moment from 'moment';
+
+// interfaces
+import { IEvent } from '../../../interfaces';
+
+// enums
+import { EventsFilter } from '../../../enums';
+
+const useSortedEvents = () => {
+  const getStartDate = useCallback((event: IEvent): Date | null => {
+    let start = null;
+    if (event.start && event.timezone) {
+      start = moment(`${event.start}${event.timezone}`).toDate();
+    }
+    return start;
+  }, []);
+
+  const getEndDate = useCallback((event: IEvent): Date | null => {
+    let end = null;
+    if (event.end && event.timezone) {
+      end = moment(`${event.end}${event.timezone}`).toDate();
+    } else if (event.start && event.timezone) {
+      //
+      // NOTE!
+      // if no end time set, use start time + 1 hour
+      //
+      end = moment(`${event.start}${event.timezone}`).toDate(); // convert to js Date object
+      end.setTime(end.getTime() + 1 * 60 * 60 * 1000); // add an hour
+    }
+    return end;
+  }, []);
+
+  const getSortedEvents = useCallback(
+    (
+      _now: Date,
+      _filterType: EventsFilter,
+      _events: Array<IEvent>,
+    ): Array<IEvent> => {
+      const now = _now;
+      const events = _events;
+      const filterType = _filterType;
+      let sortedEvents: Array<IEvent> = [];
+
+      if (filterType === EventsFilter.Upcoming) {
+        sortedEvents = events.filter((event: IEvent) => {
+          let end = getEndDate(event);
+          return end && end > now;
+        });
+
+        sortedEvents.sort((a: IEvent, b: IEvent) => {
+          if (a.start > b.start) {
+            return 1;
+          } else if (a.start < b.start) {
+            return -1;
+          }
+          return 0;
+        });
+      } else if (filterType === EventsFilter.Past) {
+        const currentEvents = events.filter((event: IEvent) => {
+          let end = getEndDate(event);
+          let start = getStartDate(event);
+          return end && end > now && start && start < now;
+        });
+        currentEvents.sort((a: IEvent, b: IEvent) => {
+          if (a.start < b.start) {
+            return 1;
+          } else if (a.start > b.start) {
+            return -1;
+          }
+          return 0;
+        });
+
+        const pastEvents = events.filter((event: IEvent) => {
+          let end = getEndDate(event);
+          return end && end < now;
+        });
+        pastEvents.sort((a: IEvent, b: IEvent) => {
+          if (a.start < b.start) {
+            return 1;
+          } else if (a.start > b.start) {
+            return -1;
+          }
+          return 0;
+        });
+
+        sortedEvents = [...currentEvents, ...pastEvents];
+      }
+
+      return sortedEvents;
+    },
+    [getStartDate, getEndDate],
+  );
+
+  return { getSortedEvents };
+};
+
+export default useSortedEvents;
