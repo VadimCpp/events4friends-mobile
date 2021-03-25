@@ -88,16 +88,12 @@ export default function EventsScreen(props: EventsScreenParams) {
       return 0;
     });
   } else if (filterType === EventsFilter.Past) {
-    sortedEvents = sortedEvents.filter((event: IEvent) => {
+    const currentEvents = sortedEvents.filter((event: IEvent) => {
       let end = getEndDate(event);
       let start = getStartDate(event);
-      if (end && end > now && start && start < now) {
-        console.log('event', event);
-      }
-      return (end && end < now) || (end && end > now && start && start < now);
+      return end && end > now && start && start < now;
     });
-
-    sortedEvents.sort((a: IEvent, b: IEvent) => {
+    currentEvents.sort((a: IEvent, b: IEvent) => {
       if (a.start < b.start) {
         return 1;
       } else if (a.start > b.start) {
@@ -105,6 +101,21 @@ export default function EventsScreen(props: EventsScreenParams) {
       }
       return 0;
     });
+
+    const pastEvents = sortedEvents.filter((event: IEvent) => {
+      let end = getEndDate(event);
+      return end && end < now;
+    });
+    pastEvents.sort((a: IEvent, b: IEvent) => {
+      if (a.start < b.start) {
+        return 1;
+      } else if (a.start > b.start) {
+        return -1;
+      }
+      return 0;
+    });
+
+    sortedEvents = [...currentEvents, ...pastEvents];
   }
 
   return (
