@@ -85,6 +85,12 @@ const useSortedEvents = () => {
         });
 
         sortedEvents = [...currentEvents, ...pastEvents];
+
+        //
+        // NOTE!
+        // Cut array to 10 items to increase performance
+        //
+        sortedEvents = sortedEvents.slice(0, 9);
       }
 
       return sortedEvents;
