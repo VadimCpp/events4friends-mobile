@@ -51,12 +51,20 @@ export default function EventsScreen(props: EventsScreenParams) {
   let sortedEvents = [...events];
 
   if (filterType === EventsFilter.Upcoming) {
-    sortedEvents = sortedEvents.filter(
-      (event: IEvent) =>
-        event.start &&
-        event.timezone &&
-        moment(`${event.start}${event.timezone}`).toDate() > now,
-    );
+    sortedEvents = sortedEvents.filter((event: IEvent) => {
+      let endTime = null;
+      if (event.end && event.timezone) {
+        endTime = moment(`${event.end}${event.timezone}`).toDate();
+      } else if (event.start && event.timezone) {
+        //
+        // NOTE!
+        // if no end time set, use start time + 1 hour
+        //
+        endTime = moment(`${event.start}${event.timezone}`).toDate(); // convert to js Date object
+        endTime.setTime(endTime.getTime() + 1 * 60 * 60 * 1000); // add an hour
+      }
+      return endTime && endTime > now;
+    });
 
     sortedEvents.sort((a: IEvent, b: IEvent) => {
       if (a.start > b.start) {
