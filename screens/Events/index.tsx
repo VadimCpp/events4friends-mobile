@@ -47,23 +47,36 @@ export default function EventsScreen(props: EventsScreenParams) {
     [navigation],
   );
 
+  const getStartDate = useCallback((event: IEvent): Date | null => {
+    let start = null;
+    if (event.start && event.timezone) {
+      start = moment(`${event.start}${event.timezone}`).toDate();
+    }
+    return start;
+  }, []);
+
+  const getEndDate = useCallback((event: IEvent): Date | null => {
+    let end = null;
+    if (event.end && event.timezone) {
+      end = moment(`${event.end}${event.timezone}`).toDate();
+    } else if (event.start && event.timezone) {
+      //
+      // NOTE!
+      // if no end time set, use start time + 1 hour
+      //
+      end = moment(`${event.start}${event.timezone}`).toDate(); // convert to js Date object
+      end.setTime(end.getTime() + 1 * 60 * 60 * 1000); // add an hour
+    }
+    return end;
+  }, []);
+
   const now = new Date();
   let sortedEvents = [...events];
 
   if (filterType === EventsFilter.Upcoming) {
     sortedEvents = sortedEvents.filter((event: IEvent) => {
-      let endTime = null;
-      if (event.end && event.timezone) {
-        endTime = moment(`${event.end}${event.timezone}`).toDate();
-      } else if (event.start && event.timezone) {
-        //
-        // NOTE!
-        // if no end time set, use start time + 1 hour
-        //
-        endTime = moment(`${event.start}${event.timezone}`).toDate(); // convert to js Date object
-        endTime.setTime(endTime.getTime() + 1 * 60 * 60 * 1000); // add an hour
-      }
-      return endTime && endTime > now;
+      let end = getEndDate(event);
+      return end && end > now;
     });
 
     sortedEvents.sort((a: IEvent, b: IEvent) => {
@@ -75,12 +88,14 @@ export default function EventsScreen(props: EventsScreenParams) {
       return 0;
     });
   } else if (filterType === EventsFilter.Past) {
-    sortedEvents = sortedEvents.filter(
-      (event: IEvent) =>
-        event.start &&
-        event.timezone &&
-        moment(`${event.start}${event.timezone}`).toDate() < now,
-    );
+    sortedEvents = sortedEvents.filter((event: IEvent) => {
+      let end = getEndDate(event);
+      let start = getStartDate(event);
+      if (end && end > now && start && start < now) {
+        console.log('event', event);
+      }
+      return (end && end < now) || (end && end > now && start && start < now);
+    });
 
     sortedEvents.sort((a: IEvent, b: IEvent) => {
       if (a.start < b.start) {
