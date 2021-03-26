@@ -7,7 +7,7 @@ import { IEvent } from '../interfaces';
 // enums
 import { EventsFilter } from '../enums';
 
-const useSortedEvents = () => {
+const useEventsLogic = () => {
   const getStartDate = useCallback((event: IEvent): Date | null => {
     let start = null;
     if (event.start && event.timezone) {
@@ -92,7 +92,17 @@ const useSortedEvents = () => {
     [getStartDate, getEndDate],
   );
 
-  return { getSortedEvents };
+  const isCurrentEvent = useCallback(
+    (event: IEvent) => {
+      const now = new Date();
+      let end = getEndDate(event);
+      let start = getStartDate(event);
+      return end && end > now && start && start < now;
+    },
+    [getEndDate, getStartDate],
+  );
+
+  return { getSortedEvents, isCurrentEvent };
 };
 
-export default useSortedEvents;
+export default useEventsLogic;
