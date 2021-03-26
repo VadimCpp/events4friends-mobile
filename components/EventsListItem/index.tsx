@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-import moment from 'moment';
 
 // hooks
 import useEventsLogic from '../../hooks/useEventsLogic';
 
 // utils
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
-import { calcSize, timeZoneToCityName } from '../../utils/Misc';
+import { calcSize } from '../../utils/Misc';
 
 interface EventsListItemParams {
   event: any;
@@ -16,12 +15,15 @@ interface EventsListItemParams {
 
 export default function EventsListItem(props: EventsListItemParams) {
   const { event, onPress } = props;
-  const startDate = moment(`${event.start}`).format('D MMMM, dddd');
-  const startTime = `${moment(event.start).format(
-    'HH:mm',
-  )} ${timeZoneToCityName(event.timezone)}`;
+  const {
+    isCurrentEvent,
+    isStartWithinAnHourEvent,
+    getVerboseDate,
+    getVerboseTime,
+  } = useEventsLogic();
 
-  const { isCurrentEvent, isStartWithinAnHourEvent } = useEventsLogic();
+  const startDate = getVerboseDate(event);
+  const startTime = getVerboseTime(event);
 
   return (
     <TouchableOpacity

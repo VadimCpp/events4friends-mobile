@@ -7,6 +7,9 @@ import { IEvent } from '../interfaces';
 // enums
 import { EventsFilter } from '../enums';
 
+// utils
+import { timeZoneToCityName } from '../utils/Misc';
+
 const useEventsLogic = () => {
   const getStartDate = useCallback((event: IEvent): Date | null => {
     let start = null;
@@ -115,7 +118,23 @@ const useEventsLogic = () => {
     [getStartDate],
   );
 
-  return { getSortedEvents, isCurrentEvent, isStartWithinAnHourEvent };
+  const getVerboseDate = useCallback((event: IEvent) => {
+    return moment(`${event.start}`).format('D MMMM, dddd');
+  }, []);
+
+  const getVerboseTime = useCallback((event: IEvent) => {
+    return `${moment(event.start).format('HH:mm')} ${timeZoneToCityName(
+      event.timezone,
+    )}`;
+  }, []);
+
+  return {
+    getSortedEvents,
+    isCurrentEvent,
+    isStartWithinAnHourEvent,
+    getVerboseDate,
+    getVerboseTime,
+  };
 };
 
 export default useEventsLogic;
