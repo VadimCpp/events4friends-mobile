@@ -11,10 +11,10 @@ interface EventsListItemParams {
 
 export default function EventsListItem(props: EventsListItemParams) {
   const { event, onPress } = props;
-  const startDate = moment(`${event.start}`).format(
-    'D MMMM, dddd',
-  );
-  const startTime = `${moment(event.start).format('HH:mm')} ${timeZoneToCityName(event.timezone)}`;
+  const startDate = moment(`${event.start}`).format('D MMMM, dddd');
+  const startTime = `${moment(event.start).format(
+    'HH:mm',
+  )} ${timeZoneToCityName(event.timezone)}`;
 
   return (
     <TouchableOpacity
