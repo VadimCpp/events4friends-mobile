@@ -123,9 +123,24 @@ const useEventsLogic = () => {
   }, []);
 
   const getVerboseTime = useCallback((event: IEvent) => {
-    return `${moment(event.start).format('HH:mm')} ${timeZoneToCityName(
+    const withTimezone = moment(`${event.start}${event.timezone}`)
+      .toDate()
+      .getTime();
+    const noTimezone = moment(`${event.start}`)
+      .toDate()
+      .getTime();
+
+    let verbose = `${moment(event.start).format('HH:mm')} ${timeZoneToCityName(
       event.timezone,
     )}`;
+    if (withTimezone !== noTimezone) {
+      const localTime = `${moment(`${event.start}${event.timezone}`).format(
+        'HH:mm',
+      )}`;
+      verbose += ` (${localTime} по вашему времени)`;
+    }
+
+    return verbose;
   }, []);
 
   return {
