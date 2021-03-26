@@ -1,8 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-import moment from 'moment';
+
+// hooks
+import useEventsLogic from '../../hooks/useEventsLogic';
+
+// utils
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
-import { calcSize, timeZoneToCityName } from '../../utils/Misc';
+import { calcSize } from '../../utils/Misc';
 
 interface EventsListItemParams {
   event: any;
@@ -11,10 +15,15 @@ interface EventsListItemParams {
 
 export default function EventsListItem(props: EventsListItemParams) {
   const { event, onPress } = props;
-  const startDate = moment(`${event.start}`).format(
-    'D MMMM, dddd',
-  );
-  const startTime = `${moment(event.start).format('HH:mm')} ${timeZoneToCityName(event.timezone)}`;
+  const {
+    isCurrentEvent,
+    isStartWithinAnHourEvent,
+    getVerboseDate,
+    getVerboseTime,
+  } = useEventsLogic();
+
+  const startDate = getVerboseDate(event);
+  const startTime = getVerboseTime(event);
 
   return (
     <TouchableOpacity
@@ -29,6 +38,15 @@ export default function EventsListItem(props: EventsListItemParams) {
         </Text>
       </View>
       <View style={styles.hr} />
+      <View style={styles.labelContainer}>
+        {isCurrentEvent(event) ? (
+          <Text style={styles.labelText}>Идет сейчас</Text>
+        ) : (
+          isStartWithinAnHourEvent(event) && (
+            <Text style={styles.labelText}>Начнется в течение часа</Text>
+          )
+        )}
+      </View>
       <View style={styles.datetimeContainer}>
         <Image
           style={styles.iconTime}
@@ -96,8 +114,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#EC7B28',
     marginHorizontal: calcSize(9),
   },
+  labelContainer: {
+    paddingHorizontal: calcSize(13),
+    paddingTop: 7,
+    height: 35,
+  },
+  labelText: {
+    color: 'red',
+  },
   datetimeContainer: {
-    marginTop: 20,
     marginHorizontal: calcSize(10),
     flexDirection: 'row',
   },

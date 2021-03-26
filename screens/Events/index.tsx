@@ -1,6 +1,5 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import moment from 'moment';
 
 // components
 import EventsListItem from '../../components/EventsListItem';
@@ -14,17 +13,17 @@ import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../constants';
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
 
+// enums
+import { EventsFilter } from '../../enums';
+
 // interfaces
 import { IEvent, INavigation } from '../../interfaces';
 
+// hooks
+import useEventsLogic from '../../hooks/useEventsLogic';
+
 // utils
 import { calcSize } from '../../utils/Misc';
-
-enum EventsFilter {
-  Upcoming = 'UPCOMING_EVENTS',
-  Past = 'PAST_EVENTS',
-  // TODO: add more types here
-}
 
 interface EventsScreenParams {
   navigation: INavigation;
@@ -37,6 +36,7 @@ export default function EventsScreen(props: EventsScreenParams) {
   const { connectingToFirebase } = authContext;
   const { events, loadingEvents } = dataContext;
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
+  const [sortedEvents, setSortedEvents] = useState<Array<IEvent>>([]);
 
   const onEventPress = useCallback(
     event => {
@@ -47,42 +47,11 @@ export default function EventsScreen(props: EventsScreenParams) {
     [navigation],
   );
 
-  const now = new Date();
-  let sortedEvents = [...events];
+  const { getSortedEvents } = useEventsLogic();
 
-  if (filterType === EventsFilter.Upcoming) {
-    sortedEvents = sortedEvents.filter(
-      (event: IEvent) =>
-        event.start &&
-        event.timezone &&
-        moment(`${event.start}${event.timezone}`).toDate() > now,
-    );
-
-    sortedEvents.sort((a: IEvent, b: IEvent) => {
-      if (a.start > b.start) {
-        return 1;
-      } else if (a.start < b.start) {
-        return -1;
-      }
-      return 0;
-    });
-  } else if (filterType === EventsFilter.Past) {
-    sortedEvents = sortedEvents.filter(
-      (event: IEvent) =>
-        event.start &&
-        event.timezone &&
-        moment(`${event.start}${event.timezone}`).toDate() < now,
-    );
-
-    sortedEvents.sort((a: IEvent, b: IEvent) => {
-      if (a.start < b.start) {
-        return 1;
-      } else if (a.start > b.start) {
-        return -1;
-      }
-      return 0;
-    });
-  }
+  useEffect(() => {
+    setSortedEvents(getSortedEvents(events, filterType));
+  }, [events, filterType, getSortedEvents]);
 
   return (
     <View style={styles.backgroundContainer}>
