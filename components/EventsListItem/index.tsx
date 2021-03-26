@@ -21,7 +21,7 @@ export default function EventsListItem(props: EventsListItemParams) {
     'HH:mm',
   )} ${timeZoneToCityName(event.timezone)}`;
 
-  const { isCurrentEvent } = useEventsLogic();
+  const { isCurrentEvent, isStartWithinAnHourEvent } = useEventsLogic();
 
   return (
     <TouchableOpacity
@@ -37,8 +37,12 @@ export default function EventsListItem(props: EventsListItemParams) {
       </View>
       <View style={styles.hr} />
       <View style={styles.labelContainer}>
-        {isCurrentEvent(event) && (
+        {isCurrentEvent(event) ? (
           <Text style={styles.labelText}>Идет сейчас</Text>
+        ) : (
+          isStartWithinAnHourEvent(event) && (
+            <Text style={styles.labelText}>Начнется в течение часа</Text>
+          )
         )}
       </View>
       <View style={styles.datetimeContainer}>

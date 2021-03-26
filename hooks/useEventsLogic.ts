@@ -102,7 +102,20 @@ const useEventsLogic = () => {
     [getEndDate, getStartDate],
   );
 
-  return { getSortedEvents, isCurrentEvent };
+  const isStartWithinAnHourEvent = useCallback(
+    (event: IEvent) => {
+      const now = new Date();
+      let start = getStartDate(event);
+      let minusHour = new Date();
+      if (start) {
+        minusHour.setTime(start.getTime() - 1 * 60 * 60 * 1000); // extract an hour
+      }
+      return start && start > now && minusHour && minusHour < now;
+    },
+    [getStartDate],
+  );
+
+  return { getSortedEvents, isCurrentEvent, isStartWithinAnHourEvent };
 };
 
 export default useEventsLogic;
