@@ -23,7 +23,7 @@ import { EventsFilter } from '../../enums';
 import { calcSize } from '../../utils/Misc';
 
 // local
-import useSortedEvents from './hooks/useSortedEvents';
+import useSortedEvents from '../../hooks/useSortedEvents';
 
 interface EventsScreenParams {
   navigation: INavigation;

@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 import moment from 'moment';
 
 // interfaces
-import { IEvent } from '../../../interfaces';
+import { IEvent } from '../interfaces';
 
 // enums
-import { EventsFilter } from '../../../enums';
+import { EventsFilter } from '../enums';
 
 const useSortedEvents = () => {
   const getStartDate = useCallback((event: IEvent): Date | null => {

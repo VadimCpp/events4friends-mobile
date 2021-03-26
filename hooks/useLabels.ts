@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import moment from 'moment';
 
 // interfaces
-import { IEvent } from '../../../interfaces';
+import { IEvent } from '../interfaces';
 
 const useLabels = () => {
   const getStartDate = useCallback((event: IEvent): Date | null => {
