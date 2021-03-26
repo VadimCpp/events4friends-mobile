@@ -32,14 +32,8 @@ const useSortedEvents = () => {
   }, []);
 
   const getSortedEvents = useCallback(
-    (
-      _now: Date,
-      _filterType: EventsFilter,
-      _events: Array<IEvent>,
-    ): Array<IEvent> => {
-      const now = _now;
-      const events = _events;
-      const filterType = _filterType;
+    (events: Array<IEvent>, filterType: EventsFilter): Array<IEvent> => {
+      const now = new Date();
       let sortedEvents: Array<IEvent> = [];
 
       if (filterType === EventsFilter.Upcoming) {

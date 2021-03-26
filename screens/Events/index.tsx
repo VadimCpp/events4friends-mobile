@@ -50,7 +50,7 @@ export default function EventsScreen(props: EventsScreenParams) {
   const { getSortedEvents } = useSortedEvents();
 
   useEffect(() => {
-    setSortedEvents(getSortedEvents(new Date(), filterType, events));
+    setSortedEvents(getSortedEvents(events, filterType));
   }, [events, filterType, getSortedEvents]);
 
   return (
