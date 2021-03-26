@@ -11,7 +11,6 @@ import {
   Dimensions,
 } from 'react-native';
 import HTML from 'react-native-render-html';
-import moment from 'moment';
 import { Linking } from 'expo';
 
 // components
@@ -23,8 +22,11 @@ import DataContext from '../../context/DataContext';
 // interfaces
 import { IEvent, INavigation } from '../../interfaces';
 
+// hooks
+import useEventsLogic from '../../hooks/useEventsLogic';
+
 // utils
-import { removeTags, calcSize, timeZoneToCityName } from '../../utils/Misc';
+import { removeTags, calcSize } from '../../utils/Misc';
 
 interface EventScreenParams {
   route: { params: { event: IEvent } };
@@ -38,10 +40,15 @@ export default function EventScreen(props: EventScreenParams) {
   const [reminder, setReminder] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
-  const startDate = moment(`${event.start}`).format('D MMMM, dddd');
-  const startTime = `${moment(event.start).format(
-    'HH:mm',
-  )} ${timeZoneToCityName(event.timezone)}`;
+  const {
+    isCurrentEvent,
+    isStartWithinAnHourEvent,
+    getVerboseDate,
+    getVerboseTime,
+  } = useEventsLogic();
+
+  const startDate = getVerboseDate(event);
+  const startTime = getVerboseTime(event);
 
   useEffect(() => {
     (async function asyncWrapper() {
@@ -79,6 +86,15 @@ export default function EventScreen(props: EventScreenParams) {
         contentContainerStyle={styles.contentContainer}
       >
         <View style={styles.innerContainer}>
+          <View style={styles.labelContainer}>
+            {isCurrentEvent(event) ? (
+              <Text style={styles.labelText}>Идет сейчас</Text>
+            ) : (
+              isStartWithinAnHourEvent(event) && (
+                <Text style={styles.labelText}>Начнется в течение часа</Text>
+              )
+            )}
+          </View>
           <View style={styles.datePlaceContainer}>
             <View style={styles.datetimeContainer}>
               <Image
@@ -246,11 +262,19 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
   },
+  labelContainer: {
+    paddingHorizontal: calcSize(13),
+    paddingTop: 15,
+    height: 30,
+  },
+  labelText: {
+    color: 'red',
+  },
   datePlaceContainer: {
     width: '100%',
   },
   datetimeContainer: {
-    marginTop: 50,
+    marginTop: 20,
     marginHorizontal: calcSize(10),
     flexDirection: 'row',
   },
