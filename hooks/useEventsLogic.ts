@@ -1,14 +1,10 @@
 import { useCallback } from 'react';
 import moment from 'moment';
 
-// interfaces
-import { IEvent } from '../interfaces';
-
-// enums
-import { EventsFilter } from '../enums';
-
 // utils
+import { IEvent } from '../utils/interfaces';
 import { timeZoneToCityName } from '../utils/misc';
+import { EventsFilter } from '../utils/enums';
 
 const useEventsLogic = () => {
   const getStartDate = useCallback((event: IEvent): Date | null => {

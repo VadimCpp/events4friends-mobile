@@ -8,10 +8,8 @@ import {
 } from 'react-native';
 import { Linking } from 'expo';
 
-// interfaces
-import { IService, INavigation, IRoute } from '../../interfaces';
-
 // utils
+import { IService, INavigation, IRoute } from '../../utils/interfaces';
 import { calcSize, removeTags } from '../../utils/misc';
 
 interface ServiceScreenParams {

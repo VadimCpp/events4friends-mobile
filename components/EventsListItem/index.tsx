@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import useEventsLogic from '../../hooks/useEventsLogic';
 
 // utils
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
 
 interface EventsListItemParams {

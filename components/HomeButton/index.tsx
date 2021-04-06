@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native';
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
 
 interface HomeButtonParams {

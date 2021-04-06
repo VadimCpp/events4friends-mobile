@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
+
+// utils
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
 
 interface ServicesListItemParams {

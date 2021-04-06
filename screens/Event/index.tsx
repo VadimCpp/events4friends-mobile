@@ -19,13 +19,11 @@ import Button from '../../components/Button';
 // contexts
 import DataContext from '../../context/DataContext';
 
-// interfaces
-import { IEvent, INavigation } from '../../interfaces';
-
 // hooks
 import useEventsLogic from '../../hooks/useEventsLogic';
 
 // utils
+import { IEvent, INavigation } from '../../utils/interfaces';
 import { removeTags, calcSize } from '../../utils/misc';
 
 interface EventScreenParams {

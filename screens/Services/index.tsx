@@ -6,17 +6,13 @@ import ServicesListItem from '../../components/ServicesListItem';
 import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 
-// constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../constants';
-
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
 
-// interfaces
-import { IService, INavigation } from '../../interfaces';
-
 // utils
+import { IService, INavigation } from '../../utils/interfaces';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
 
 enum ServiceSortingType {
