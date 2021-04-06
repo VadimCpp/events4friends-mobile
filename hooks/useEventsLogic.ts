@@ -55,8 +55,8 @@ const useEventsLogic = () => {
         });
       } else if (filterType === EventsFilter.Past) {
         const currentEvents = events.filter((event: IEvent) => {
-          let end = getEndDate(event);
-          let start = getStartDate(event);
+          const end = getEndDate(event);
+          const start = getStartDate(event);
           return end && end > now && start && start < now;
         });
         currentEvents.sort((a: IEvent, b: IEvent) => {
@@ -98,8 +98,8 @@ const useEventsLogic = () => {
   const isCurrentEvent = useCallback(
     (event: IEvent) => {
       const now = new Date();
-      let end = getEndDate(event);
-      let start = getStartDate(event);
+      const end = getEndDate(event);
+      const start = getStartDate(event);
       return end && end > now && start && start < now;
     },
     [getEndDate, getStartDate],
@@ -108,8 +108,8 @@ const useEventsLogic = () => {
   const isStartWithinAnHourEvent = useCallback(
     (event: IEvent) => {
       const now = new Date();
-      let start = getStartDate(event);
-      let minusHour = new Date();
+      const start = getStartDate(event);
+      const minusHour = new Date();
       if (start) {
         minusHour.setTime(start.getTime() - 1 * 60 * 60 * 1000); // extract an hour
       }
