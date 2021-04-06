@@ -1,12 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
-// hooks
-import useEventsLogic from '../../hooks/useEventsLogic';
-
 // utils
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
+import {
+  isCurrentEvent,
+  isStartWithinAnHourEvent,
+  getVerboseDate,
+  getVerboseTime,
+} from '../../utils/eventsLogic';
 
 interface EventsListItemParams {
   event: any;
@@ -15,12 +18,6 @@ interface EventsListItemParams {
 
 export default function EventsListItem(props: EventsListItemParams) {
   const { event, onPress } = props;
-  const {
-    isCurrentEvent,
-    isStartWithinAnHourEvent,
-    getVerboseDate,
-    getVerboseTime,
-  } = useEventsLogic();
 
   const startDate = getVerboseDate(event);
   const startTime = getVerboseTime(event);

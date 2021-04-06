@@ -13,13 +13,11 @@ import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
 
-// hooks
-import useEventsLogic from '../../hooks/useEventsLogic';
-
 // utils
 import { EventsFilter } from '../../utils/enums';
 import { IEvent, INavigation } from '../../utils/interfaces';
 import { calcSize } from '../../utils/misc';
+import { getSortedEvents } from '../../utils/eventsLogic';
 
 interface EventsScreenParams {
   navigation: INavigation;
@@ -43,11 +41,9 @@ export default function EventsScreen(props: EventsScreenParams) {
     [navigation],
   );
 
-  const { getSortedEvents } = useEventsLogic();
-
   useEffect(() => {
     setSortedEvents(getSortedEvents(events, filterType));
-  }, [events, filterType, getSortedEvents]);
+  }, [events, filterType]);
 
   return (
     <View style={styles.backgroundContainer}>
