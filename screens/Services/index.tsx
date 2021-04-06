@@ -17,7 +17,7 @@ import DataContext from '../../context/DataContext';
 import { IService, INavigation } from '../../interfaces';
 
 // utils
-import { calcSize } from '../../utils/Misc';
+import { calcSize } from '../../utils/misc';
 
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',

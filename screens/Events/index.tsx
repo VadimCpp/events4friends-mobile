@@ -23,7 +23,7 @@ import { IEvent, INavigation } from '../../interfaces';
 import useEventsLogic from '../../hooks/useEventsLogic';
 
 // utils
-import { calcSize } from '../../utils/Misc';
+import { calcSize } from '../../utils/misc';
 
 interface EventsScreenParams {
   navigation: INavigation;

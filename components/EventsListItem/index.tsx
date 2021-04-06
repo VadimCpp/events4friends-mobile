@@ -6,7 +6,7 @@ import useEventsLogic from '../../hooks/useEventsLogic';
 
 // utils
 import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
-import { calcSize } from '../../utils/Misc';
+import { calcSize } from '../../utils/misc';
 
 interface EventsListItemParams {
   event: any;

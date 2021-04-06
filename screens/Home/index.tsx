@@ -9,7 +9,7 @@ import SocialButton from '../../components/SocialButton';
 import { INavigation } from '../../interfaces';
 
 // utils
-import { calcSize } from '../../utils/Misc';
+import { calcSize } from '../../utils/misc';
 
 interface HomeScreenParams {
   navigation: INavigation;

@@ -12,7 +12,7 @@ import { Linking } from 'expo';
 import { IService, INavigation, IRoute } from '../../interfaces';
 
 // utils
-import { calcSize, removeTags } from '../../utils/Misc';
+import { calcSize, removeTags } from '../../utils/misc';
 
 interface ServiceScreenParams {
   route: IRoute;

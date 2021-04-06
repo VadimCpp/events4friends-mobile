@@ -26,7 +26,7 @@ import { IEvent, INavigation } from '../../interfaces';
 import useEventsLogic from '../../hooks/useEventsLogic';
 
 // utils
-import { removeTags, calcSize } from '../../utils/Misc';
+import { removeTags, calcSize } from '../../utils/misc';
 
 interface EventScreenParams {
   route: { params: { event: IEvent } };

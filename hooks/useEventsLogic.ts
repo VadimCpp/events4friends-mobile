@@ -8,7 +8,7 @@ import { IEvent } from '../interfaces';
 import { EventsFilter } from '../enums';
 
 // utils
-import { timeZoneToCityName } from '../utils/Misc';
+import { timeZoneToCityName } from '../utils/misc';
 
 const useEventsLogic = () => {
   const getStartDate = useCallback((event: IEvent): Date | null => {
