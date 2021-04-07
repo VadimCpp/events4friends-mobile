@@ -5,11 +5,9 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import HomeButton from '../../components/HomeButton';
 import SocialButton from '../../components/SocialButton';
 
-// interfaces
-import { INavigation } from '../../interfaces';
-
 // utils
-import { calcSize } from '../../utils/Misc';
+import { INavigation } from '../../utils/interfaces';
+import { calcSize } from '../../utils/misc';
 
 interface HomeScreenParams {
   navigation: INavigation;

@@ -7,23 +7,17 @@ import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
 
-// enums
-import { EventsFilter } from '../../enums';
-
-// interfaces
-import { IEvent, INavigation } from '../../interfaces';
-
-// hooks
-import useEventsLogic from '../../hooks/useEventsLogic';
-
 // utils
-import { calcSize } from '../../utils/Misc';
+import { EventsFilter } from '../../utils/enums';
+import { IEvent, INavigation } from '../../utils/interfaces';
+import { calcSize } from '../../utils/misc';
+import { getSortedEvents } from '../../utils/eventsLogic';
 
 interface EventsScreenParams {
   navigation: INavigation;
@@ -47,11 +41,9 @@ export default function EventsScreen(props: EventsScreenParams) {
     [navigation],
   );
 
-  const { getSortedEvents } = useEventsLogic();
-
   useEffect(() => {
     setSortedEvents(getSortedEvents(events, filterType));
-  }, [events, filterType, getSortedEvents]);
+  }, [events, filterType]);
 
   return (
     <View style={styles.backgroundContainer}>

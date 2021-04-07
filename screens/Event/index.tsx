@@ -19,15 +19,15 @@ import Button from '../../components/Button';
 // contexts
 import DataContext from '../../context/DataContext';
 
-// interfaces
-import { IEvent, INavigation } from '../../interfaces';
-
-// hooks
-import useEventsLogic from '../../hooks/useEventsLogic';
-
 // utils
-import { removeTags, calcSize } from '../../utils/Misc';
-
+import { IEvent, INavigation } from '../../utils/interfaces';
+import { removeTags, calcSize } from '../../utils/misc';
+import {
+  isCurrentEvent,
+  isStartWithinAnHourEvent,
+  getVerboseDate,
+  getVerboseTime,
+} from '../../utils/eventsLogic';
 interface EventScreenParams {
   route: { params: { event: IEvent } };
   navigation: INavigation;
@@ -39,13 +39,6 @@ export default function EventScreen(props: EventScreenParams) {
 
   const [reminder, setReminder] = useState(false);
   const [disabled, setDisabled] = useState(false);
-
-  const {
-    isCurrentEvent,
-    isStartWithinAnHourEvent,
-    getVerboseDate,
-    getVerboseTime,
-  } = useEventsLogic();
 
   const startDate = getVerboseDate(event);
   const startTime = getVerboseTime(event);

@@ -36,7 +36,10 @@ export function removeTags(html: string): string {
 }
 
 export function timeZoneToCityName(timezone: string): string {
-  if (timezone === `+0200`) return 'Клд';
-  if (timezone === `+0300`) return 'Мск';
+  if (timezone === '+0200') {
+    return 'Клд';
+  } else if (timezone === '+0300') {
+    return 'Мск';
+  }
   return '';
 }

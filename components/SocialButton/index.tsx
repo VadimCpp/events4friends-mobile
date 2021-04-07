@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Linking } from 'expo';
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/Constants';
-import { calcSize } from '../../utils/Misc';
+
+// utils
+import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
+import { calcSize } from '../../utils/misc';
 
 interface SocialButtonParams {
   url: string;
