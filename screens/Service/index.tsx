@@ -12,6 +12,9 @@ import { Linking } from 'expo';
 import { IService, INavigation, IRoute } from '../../utils/interfaces';
 import { calcSize, removeTags } from '../../utils/misc';
 
+// local
+import WhatsappLink from './components/WhatsappLink';
+
 interface ServiceScreenParams {
   route: IRoute;
   navigation: INavigation;
@@ -80,26 +83,8 @@ export default function ServiceScreen(props: ServiceScreenParams) {
             </TouchableOpacity>
           </View>
         )}
-        {service.whatsapp && (
-          <View style={styles.locationContainer}>
-            <Text style={styles.locationLabel}>WhatsApp:</Text>
-            <TouchableOpacity
-              onPress={() => {
-                Linking.openURL(
-                  `https://wa.me/${service.whatsapp}?text=${encodeURI(
-                    'Привет, меня интересует услуга ' +
-                      service.service +
-                      ', которую я нашел на сайте events4friends.ru',
-                  )}`,
-                );
-              }}
-              style={styles.linkContainer}
-            >
-              <Text style={styles.link} numberOfLines={1}>
-                {service.whatsapp}
-              </Text>
-            </TouchableOpacity>
-          </View>
+        {service.whatsapp && service.service && (
+          <WhatsappLink whatsapp={service.whatsapp} service={service.service} />
         )}
         {service.telegram && (
           <View style={styles.locationContainer}>
