@@ -47,7 +47,7 @@ export default function EventsScreen(props: EventsScreenParams) {
 
   return (
     <View style={styles.backgroundContainer}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} bounces={false}>
         {connectingToFirebase || loadingEvents ? (
           <NoDataContainer
             label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING}

@@ -77,6 +77,7 @@ export default function EventScreen(props: EventScreenParams) {
       <ScrollView
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
+        bounces={false}
       >
         <View style={styles.labelContainer}>
           {isCurrentEvent(event) ? (

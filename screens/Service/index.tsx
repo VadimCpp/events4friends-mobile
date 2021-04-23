@@ -34,6 +34,7 @@ export default function ServiceScreen(props: ServiceScreenParams) {
       <ScrollView
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
+        bounces={false}
       >
         <View style={styles.serviceWrap}>
           <Text style={styles.service} numberOfLines={1}>
