@@ -21,6 +21,7 @@ export default function HomeScreen(props: HomeScreenParams) {
       <ScrollView
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
+        bounces={false}
       >
         <View style={styles.welcomeContainer}>
           <Text style={styles.welcome} numberOfLines={1}>

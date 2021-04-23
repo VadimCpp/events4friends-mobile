@@ -85,7 +85,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
 
   return (
     <View style={styles.backgroundContainer}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} bounces={false}>
         {connectingToFirebase || loadingServices ? (
           <NoDataContainer
             label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING}
