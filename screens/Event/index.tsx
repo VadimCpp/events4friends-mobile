@@ -94,10 +94,10 @@ export default function EventScreen(props: EventScreenParams) {
                 style={styles.iconTime}
                 source={require('../../assets/img/icon_time_x4.png')}
               />
-              <View>
+              <View style={styles.datetimeColumn}>
                 <Text>{startDate}</Text>
                 <View style={styles.timeLine}>
-                  <Text>{startTime}</Text>
+                  <Text numberOfLines={1}>{startTime}</Text>
                 </View>
               </View>
             </View>
@@ -270,6 +270,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginHorizontal: calcSize(10),
     flexDirection: 'row',
+  },
+  datetimeColumn: {
+    width: calcSize(240),
+    flexDirection: 'column',
   },
   iconTime: {
     width: 32,
