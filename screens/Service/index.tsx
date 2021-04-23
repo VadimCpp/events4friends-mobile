@@ -35,105 +35,103 @@ export default function ServiceScreen(props: ServiceScreenParams) {
         style={styles.scrollViewContainer}
         contentContainerStyle={styles.contentContainer}
       >
-        <View style={styles.innerContainer}>
-          <View style={styles.serviceWrap}>
-            <Text style={styles.service} numberOfLines={1}>
-              {service.service}
-            </Text>
-          </View>
-          <View style={styles.nameWrap}>
-            <Text style={styles.name} numberOfLines={1}>
-              {service.name}
-            </Text>
-          </View>
-          <View style={styles.hr} />
-          <View style={styles.descriptionContainer}>
-            <Text>{removeTags(service.description)}</Text>
-          </View>
-          {service.instagram && (
-            <View style={styles.locationContainer}>
-              <Text style={styles.locationLabel}>Инстаграм:</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  Linking.openURL(service.instagram);
-                }}
-                style={styles.linkContainer}
-              >
-                <Text style={styles.link} numberOfLines={1}>
-                  {service.instagram}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          {service.website && (
-            <View style={styles.locationContainer}>
-              <Text style={styles.locationLabel}>Сайт:</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  Linking.openURL(service.website);
-                }}
-                style={styles.linkContainer}
-              >
-                <Text style={styles.link} numberOfLines={1}>
-                  {service.website}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          {service.whatsapp && (
-            <View style={styles.locationContainer}>
-              <Text style={styles.locationLabel}>WhatsApp:</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  Linking.openURL(
-                    `https://wa.me/${service.whatsapp}?text=${encodeURI(
-                      'Привет, меня интересует услуга ' +
-                        service.service +
-                        ', которую я нашел на сайте events4friends.ru',
-                    )}`,
-                  );
-                }}
-                style={styles.linkContainer}
-              >
-                <Text style={styles.link} numberOfLines={1}>
-                  {service.whatsapp}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          {service.telegram && (
-            <View style={styles.locationContainer}>
-              <Text style={styles.locationLabel}>Telegram:</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  Linking.openURL(`tg://resolve?domain=${service.telegram}`);
-                }}
-                style={styles.linkContainer}
-              >
-                <Text style={styles.link} numberOfLines={1}>
-                  {service.telegram}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          {service.vkontakte && (
-            <View style={styles.locationContainer}>
-              <Text style={styles.locationLabel}>VKontakte:</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  Linking.openURL(service.vkontakte);
-                }}
-                style={styles.linkContainer}
-              >
-                <Text style={styles.link} numberOfLines={1}>
-                  {service.vkontakte}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          {priceTag && <View style={styles.priceTagContainer}>{priceTag}</View>}
-          <View style={styles.paddingBottomContainer} />
+        <View style={styles.serviceWrap}>
+          <Text style={styles.service} numberOfLines={1}>
+            {service.service}
+          </Text>
         </View>
+        <View style={styles.nameWrap}>
+          <Text style={styles.name} numberOfLines={1}>
+            {service.name}
+          </Text>
+        </View>
+        <View style={styles.hr} />
+        <View style={styles.descriptionContainer}>
+          <Text>{removeTags(service.description)}</Text>
+        </View>
+        {service.instagram && (
+          <View style={styles.locationContainer}>
+            <Text style={styles.locationLabel}>Инстаграм:</Text>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL(service.instagram);
+              }}
+              style={styles.linkContainer}
+            >
+              <Text style={styles.link} numberOfLines={1}>
+                {service.instagram}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {service.website && (
+          <View style={styles.locationContainer}>
+            <Text style={styles.locationLabel}>Сайт:</Text>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL(service.website);
+              }}
+              style={styles.linkContainer}
+            >
+              <Text style={styles.link} numberOfLines={1}>
+                {service.website}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {service.whatsapp && (
+          <View style={styles.locationContainer}>
+            <Text style={styles.locationLabel}>WhatsApp:</Text>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL(
+                  `https://wa.me/${service.whatsapp}?text=${encodeURI(
+                    'Привет, меня интересует услуга ' +
+                      service.service +
+                      ', которую я нашел на сайте events4friends.ru',
+                  )}`,
+                );
+              }}
+              style={styles.linkContainer}
+            >
+              <Text style={styles.link} numberOfLines={1}>
+                {service.whatsapp}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {service.telegram && (
+          <View style={styles.locationContainer}>
+            <Text style={styles.locationLabel}>Telegram:</Text>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL(`tg://resolve?domain=${service.telegram}`);
+              }}
+              style={styles.linkContainer}
+            >
+              <Text style={styles.link} numberOfLines={1}>
+                {service.telegram}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {service.vkontakte && (
+          <View style={styles.locationContainer}>
+            <Text style={styles.locationLabel}>VKontakte:</Text>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL(service.vkontakte);
+              }}
+              style={styles.linkContainer}
+            >
+              <Text style={styles.link} numberOfLines={1}>
+                {service.vkontakte}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {priceTag && <View style={styles.priceTagContainer}>{priceTag}</View>}
+        <View style={styles.paddingBottomContainer} />
       </ScrollView>
     </View>
   );
@@ -150,7 +148,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   contentContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   innerContainer: {
     width: calcSize(315),
@@ -187,7 +185,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   hr: {
-    width: calcSize(295),
+    width: calcSize(355),
     height: 2,
     backgroundColor: '#24BA7B',
     marginHorizontal: calcSize(10),
