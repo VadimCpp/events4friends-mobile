@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   datetimeColumn: {
-    width: calcSize(240),
+    width: calcSize(315),
     flexDirection: 'column',
   },
   iconTime: {
