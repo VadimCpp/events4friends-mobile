@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   iconTime: {
-    width: 32,
-    height: 32,
+    width: 16,
+    height: 16,
     marginTop: 2,
     marginRight: 6,
   },
@@ -143,19 +143,20 @@ const styles = StyleSheet.create({
     height: 38,
   },
   iconWww: {
-    width: 32,
-    height: 32,
-    marginTop: 2,
+    width: 16,
+    height: 16,
+    marginTop: 1,
     marginRight: 6,
   },
   iconPlace: {
-    width: 24,
-    height: 34,
+    width: 12,
+    height: 17,
     marginRight: 10,
-    marginLeft: 4,
+    marginLeft: 2,
+    marginTop: 1,
   },
   address: {
     width: 240,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
 });
