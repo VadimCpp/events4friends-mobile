@@ -16,3 +16,6 @@ web-report/
 #lock file
 yarn.lock
 .vscode/settings.json
+
+# VS Code
+.idea
