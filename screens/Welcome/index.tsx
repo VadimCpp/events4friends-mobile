@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext, useCallback, useEffect } from 'react';
 import {
   ScrollView,
   View,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components
 import NoDataContainer from '../../components/NoDataContainer';
@@ -23,17 +24,47 @@ import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
 
 // utils
-import { ICommunity } from '../../utils/interfaces';
+import { ICommunity, INavigation } from '../../utils/interfaces';
 
-export default function WelcomeScreen() {
+interface WelcomeScreenParams {
+  navigation: INavigation;
+}
+
+export default function WelcomeScreen(props: WelcomeScreenParams) {
+  const { navigation } = props;
+
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
 
   const { connectingToFirebase } = authContext;
   const { communities } = dataContext;
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@communityId');
+        if (value !== null) {
+          // value previously stored, navigate home
+          navigation.navigate('Home');
+        }
+      } catch (e) {
+        // error reading value
+      }
+    };
+
+    getData();
+  }, [navigation]);
+
   const onPress = useCallback((communityId: string) => {
-    console.log('TODO:', communityId);
+    const storeData = async (value: string) => {
+      try {
+        await AsyncStorage.setItem('@communityId', value);
+      } catch (e) {
+        // saving error
+      }
+    };
+
+    storeData(communityId);
   }, []);
 
   return (
