@@ -103,7 +103,13 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const { user, connectingToFirebase } = useAuth();
-  const { events, services, loadingEvents, loadingServices } = useData();
+  const {
+    events,
+    services,
+    communities,
+    loadingEvents,
+    loadingServices,
+  } = useData();
 
   const [isAppReady, setIsAppReady] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -178,6 +184,7 @@ export default function App() {
         value={{
           events,
           services,
+          communities,
           loadingEvents,
           loadingServices,
           storeReminder,
