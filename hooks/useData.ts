@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'react';
 import * as firebase from 'firebase';
 
-export const getCommunities = async () => {
-  try {
-    const db = firebase.firestore();
-    const snapshot = await db.collection('communities').get();
-    return snapshot.docs.map(doc => {
-      return {
-        name: 'Не указано',
-        description: 'Не указано',
-        ...doc.data(),
-        id: doc.id,
-      };
+export const getCommunities = (): Promise<any> =>
+  firebase
+    .firestore()
+    .collection('communities')
+    .get()
+    .then(snapshot =>
+      snapshot.docs.map(doc => {
+        return {
+          name: 'Не указано',
+          description: 'Не указано',
+          ...doc.data(),
+          id: doc.id,
+        };
+      }),
+    )
+    .catch(err => {
+      console.warn('Error getting communities, skip: ', err);
     });
-  } catch (error) {
-    console.warn('Error getting communities, skip: ', error);
-  }
-};
 
 //
 // NOTE!
@@ -62,7 +64,7 @@ function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
 const useData = () => {
   const [events, setEvents] = useState([]);
   const [services, setServices] = useState([]);
-  const [communities, setCommuities] = useState([]);
+  const [communities, setCommuities] = useState<Array<any>>([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [loadingServices, setLoadingServices] = useState(true);
 
