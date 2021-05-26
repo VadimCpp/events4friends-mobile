@@ -1,6 +1,23 @@
 import { useState, useEffect } from 'react';
 import * as firebase from 'firebase';
 
+export const getCommunities = async () => {
+  try {
+    const db = firebase.firestore();
+    const snapshot = await db.collection('communities').get();
+    return snapshot.docs.map(doc => {
+      return {
+        name: 'Не указано',
+        description: 'Не указано',
+        ...doc.data(),
+        id: doc.id,
+      };
+    });
+  } catch (error) {
+    console.warn('Error getting communities, skip: ', error);
+  }
+};
+
 //
 // NOTE!
 // Get realtime updates with Cloud Firestore
@@ -45,10 +62,16 @@ function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
 const useData = () => {
   const [events, setEvents] = useState([]);
   const [services, setServices] = useState([]);
+  const [communities, setCommuities] = useState([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [loadingServices, setLoadingServices] = useState(true);
 
   useEffect(() => {
+    const getData = async () => {
+      const aCommunities: Array<any> = await getCommunities();
+      setCommuities(aCommunities);
+    };
+    getData();
     const unsubscribeFromServices = subscribeToServiceChanges(
       (aSevices: Array<never>) => {
         setServices(aSevices);
@@ -75,6 +98,7 @@ const useData = () => {
   return {
     events,
     services,
+    communities,
     loadingEvents,
     loadingServices,
   };

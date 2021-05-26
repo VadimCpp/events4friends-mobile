@@ -2,8 +2,9 @@
 import React from 'react';
 
 const defaultData = {
-  events: [],
-  services: [],
+  events: [], // список анонсов
+  services: [], // список услуг
+  communities: [], // список сообществ
   loadingEvents: true,
   loadingServices: true,
   storeReminder: (
