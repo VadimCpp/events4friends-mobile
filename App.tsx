@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Platform, AsyncStorage } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { Asset } from 'expo-asset';
 import { Notifications } from 'expo';
 import AppLoading from 'expo-app-loading';
@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // moment
 import moment from 'moment';

@@ -44,28 +44,35 @@ export default function WelcomeScreen(props: WelcomeScreenParams) {
       try {
         const value = await AsyncStorage.getItem('@communityId');
         if (value !== null) {
+          //
+          // NOTE!
           // value previously stored, navigate home
+          //
           navigation.navigate('Home');
         }
       } catch (e) {
-        // error reading value
+        console.warn('Error reading value, skip:', e);
       }
     };
 
     getData();
   }, [navigation]);
 
-  const onPress = useCallback((communityId: string) => {
-    const storeData = async (value: string) => {
-      try {
-        await AsyncStorage.setItem('@communityId', value);
-      } catch (e) {
-        // saving error
-      }
-    };
+  const onPress = useCallback(
+    (communityId: string) => {
+      const storeData = async (value: string) => {
+        try {
+          await AsyncStorage.setItem('@communityId', value);
+          navigation.navigate('Home');
+        } catch (e) {
+          console.warn('Saving error, skip:', e);
+        }
+      };
 
-    storeData(communityId);
-  }, []);
+      storeData(communityId);
+    },
+    [navigation],
+  );
 
   return (
     <View style={styles.backgroundContainer}>
@@ -78,6 +85,7 @@ export default function WelcomeScreen(props: WelcomeScreenParams) {
           </View>
         ) : (
           <View style={styles.container}>
+            {/* TODO: style text */}
             <Text>Выберите сообщество</Text>
             {communities.map((community: ICommunity) => {
               var base64Icon = `data:image/png;base64,${community.logo}`;
