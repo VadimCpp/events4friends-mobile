@@ -33,3 +33,23 @@ export interface INavigation {
 export interface IRoute {
   params: { service: IService };
 }
+
+export interface ICommunity {
+  id: string;
+  logo: string;
+  name: string;
+}
+
+export interface IDataContext {
+  events: Array<any>;
+  services: Array<any>;
+  communities: Array<any>;
+  loadingEvents: boolean;
+  loadingServices: boolean;
+  storeReminder: (
+    value: boolean,
+    eventId: string,
+    onStored: Function,
+    onStoredFailed: Function,
+  ) => void;
+}

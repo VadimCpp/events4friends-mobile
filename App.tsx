@@ -20,6 +20,7 @@ import EventsScreen from './screens/Events';
 import HomeScreen from './screens/Home';
 import ServiceScreen from './screens/Service';
 import ServicesScreen from './screens/Services';
+import WelcomeScreen from './screens/Welcome';
 
 // contexts
 import AuthContext from './context/AuthContext';
@@ -191,7 +192,14 @@ export default function App() {
         }}
       >
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
+          <Stack.Navigator initialRouteName="WelcomeScreen">
+            <Stack.Screen
+              name="WelcomeScreen"
+              component={WelcomeScreen}
+              options={{
+                header: () => null,
+              }}
+            />
             <Stack.Screen
               name="Home"
               component={HomeScreen}
