@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
-const defaultData = {
-  events: [],
-  services: [],
+// utils
+import { IDataContext } from '../utils/interfaces';
+
+const defaultData: IDataContext = {
+  events: [], // список анонсов
+  services: [], // список услуг
+  communities: [], // список сообществ
   loadingEvents: true,
   loadingServices: true,
   storeReminder: (

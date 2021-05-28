@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Platform, AsyncStorage } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { Asset } from 'expo-asset';
 import { Notifications } from 'expo';
 import AppLoading from 'expo-app-loading';
@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 import '@firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // moment
 import moment from 'moment';
@@ -20,6 +21,7 @@ import EventsScreen from './screens/Events';
 import HomeScreen from './screens/Home';
 import ServiceScreen from './screens/Service';
 import ServicesScreen from './screens/Services';
+import WelcomeScreen from './screens/Welcome';
 
 // contexts
 import AuthContext from './context/AuthContext';
@@ -103,7 +105,13 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const { user, connectingToFirebase } = useAuth();
-  const { events, services, loadingEvents, loadingServices } = useData();
+  const {
+    events,
+    services,
+    communities,
+    loadingEvents,
+    loadingServices,
+  } = useData();
 
   const [isAppReady, setIsAppReady] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -178,13 +186,21 @@ export default function App() {
         value={{
           events,
           services,
+          communities,
           loadingEvents,
           loadingServices,
           storeReminder,
         }}
       >
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
+          <Stack.Navigator initialRouteName="WelcomeScreen">
+            <Stack.Screen
+              name="WelcomeScreen"
+              component={WelcomeScreen}
+              options={{
+                header: () => null,
+              }}
+            />
             <Stack.Screen
               name="Home"
               component={HomeScreen}

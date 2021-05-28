@@ -6,12 +6,12 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  AsyncStorage,
   Alert,
   Dimensions,
 } from 'react-native';
 import HTML from 'react-native-render-html';
 import { Linking } from 'expo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components
 import Button from '../../components/Button';

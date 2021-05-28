@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components
 import HomeButton from '../../components/HomeButton';
@@ -45,6 +46,36 @@ export default function HomeScreen(props: HomeScreenParams) {
             gradientImage={require('../../assets/img/brain_gradient.png')}
             onPress={() => {
               navigation.navigate('Services');
+            }}
+          />
+        </View>
+        {/* TODO: поменять иконку для сообществ */}
+        <View style={styles.buttonContainer}>
+          <HomeButton
+            title="Все сообщества"
+            sourceImage={require('../../assets/img/bike.png')}
+            gradientImage={require('../../assets/img/bike_gradient.png')}
+            onPress={() => {
+              navigation.navigate('WelcomeScreen');
+            }}
+          />
+        </View>
+        {/*
+          NOTE!
+          Эта кнопка чистит AsyncStorage, чтобы можно было протестировать функционал:
+            - при первом запуске, когда сообщество еще не выбрано;
+            - при втором запуске сразу открываем главный экран.
+
+          TODO: удалить после реализации всей фичи
+        */}
+        <View style={styles.buttonContainer}>
+          <HomeButton
+            title="Очистить"
+            sourceImage={require('../../assets/img/brain.png')}
+            gradientImage={require('../../assets/img/brain_gradient.png')}
+            onPress={() => {
+              AsyncStorage.clear();
+              console.log('Async storage has been cleared!');
             }}
           />
         </View>
