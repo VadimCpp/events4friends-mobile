@@ -41,9 +41,9 @@ export interface ICommunity {
 }
 
 export interface IDataContext {
-  events: Array<any>;
-  services: Array<any>;
-  communities: Array<any>;
+  events: Array<IEvent>;
+  services: Array<IService>;
+  communities: Array<ICommunity>;
   loadingEvents: boolean;
   loadingServices: boolean;
   storeReminder: (

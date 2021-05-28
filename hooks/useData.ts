@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import * as firebase from 'firebase';
 
+import { ICommunity } from './../utils/interfaces';
+
 export const getCommunities = (): Promise<any> =>
   firebase
     .firestore()
@@ -64,13 +66,13 @@ function subscribeToEventsChanges(onEventsUpdated: Function): Function | null {
 const useData = () => {
   const [events, setEvents] = useState([]);
   const [services, setServices] = useState([]);
-  const [communities, setCommuities] = useState<Array<any>>([]);
+  const [communities, setCommuities] = useState<Array<ICommunity>>([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [loadingServices, setLoadingServices] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
-      const aCommunities: Array<any> = await getCommunities();
+      const aCommunities: Array<ICommunity> = await getCommunities();
       setCommuities(aCommunities);
     };
     getData();
