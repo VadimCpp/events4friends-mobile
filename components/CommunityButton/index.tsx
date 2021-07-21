@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity} from "react-native";
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import hoistNonReactStatic from 'hoist-non-react-statics';
 
 // constants
 import { DEFAUTL_ACTIVE_OPACITY } from "../../utils/constants";
@@ -9,15 +10,36 @@ import { ICommunity } from '../../utils/interfaces';
 
 //
 // NOTE!
-// В целях изучения декораторов typescript был создан Decorator Factory,
-// который принимает в качестве параметра ширину границы и устанавливает ее.
+// В целях изучения декораторов typescript были созданы два Decorator Factory.
+// Эти декораторы для ознакомительных целях.
+// Возможны ошибки.
 //
-// Лучшего примера применения классового декоратора придумать не смог.
-//
-// Пусть этот декоратор лежит пока в коде в ознакомительных целях.
+// BottomTextDecorator принимает в качестве параметра строку и отображает ее под компонентом.
+// BorderWidthDecorator принимает в качестве параметра ширину границы и устанавливает ее.
 //
 // TODO: подумать над хорошим и уместным примером использования декоратора в коде
 //
+
+function BottomTextDecorator(label: string) {
+  return function decorator<ComponentType>(Component: ComponentType): ComponentType {
+    class HOC extends React.Component<any, any> {
+      render() {
+        return (
+          <>
+            {/* @ts-ignore */}
+            <Component {...this.props}/>
+            <Text>{label}</Text>
+          </>
+        );
+      }
+    }
+
+    hoistNonReactStatic(HOC, Component as any);
+
+    return HOC as any as ComponentType;
+  };
+}
+
 function BorderWidthDecorator(width: number) {
   return <T extends { new (...args: any[]): {} }>(constructor: T) => {
     return class extends constructor {
@@ -31,11 +53,7 @@ function BorderWidthDecorator(width: number) {
   }
 }
 
-interface CommunityButtonProps {
-  community: ICommunity,
-  onPress: (id: string) => void,
-}
-
+@BottomTextDecorator("* - позже можно изменить")
 @BorderWidthDecorator(2)
 class CommunityButton extends React.Component<any, any> {
   readonly borderWidth: number;
@@ -66,6 +84,11 @@ class CommunityButton extends React.Component<any, any> {
       </TouchableOpacity>
     );
   }
+}
+
+interface CommunityButtonProps {
+  community: ICommunity,
+  onPress: (id: string) => void,
 }
 
 const styles = StyleSheet.create({
