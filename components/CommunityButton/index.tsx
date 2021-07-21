@@ -21,7 +21,12 @@ import { ICommunity } from '../../utils/interfaces';
 function BorderWidthDecorator(width: number) {
   return <T extends { new (...args: any[]): {} }>(constructor: T) => {
     return class extends constructor {
-      borderWidth = width;
+      readonly borderWidth;
+
+      constructor(...args: any[]) {
+        super(args);
+        this.borderWidth = width;
+      }
     };
   }
 }
@@ -33,12 +38,12 @@ interface CommunityButtonProps {
 
 @BorderWidthDecorator(2)
 class CommunityButton extends React.Component<any, any> {
+  readonly borderWidth: number;
+
   constructor(props: CommunityButtonProps) {
     super(props);
     this.borderWidth = 1;
   }
-
-  readonly borderWidth: number;
 
   render() {
     const { onPress, community: { logo, id, name } } = this.props;
