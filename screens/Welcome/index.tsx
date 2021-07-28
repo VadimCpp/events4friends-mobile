@@ -84,7 +84,7 @@ export default function WelcomeScreen(props: WelcomeScreenParams) {
         ) : (
           <View style={styles.container}>
             {/* TODO: style text */}
-            <Text>Выберите сообщество</Text>
+            <Text style={styles.title}>Выберите сообщество</Text>
             {communities.map((community: ICommunity) =>
               <CommunityButton key={community.id} community={community} onPress={onPress}/>)}
           </View>
@@ -113,5 +113,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 30,
     marginTop: 30,
+  },
+  title: {
+    color: '#404040',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

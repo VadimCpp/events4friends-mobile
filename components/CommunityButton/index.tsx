@@ -28,7 +28,7 @@ function BottomTextDecorator(label: string) {
           <>
             {/* @ts-ignore */}
             <Component {...this.props}/>
-            <Text>{label}</Text>
+            <Text style={styles.bottomText}>{label}</Text>
           </>
         );
       }
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   button: {
     width: 310,
     height: 80,
-    borderRadius: 40,
+    borderRadius: 15,
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
@@ -104,8 +104,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   text: {
-    color: 'black',
-    fontSize: 32,
+    color: '#404040',
+    fontSize: 28,
+    textAlign: 'center',
   },
   logo: {
     width: 64,
@@ -114,6 +115,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  bottomText: {
+    marginTop: 5,
+  }
 });
 
 export default CommunityButton;
