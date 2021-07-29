@@ -4,19 +4,17 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components
 import NoDataContainer from '../../components/NoDataContainer';
+import CommunityButton from '../../components/CommunityButton';
 
 // constants
 import {
   NOTICE_CONNECTING,
   NOTICE_LOADING,
-  DEFAUTL_ACTIVE_OPACITY,
 } from '../../utils/constants';
 
 // contexts
@@ -55,7 +53,7 @@ export default function WelcomeScreen(props: WelcomeScreenParams) {
       }
     };
 
-    getData();
+    getData().then();
   }, [navigation]);
 
   const onPress = useCallback(
@@ -69,7 +67,7 @@ export default function WelcomeScreen(props: WelcomeScreenParams) {
         }
       };
 
-      storeData(communityId);
+      storeData(communityId).then();
     },
     [navigation],
   );
@@ -86,22 +84,9 @@ export default function WelcomeScreen(props: WelcomeScreenParams) {
         ) : (
           <View style={styles.container}>
             {/* TODO: style text */}
-            <Text>Выберите сообщество</Text>
-            {communities.map((community: ICommunity) => {
-              var base64Icon = `data:image/png;base64,${community.logo}`;
-              return (
-                <View key={community.id}>
-                  <TouchableOpacity
-                    onPress={() => onPress(community.id)}
-                    style={styles.button}
-                    activeOpacity={DEFAUTL_ACTIVE_OPACITY}
-                  >
-                    <Image style={styles.logo} source={{ uri: base64Icon }} />
-                    <Text style={styles.text}>{community.name}</Text>
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
+            <Text style={styles.title}>Выберите сообщество</Text>
+            {communities.map((community: ICommunity) =>
+              <CommunityButton key={community.id} community={community} onPress={onPress}/>)}
           </View>
         )}
       </ScrollView>
@@ -129,26 +114,10 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 30,
   },
-  button: {
-    width: 310,
-    height: 80,
-    borderRadius: 40,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderColor: 'grey',
-    borderWidth: 1,
-    marginTop: 30,
-  },
-  text: {
-    color: 'black',
-    fontSize: 32,
-  },
-  logo: {
-    width: 64,
-    height: 64,
-    borderColor: 'red',
-    marginLeft: 10,
-    marginRight: 10,
+  title: {
+    color: '#404040',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
