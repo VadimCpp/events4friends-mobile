@@ -8,12 +8,13 @@ interface ButtonProps {
   title: string;
   onPress: () => void;
   style?: Object;
+  textStyle?: Object;
   disabled?: boolean;
   selected?: boolean;
 }
 
 export default function Button(props: ButtonProps) {
-  const { title, onPress, selected, style, disabled } = props;
+  const { title, onPress, selected, style, textStyle, disabled } = props;
 
   return (
     <TouchableOpacity
@@ -25,10 +26,10 @@ export default function Button(props: ButtonProps) {
       {selected ? (
         <View style={styles.circleWrap}>
           <View style={styles.circle} />
-          <Text style={styles.text}>{title}</Text>
+          <Text style={[ styles.text, textStyle ? textStyle : null ]}>{title}</Text>
         </View>
       ) : (
-        <Text style={styles.text}>{title}</Text>
+        <Text style={[ styles.text, textStyle ? textStyle : null ]}>{title}</Text>
       )}
     </TouchableOpacity>
   );
