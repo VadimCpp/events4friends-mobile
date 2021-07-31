@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 // constants
-import { DEFAUTL_ACTIVE_OPACITY } from "../../utils/constants";
+import { DEFAULT_ACTIVE_OPACITY } from "../../utils/constants";
 
 // utils
 import { ICommunity } from '../../utils/interfaces';
@@ -77,7 +77,7 @@ class CommunityButton extends React.Component<any, any> {
             borderWidth: this.borderWidth,
           }
         ]}
-        activeOpacity={DEFAUTL_ACTIVE_OPACITY}
+        activeOpacity={DEFAULT_ACTIVE_OPACITY}
       >
         <Image style={styles.logo} source={{ uri: base64Icon }} />
         <Text style={styles.text}>{name}</Text>

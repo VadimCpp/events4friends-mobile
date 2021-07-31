@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native';
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
 
 interface HomeButtonParams {
@@ -17,7 +17,7 @@ export default function HomeButton(props: HomeButtonParams) {
     <TouchableOpacity
       style={styles.imageContainer}
       onPress={onPress}
-      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
+      activeOpacity={DEFAULT_ACTIVE_OPACITY}
       delayPressIn={50}
     >
       <Image style={styles.imgBike} source={sourceImage} />

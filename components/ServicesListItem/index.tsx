@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // utils
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
 
 interface ServicesListItemParams {
@@ -27,7 +27,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
       key={service.id}
       style={styles.listItemContainer}
       onPress={onPress}
-      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
+      activeOpacity={DEFAULT_ACTIVE_OPACITY}
     >
       <View style={styles.serviceWrap}>
         <Text style={styles.service} numberOfLines={1}>

@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // utils
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
 
-interface ButtonParams {
+interface ButtonProps {
   title: string;
   onPress: () => void;
   style?: Object;
@@ -12,15 +12,15 @@ interface ButtonParams {
   selected?: boolean;
 }
 
-export default function Button(props: ButtonParams) {
-  const { title, onPress, selected } = props;
+export default function Button(props: ButtonProps) {
+  const { title, onPress, selected, style, disabled } = props;
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      disabled={props.disabled || false}
-      style={[styles.button, props.style ? props.style : null]}
-      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
+      disabled={disabled || false}
+      style={[styles.button, style ? style : null]}
+      activeOpacity={DEFAULT_ACTIVE_OPACITY}
     >
       {selected ? (
         <View style={styles.circleWrap}>

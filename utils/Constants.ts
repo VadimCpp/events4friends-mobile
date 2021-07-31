@@ -1,4 +1,4 @@
-export const DEFAUTL_ACTIVE_OPACITY = 0.6;
+export const DEFAULT_ACTIVE_OPACITY = 0.6;
 
 // Длительность мероприятия по умолчанию
 export const DEFAULT_EVENT_DURATION = 1;
