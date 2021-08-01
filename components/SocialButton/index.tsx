@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 
 // utils
 import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';

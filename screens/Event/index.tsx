@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import HTML from 'react-native-render-html';
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components

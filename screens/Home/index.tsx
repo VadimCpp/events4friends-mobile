@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Linking } from "expo";
+import * as Linking from 'expo-linking';
 
 // components
 import HomeButton from '../../components/HomeButton';
