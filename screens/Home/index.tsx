@@ -41,6 +41,7 @@ export default function HomeScreen(props: HomeScreenProps) {
       if (communityId) {
         const community: ICommunity | undefined = communities.find((c) => c.id === communityId);
         if (community && community.instagram) {
+          console.log(`openURL: ${community.instagram}`);
           await Linking.openURL(community.instagram);
         } else {
           alert('Ошибка! Невозможно открыть Instagram сообщества');
@@ -52,6 +53,16 @@ export default function HomeScreen(props: HomeScreenProps) {
     catch (e) {
       alert('Ошибка! Невозможно открыть Instagram');
     }
+  };
+
+  const handleCommunitiesClick = () => {
+    console.log('Navigate WelcomeScreen');
+    navigation.navigate('WelcomeScreen');
+  };
+
+  const handleCleanCashClick = () => {
+    AsyncStorage.clear();
+    console.log('Async storage has been cleared!');
   };
 
   return (
@@ -101,39 +112,15 @@ export default function HomeScreen(props: HomeScreenProps) {
                 style={styles.instagramButton}
                 textStyle={styles.instagramButtonText}
               />
-            </View>
-            {/* TODO: поменять иконку для сообществ */}
-            <View style={styles.buttonContainer}>
-              <HomeButton
-                title="Все сообщества"
-                sourceImage={require('../../assets/img/bike.png')}
-                gradientImage={require('../../assets/img/bike_gradient.png')}
-                onPress={() => {
-                  navigation.navigate('WelcomeScreen');
-                }}
-              />
-            </View>
-            {/*
-              NOTE!
-              Эта кнопка чистит AsyncStorage, чтобы можно было протестировать функционал:
-                - при первом запуске, когда сообщество еще не выбрано;
-                - при втором запуске сразу открываем главный экран.
-
-              TODO: удалить после реализации всей фичи
-            */}
-            <View style={styles.buttonContainer}>
-              <HomeButton
-                title="Очистить"
-                sourceImage={require('../../assets/img/brain.png')}
-                gradientImage={require('../../assets/img/brain_gradient.png')}
-                onPress={() => {
-                  AsyncStorage.clear();
-                  console.log('Async storage has been cleared!');
-                }}
+              <Button
+                title={"Другие сообщества"}
+                onPress={handleCommunitiesClick}
+                style={styles.instagramButton}
+                textStyle={styles.instagramButtonText}
               />
             </View>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>Выберите чат</Text>
+              <Text style={styles.title}>Чаты сообщества</Text>
             </View>
             <View style={styles.socialsContainer}>
               <SocialButton
@@ -149,6 +136,16 @@ export default function HomeScreen(props: HomeScreenProps) {
               <SocialButton
                 icon={require('../../assets/img/icon_whatsapp_x4.png')}
                 url={'https://chat.whatsapp.com/DWUaZ1bsuxwJLALyvBYTt8'}
+              />
+            </View>
+            <View style={styles.additionalContainer}>
+              <Text style={styles.title}>Дополнительно *</Text>
+              <Text style={styles.subTitle}>* этот раздел полезен только разработчикам и вскоре будет удален</Text>
+              <Button
+                title={"Очистить кэш"}
+                onPress={handleCleanCashClick}
+                style={styles.instagramButton}
+                textStyle={styles.instagramButtonText}
               />
             </View>
           </>
@@ -195,15 +192,24 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
     textShadowOffset: { height: 1, width: 1 },
   },
+  subTitle: {
+    marginTop: 15,
+    color: '#404040',
+  },
   buttonContainer: {
     marginTop: 30,
   },
   socialsContainer: {
     marginTop: 30,
-    marginBottom: 50,
+    marginBottom: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: calcSize(285),
+  },
+  additionalContainer: {
+    marginTop: 30,
+    marginBottom: 50,
+    width: calcSize(295),
   },
   instagramButton: {
     width: 310,
