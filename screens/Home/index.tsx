@@ -45,6 +45,20 @@ export default function HomeScreen(props: HomeScreenProps) {
     setCommunity(aCommunity);
   }, [communities, getCommunityID]);
 
+  const handleVkontakteClick = async () => {
+    try {
+      if (community && community.vkontakte) {
+        console.log(`openURL: ${community.vkontakte}`);
+        await Linking.openURL(community.vkontakte);
+      } else {
+        alert('Ошибка! Невозможно открыть ВКонтакте, отсутствует id сообщества');
+      }
+    }
+    catch (e) {
+      alert('Ошибка! Невозможно открыть ВКонтакте');
+    }
+  };
+
   const handleInstagramClick = async () => {
     try {
       if (community && community.instagram) {
@@ -72,7 +86,7 @@ export default function HomeScreen(props: HomeScreenProps) {
         contentContainerStyle={styles.contentContainer}
         bounces={false}
       >
-        {connectingToFirebase || communities.length === 0 ? (
+        {connectingToFirebase || community === null ? (
           <View style={styles.container}>
             <NoDataContainer
               label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING}
@@ -81,8 +95,8 @@ export default function HomeScreen(props: HomeScreenProps) {
         ) : (
           <>
             <View style={styles.welcomeContainer}>
-              <Text style={styles.welcome} numberOfLines={1}>
-                Добро пожаловать
+              <Text style={styles.welcome} numberOfLines={2}>
+                {`Добро пожаловать в «${community.name}»`}
               </Text>
             </View>
             <View style={styles.buttonContainer}>
@@ -106,12 +120,22 @@ export default function HomeScreen(props: HomeScreenProps) {
               />
             </View>
             <View style={styles.buttonContainer}>
-              <Button
-                title={"Instargam"}
-                onPress={handleInstagramClick}
-                style={styles.instagramButton}
-                textStyle={styles.instagramButtonText}
-              />
+              { Boolean(community.vkontakte) && (
+                <Button
+                  title={"ВКонтакте"}
+                  onPress={handleVkontakteClick}
+                  style={styles.instagramButton}
+                  textStyle={styles.instagramButtonText}
+                />
+              )}
+              { Boolean(community.instagram) && (
+                <Button
+                  title={"Instargam"}
+                  onPress={handleInstagramClick}
+                  style={styles.instagramButton}
+                  textStyle={styles.instagramButtonText}
+                />
+              )}
               <Button
                 title={"Другие сообщества"}
                 onPress={handleCommunitiesClick}

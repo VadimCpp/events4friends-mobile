@@ -38,7 +38,12 @@ export interface ICommunity {
   id: string;
   logo: string;
   name: string;
+  vkontakte?: string;
+  facebook?: string;
   instagram?: string;
+  youtube?: string;
+  strava?: string;
+  website?: string;
 }
 
 export interface IDataContext {
