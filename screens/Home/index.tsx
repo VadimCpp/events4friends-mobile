@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Linking from 'expo-linking';
 
 // components
@@ -12,9 +11,10 @@ import NoDataContainer from "../../components/NoDataContainer";
 // contexts
 import AuthContext from "../../context/AuthContext";
 import DataContext from "../../context/DataContext";
+import StorageContext from "../../context/StorageContext";
 
 // constants
-import {NOTICE_CONNECTING, NOTICE_LOADING} from "../../utils/constants";
+import { NOTICE_CONNECTING, NOTICE_LOADING } from "../../utils/constants";
 
 // interfaces
 import { ICommunity, INavigation } from '../../utils/interfaces';
@@ -31,15 +31,17 @@ export default function HomeScreen(props: HomeScreenProps) {
 
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
+  const storageContext = useContext(StorageContext);
 
   const { connectingToFirebase } = authContext;
   const { communities } = dataContext;
+  const { getCommunityID, setCommunityID } = storageContext;
 
   const handleInstagramClick = async () => {
     try {
-      const communityId: string | null = await AsyncStorage.getItem('@communityId');
+      const communityId: number = getCommunityID();
       if (communityId) {
-        const community: ICommunity | undefined = communities.find((c) => c.id === communityId);
+        const community: ICommunity | undefined = communities.find((c) => c.id === `${communityId}`);
         if (community && community.instagram) {
           console.log(`openURL: ${community.instagram}`);
           await Linking.openURL(community.instagram);
@@ -57,12 +59,8 @@ export default function HomeScreen(props: HomeScreenProps) {
 
   const handleCommunitiesClick = () => {
     console.log('Navigate WelcomeScreen');
+    setCommunityID(0);
     navigation.navigate('WelcomeScreen');
-  };
-
-  const handleCleanCashClick = () => {
-    AsyncStorage.clear();
-    console.log('Async storage has been cleared!');
   };
 
   return (
@@ -138,16 +136,6 @@ export default function HomeScreen(props: HomeScreenProps) {
                 url={'https://chat.whatsapp.com/DWUaZ1bsuxwJLALyvBYTt8'}
               />
             </View>
-            <View style={styles.additionalContainer}>
-              <Text style={styles.title}>Дополнительно *</Text>
-              <Text style={styles.subTitle}>* этот раздел полезен только разработчикам и вскоре будет удален</Text>
-              <Button
-                title={"Очистить кэш"}
-                onPress={handleCleanCashClick}
-                style={styles.instagramButton}
-                textStyle={styles.instagramButtonText}
-              />
-            </View>
           </>
         )}
       </ScrollView>
@@ -192,24 +180,15 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
     textShadowOffset: { height: 1, width: 1 },
   },
-  subTitle: {
-    marginTop: 15,
-    color: '#404040',
-  },
   buttonContainer: {
     marginTop: 30,
   },
   socialsContainer: {
     marginTop: 30,
-    marginBottom: 15,
+    marginBottom: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: calcSize(285),
-  },
-  additionalContainer: {
-    marginTop: 30,
-    marginBottom: 50,
-    width: calcSize(295),
   },
   instagramButton: {
     width: 310,
