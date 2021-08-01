@@ -20,16 +20,16 @@ export default function Button(props: ButtonProps) {
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled || false}
-      style={[styles.button, style ? style : null]}
+      style={[styles.button, style]}
       activeOpacity={DEFAULT_ACTIVE_OPACITY}
     >
       {selected ? (
         <View style={styles.circleWrap}>
           <View style={styles.circle} />
-          <Text style={[ styles.text, textStyle ? textStyle : null ]}>{title}</Text>
+          <Text style={[styles.text, textStyle]}>{title}</Text>
         </View>
       ) : (
-        <Text style={[ styles.text, textStyle ? textStyle : null ]}>{title}</Text>
+        <Text style={[styles.text, textStyle]}>{title}</Text>
       )}
     </TouchableOpacity>
   );
