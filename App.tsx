@@ -26,10 +26,12 @@ import WelcomeScreen from './screens/Welcome';
 // contexts
 import AuthContext from './context/AuthContext';
 import DataContext from './context/DataContext';
+import StorageContext from './context/StorageContext';
 
 // hooks
 import useAuth from './hooks/useAuth';
 import useData from './hooks/useData';
+import useStorage from './hooks/useStorage';
 
 async function registerForPushNotificationsAsync(
   onGetToken: (token: string) => void,
@@ -112,6 +114,10 @@ export default function App() {
     loadingEvents,
     loadingServices,
   } = useData();
+  const {
+    getCommunityID,
+    setCommunityID,
+  } = useStorage();
 
   const [isAppReady, setIsAppReady] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -192,44 +198,51 @@ export default function App() {
           storeReminder,
         }}
       >
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="WelcomeScreen">
-            <Stack.Screen
-              name="WelcomeScreen"
-              component={WelcomeScreen}
-              options={{
-                header: () => null,
-              }}
-            />
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{
-                header: () => null,
-              }}
-            />
-            <Stack.Screen
-              name="Details"
-              component={EventsScreen}
-              options={{ title: 'Все события' }}
-            />
-            <Stack.Screen
-              name="Services"
-              component={ServicesScreen}
-              options={{ title: 'Все услуги' }}
-            />
-            <Stack.Screen
-              name="EventScreen"
-              component={EventScreen}
-              options={{ title: 'Событие' }}
-            />
-            <Stack.Screen
-              name="ServiceScreen"
-              component={ServiceScreen}
-              options={{ title: 'Услуга' }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <StorageContext.Provider
+          value={{
+            getCommunityID,
+            setCommunityID,
+          }}
+        >
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="WelcomeScreen">
+              <Stack.Screen
+                name="WelcomeScreen"
+                component={WelcomeScreen}
+                options={{
+                  header: () => null,
+                }}
+              />
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                  header: () => null,
+                }}
+              />
+              <Stack.Screen
+                name="Details"
+                component={EventsScreen}
+                options={{ title: 'Все события' }}
+              />
+              <Stack.Screen
+                name="Services"
+                component={ServicesScreen}
+                options={{ title: 'Все услуги' }}
+              />
+              <Stack.Screen
+                name="EventScreen"
+                component={EventScreen}
+                options={{ title: 'Событие' }}
+              />
+              <Stack.Screen
+                name="ServiceScreen"
+                component={ServiceScreen}
+                options={{ title: 'Услуга' }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </StorageContext.Provider>
       </DataContext.Provider>
     </AuthContext.Provider>
   ) : (

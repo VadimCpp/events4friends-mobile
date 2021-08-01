@@ -66,11 +66,12 @@ class CommunityButton extends React.Component<any, any> {
   render() {
     const { onPress, community: { logo, id, name } } = this.props;
 
-    const base64Icon = `data:image/png;base64,${logo}`;
+    const base64Icon: string = `data:image/png;base64,${logo}`;
+    const anId: number = parseInt(id) || 0;
 
     return (
       <TouchableOpacity
-        onPress={() => onPress(id)}
+        onPress={() => onPress(anId)}
         style={[
           styles.button,
           {

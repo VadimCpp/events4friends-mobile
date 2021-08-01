@@ -54,3 +54,8 @@ export interface IDataContext {
     onStoredFailed: Function,
   ) => void;
 }
+
+export interface IStorageContext {
+  getCommunityID: () => number,
+  setCommunityID: (anId: number) => void,
+}
