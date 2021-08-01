@@ -37,7 +37,7 @@ const useStorage = () => {
 
       storeData(`${anId}`).then();
     }
-  }, []);
+  }, [communityId]);
 
   return {
     getCommunityID,

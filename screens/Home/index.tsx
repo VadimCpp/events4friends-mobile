@@ -37,17 +37,19 @@ export default function HomeScreen(props: HomeScreenProps) {
   const { communities } = dataContext;
   const { getCommunityID, setCommunityID } = storageContext;
 
+  const [ community, setCommunity ] = useState<ICommunity | null>(null);
+
+  useEffect(() => {
+    const anId = `${getCommunityID()}`;
+    const aCommunity = communities.find((c) => c.id === anId) || null;
+    setCommunity(aCommunity);
+  }, [communities, getCommunityID]);
+
   const handleInstagramClick = async () => {
     try {
-      const communityId: number = getCommunityID();
-      if (communityId) {
-        const community: ICommunity | undefined = communities.find((c) => c.id === `${communityId}`);
-        if (community && community.instagram) {
-          console.log(`openURL: ${community.instagram}`);
-          await Linking.openURL(community.instagram);
-        } else {
-          alert('Ошибка! Невозможно открыть Instagram сообщества');
-        }
+      if (community && community.instagram) {
+        console.log(`openURL: ${community.instagram}`);
+        await Linking.openURL(community.instagram);
       } else {
         alert('Ошибка! Невозможно открыть Instagram, отсутствует id сообщества');
       }
