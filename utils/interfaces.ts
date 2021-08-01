@@ -38,6 +38,7 @@ export interface ICommunity {
   id: string;
   logo: string;
   name: string;
+  instagram?: string;
 }
 
 export interface IDataContext {

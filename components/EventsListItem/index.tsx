@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 // utils
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
 import {
   isCurrentEvent,
@@ -27,7 +27,7 @@ export default function EventsListItem(props: EventsListItemParams) {
       key={event.id}
       style={styles.listItemContainer}
       onPress={onPress}
-      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
+      activeOpacity={DEFAULT_ACTIVE_OPACITY}
     >
       <View style={styles.summaryWrap}>
         <Text style={styles.summary} numberOfLines={1}>

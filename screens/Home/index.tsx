@@ -1,21 +1,58 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Linking } from "expo";
 
 // components
 import HomeButton from '../../components/HomeButton';
 import SocialButton from '../../components/SocialButton';
+import Button from '../../components/Button';
+import NoDataContainer from "../../components/NoDataContainer";
+
+// contexts
+import AuthContext from "../../context/AuthContext";
+import DataContext from "../../context/DataContext";
+
+// constants
+import {NOTICE_CONNECTING, NOTICE_LOADING} from "../../utils/constants";
+
+// interfaces
+import { ICommunity, INavigation } from '../../utils/interfaces';
 
 // utils
-import { INavigation } from '../../utils/interfaces';
 import { calcSize } from '../../utils/misc';
 
-interface HomeScreenParams {
+interface HomeScreenProps {
   navigation: INavigation;
 }
 
-export default function HomeScreen(props: HomeScreenParams) {
+export default function HomeScreen(props: HomeScreenProps) {
   const { navigation } = props;
+
+  const authContext = useContext(AuthContext);
+  const dataContext = useContext(DataContext);
+
+  const { connectingToFirebase } = authContext;
+  const { communities } = dataContext;
+
+  const handleInstagramClick = async () => {
+    try {
+      const communityId: string | null = await AsyncStorage.getItem('@communityId');
+      if (communityId) {
+        const community: ICommunity | undefined = communities.find((c) => c.id === communityId);
+        if (community && community.instagram) {
+          await Linking.openURL(community.instagram);
+        } else {
+          alert('Ошибка! Невозможно открыть Instagram сообщества');
+        }
+      } else {
+        alert('Ошибка! Невозможно открыть Instagram, отсутствует id сообщества');
+      }
+    }
+    catch (e) {
+      alert('Ошибка! Невозможно открыть Instagram');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -24,80 +61,98 @@ export default function HomeScreen(props: HomeScreenParams) {
         contentContainerStyle={styles.contentContainer}
         bounces={false}
       >
-        <View style={styles.welcomeContainer}>
-          <Text style={styles.welcome} numberOfLines={1}>
-            Добро пожаловать
-          </Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <HomeButton
-            title="Все события"
-            sourceImage={require('../../assets/img/bike.png')}
-            gradientImage={require('../../assets/img/bike_gradient.png')}
-            onPress={() => {
-              navigation.navigate('Details');
-            }}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <HomeButton
-            title="Все услуги"
-            sourceImage={require('../../assets/img/brain.png')}
-            gradientImage={require('../../assets/img/brain_gradient.png')}
-            onPress={() => {
-              navigation.navigate('Services');
-            }}
-          />
-        </View>
-        {/* TODO: поменять иконку для сообществ */}
-        <View style={styles.buttonContainer}>
-          <HomeButton
-            title="Все сообщества"
-            sourceImage={require('../../assets/img/bike.png')}
-            gradientImage={require('../../assets/img/bike_gradient.png')}
-            onPress={() => {
-              navigation.navigate('WelcomeScreen');
-            }}
-          />
-        </View>
-        {/*
-          NOTE!
-          Эта кнопка чистит AsyncStorage, чтобы можно было протестировать функционал:
-            - при первом запуске, когда сообщество еще не выбрано;
-            - при втором запуске сразу открываем главный экран.
+        {connectingToFirebase || communities.length === 0 ? (
+          <View style={styles.container}>
+            <NoDataContainer
+              label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING}
+            />
+          </View>
+        ) : (
+          <>
+            <View style={styles.welcomeContainer}>
+              <Text style={styles.welcome} numberOfLines={1}>
+                Добро пожаловать
+              </Text>
+            </View>
+            <View style={styles.buttonContainer}>
+              <HomeButton
+                title="Все события"
+                sourceImage={require('../../assets/img/bike.png')}
+                gradientImage={require('../../assets/img/bike_gradient.png')}
+                onPress={() => {
+                  navigation.navigate('Details');
+                }}
+              />
+            </View>
+            <View style={styles.buttonContainer}>
+              <HomeButton
+                title="Все услуги"
+                sourceImage={require('../../assets/img/brain.png')}
+                gradientImage={require('../../assets/img/brain_gradient.png')}
+                onPress={() => {
+                  navigation.navigate('Services');
+                }}
+              />
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                title={"Instargam"}
+                onPress={handleInstagramClick}
+                style={styles.instagramButton}
+                textStyle={styles.instagramButtonText}
+              />
+            </View>
+            {/* TODO: поменять иконку для сообществ */}
+            <View style={styles.buttonContainer}>
+              <HomeButton
+                title="Все сообщества"
+                sourceImage={require('../../assets/img/bike.png')}
+                gradientImage={require('../../assets/img/bike_gradient.png')}
+                onPress={() => {
+                  navigation.navigate('WelcomeScreen');
+                }}
+              />
+            </View>
+            {/*
+              NOTE!
+              Эта кнопка чистит AsyncStorage, чтобы можно было протестировать функционал:
+                - при первом запуске, когда сообщество еще не выбрано;
+                - при втором запуске сразу открываем главный экран.
 
-          TODO: удалить после реализации всей фичи
-        */}
-        <View style={styles.buttonContainer}>
-          <HomeButton
-            title="Очистить"
-            sourceImage={require('../../assets/img/brain.png')}
-            gradientImage={require('../../assets/img/brain_gradient.png')}
-            onPress={() => {
-              AsyncStorage.clear();
-              console.log('Async storage has been cleared!');
-            }}
-          />
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Выберите чат</Text>
-        </View>
-        <View style={styles.socialsContainer}>
-          <SocialButton
-            icon={require('../../assets/img/icon_viber_x4.png')}
-            url={
-              'https://invite.viber.com/?g2=AQBA7jF9Y7%2BXBkqTI0PoYF%2BmnEMluxPdGZy8wJQ3PRPBLT%2BMeh344RxBuBUTVc6B'
-            }
-          />
-          <SocialButton
-            icon={require('../../assets/img/icon_telegram_x4.png')}
-            url={'tg://resolve?domain=events4friends'}
-          />
-          <SocialButton
-            icon={require('../../assets/img/icon_whatsapp_x4.png')}
-            url={'https://chat.whatsapp.com/DWUaZ1bsuxwJLALyvBYTt8'}
-          />
-        </View>
+              TODO: удалить после реализации всей фичи
+            */}
+            <View style={styles.buttonContainer}>
+              <HomeButton
+                title="Очистить"
+                sourceImage={require('../../assets/img/brain.png')}
+                gradientImage={require('../../assets/img/brain_gradient.png')}
+                onPress={() => {
+                  AsyncStorage.clear();
+                  console.log('Async storage has been cleared!');
+                }}
+              />
+            </View>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Выберите чат</Text>
+            </View>
+            <View style={styles.socialsContainer}>
+              <SocialButton
+                icon={require('../../assets/img/icon_viber_x4.png')}
+                url={
+                  'https://invite.viber.com/?g2=AQBA7jF9Y7%2BXBkqTI0PoYF%2BmnEMluxPdGZy8wJQ3PRPBLT%2BMeh344RxBuBUTVc6B'
+                }
+              />
+              <SocialButton
+                icon={require('../../assets/img/icon_telegram_x4.png')}
+                url={'tg://resolve?domain=events4friends'}
+              />
+              <SocialButton
+                icon={require('../../assets/img/icon_whatsapp_x4.png')}
+                url={'https://chat.whatsapp.com/DWUaZ1bsuxwJLALyvBYTt8'}
+              />
+            </View>
+          </>
+        )}
       </ScrollView>
     </View>
   );
@@ -150,4 +205,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: calcSize(285),
   },
+  instagramButton: {
+    width: 310,
+    height: 80,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderColor: 'grey',
+    borderWidth: 2,
+    marginTop: 30,
+  },
+  instagramButtonText: {
+    color: '#404040',
+    fontSize: 28,
+    textAlign: 'center',
+  }
 });

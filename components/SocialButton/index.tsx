@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Linking } from 'expo';
 
 // utils
-import { DEFAUTL_ACTIVE_OPACITY } from '../../utils/constants';
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
 
 interface SocialButtonParams {
@@ -20,7 +20,7 @@ export default function SocialButton(props: SocialButtonParams) {
       onPress={() => {
         Linking.openURL(url);
       }}
-      activeOpacity={DEFAUTL_ACTIVE_OPACITY}
+      activeOpacity={DEFAULT_ACTIVE_OPACITY}
     >
       <Image style={styles.img} source={icon} />
     </TouchableOpacity>
