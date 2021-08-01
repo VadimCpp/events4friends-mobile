@@ -38,6 +38,7 @@ export interface ICommunity {
   id: string;
   logo: string;
   name: string;
+  description: string;
   vkontakte?: string;
   facebook?: string;
   instagram?: string;

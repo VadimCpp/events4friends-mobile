@@ -45,34 +45,16 @@ export default function HomeScreen(props: HomeScreenProps) {
     setCommunity(aCommunity);
   }, [communities, getCommunityID]);
 
-  const handleVkontakteClick = async () => {
+  const handleLinkClick = async (slug: string, url: string) => {
     try {
-      if (community && community.vkontakte) {
-        console.log(`openURL: ${community.vkontakte}`);
-        await Linking.openURL(community.vkontakte);
-      } else {
-        alert('Ошибка! Невозможно открыть ВКонтакте, отсутствует id сообщества');
-      }
+      console.log(`Opening ${slug}: ${url}`);
+      await Linking.openURL(url);
     }
     catch (e) {
-      alert('Ошибка! Невозможно открыть ВКонтакте');
+      alert(`Ошибка! Не могу открыть ${slug}: ${url}`);
     }
   };
-
-  const handleInstagramClick = async () => {
-    try {
-      if (community && community.instagram) {
-        console.log(`openURL: ${community.instagram}`);
-        await Linking.openURL(community.instagram);
-      } else {
-        alert('Ошибка! Невозможно открыть Instagram, отсутствует id сообщества');
-      }
-    }
-    catch (e) {
-      alert('Ошибка! Невозможно открыть Instagram');
-    }
-  };
-
+  
   const handleCommunitiesClick = () => {
     console.log('Navigate WelcomeScreen');
     setCommunityID(0);
@@ -98,6 +80,7 @@ export default function HomeScreen(props: HomeScreenProps) {
               <Text style={styles.welcome} numberOfLines={2}>
                 {`Добро пожаловать в «${community.name}»`}
               </Text>
+              <Text style={styles.subTitle}>{community.description}</Text>
             </View>
             <View style={styles.buttonContainer}>
               <HomeButton
@@ -123,24 +106,48 @@ export default function HomeScreen(props: HomeScreenProps) {
               { Boolean(community.vkontakte) && (
                 <Button
                   title={"ВКонтакте"}
-                  onPress={handleVkontakteClick}
-                  style={styles.instagramButton}
-                  textStyle={styles.instagramButtonText}
+                  onPress={() => handleLinkClick("ВКонтакте", community.vkontakte || '')}
+                  style={styles.simpleButton}
+                  textStyle={styles.simpleButtonText}
                 />
               )}
               { Boolean(community.instagram) && (
                 <Button
                   title={"Instargam"}
-                  onPress={handleInstagramClick}
-                  style={styles.instagramButton}
-                  textStyle={styles.instagramButtonText}
+                  onPress={() => handleLinkClick("Instargam", community.instagram || '')}
+                  style={styles.simpleButton}
+                  textStyle={styles.simpleButtonText}
                 />
               )}
+              { Boolean(community.youtube) && (
+                <Button
+                  title={"Youtube"}
+                  onPress={() => handleLinkClick("Youtube", community.youtube || '')}
+                  style={styles.simpleButton}
+                  textStyle={styles.simpleButtonText}
+                />
+              )}
+              { Boolean(community.strava) && (
+                <Button
+                  title={"Strava"}
+                  onPress={() => handleLinkClick("Strava", community.strava || '')}
+                  style={styles.simpleButton}
+                  textStyle={styles.simpleButtonText}
+                />
+              )}
+              { Boolean(community.website) && (
+                <Button
+                  title={"Сайт"}
+                  onPress={() => handleLinkClick("Сайт", community.website || '')}
+                  style={styles.simpleButton}
+                  textStyle={styles.simpleButtonText}
+                />
+                )}
               <Button
                 title={"Другие сообщества"}
                 onPress={handleCommunitiesClick}
-                style={styles.instagramButton}
-                textStyle={styles.instagramButtonText}
+                style={styles.simpleButton}
+                textStyle={styles.simpleButtonText}
               />
             </View>
             <View style={styles.titleContainer}>
@@ -184,7 +191,7 @@ const styles = StyleSheet.create({
   },
   welcomeContainer: {
     width: calcSize(295),
-    height: calcSize(100),
+    height: calcSize(150),
     justifyContent: 'flex-end',
     marginBottom: 30,
   },
@@ -206,6 +213,10 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
     textShadowOffset: { height: 1, width: 1 },
   },
+  subTitle: {
+    marginTop: 10,
+    color: '#404040',
+  },
   buttonContainer: {
     marginTop: 30,
   },
@@ -216,7 +227,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: calcSize(285),
   },
-  instagramButton: {
+  simpleButton: {
     width: 310,
     height: 80,
     borderRadius: 15,
@@ -227,7 +238,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: 30,
   },
-  instagramButtonText: {
+  simpleButtonText: {
     color: '#404040',
     fontSize: 28,
     textAlign: 'center',
