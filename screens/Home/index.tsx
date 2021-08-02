@@ -49,6 +49,14 @@ export default function HomeScreen(props: HomeScreenProps) {
     setCommunity(aCommunity);
   }, [communities, getCommunityID]);
 
+  useEffect(() => {
+    if (community) {
+      navigation.setOptions({
+        headerTitle: () => <Text style={styles.headerTitle}>{community.name}</Text>,
+      })
+    }
+  }, [community, navigation]);
+
   const handleLinkClick = async (slug: string, url: string) => {
     try {
       console.log(`Opening ${slug}: ${url}`);
@@ -183,5 +191,10 @@ const styles = StyleSheet.create({
     color: '#404040',
     fontSize: 28,
     textAlign: 'center',
-  }
+  },
+  headerTitle: {
+    color: 'black',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });

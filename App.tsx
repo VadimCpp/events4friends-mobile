@@ -217,7 +217,8 @@ export default function App() {
                 name="Home"
                 component={HomeScreen}
                 options={{
-                  header: () => null,
+                  headerTitle: () => null,
+                  headerLeft: () => null,
                 }}
               />
               <Stack.Screen
