@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 // components
 import SocialButton from "../../../../components/SocialButton";
@@ -9,6 +9,9 @@ import { ICommunity } from "../../../../utils/interfaces";
 
 // utils
 import { calcSize } from "../../../../utils/misc";
+
+// local components
+import Header from "../Header";
 
 interface ChatsBlockProps {
   community: ICommunity;
@@ -24,10 +27,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Чаты сообщества</Text>
-      </View>
-
+      <Header title={"Чаты сообщества"} />
       <View style={styles.socialsContainer}>
         { Boolean(viber) && (
           <View style={styles.socialWrap}>
@@ -72,18 +72,6 @@ const styles = StyleSheet.create({
   socialWrap: {
     marginLeft: 20,
     marginRight: 20,
-  },
-  titleContainer: {
-    marginTop: 30,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#404040',
-    textAlign: 'center',
-    textShadowColor: 'white',
-    textShadowRadius: 2,
-    textShadowOffset: { height: 1, width: 1 },
   },
 });
 

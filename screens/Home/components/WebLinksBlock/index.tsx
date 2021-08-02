@@ -11,6 +11,9 @@ import { ICommunity } from "../../../../utils/interfaces";
 // utils
 import { calcSize } from "../../../../utils/misc";
 
+// local components
+import Header from '../Header';
+
 interface WebLinksBlockProps {
   community: ICommunity;
 }
@@ -35,10 +38,10 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Ссылки</Text>
-        <Text style={styles.subTitle}>В этом разделе ссылки на Instagram, YouTube, социальные сети и т.п.</Text>
-      </View>
+      <Header
+        title={"Ссылки"}
+        subTitle={"В этом разделе ссылки на Instagram, YouTube, социальные сети и т.п."}
+      />
       { Boolean(vkontakte) && (
         <Button
           title={"ВКонтакте"}
@@ -103,22 +106,6 @@ const styles = StyleSheet.create({
     color: '#404040',
     fontSize: 28,
     textAlign: 'center',
-  },
-  titleContainer: {
-    marginTop: 30,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#404040',
-    textAlign: 'center',
-    textShadowColor: 'white',
-    textShadowRadius: 2,
-    textShadowOffset: { height: 1, width: 1 },
-  },
-  subTitle: {
-    marginTop: 10,
-    color: '#404040',
   },
 });
 
