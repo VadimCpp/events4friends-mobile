@@ -39,6 +39,9 @@ export interface ICommunity {
   logo: string;
   name: string;
   description: string;
+  telegram?: string;
+  whatsapp?: string;
+  viber?: string;
   vkontakte?: string;
   facebook?: string;
   instagram?: string;

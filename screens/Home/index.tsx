@@ -22,6 +22,10 @@ import { ICommunity, INavigation } from '../../utils/interfaces';
 // utils
 import { calcSize } from '../../utils/misc';
 
+// local components
+import WebLinksBlock from "./components/WebLinksBlock";
+import ChatsBlock from "./components/ChatsBlock";
+
 interface HomeScreenProps {
   navigation: INavigation;
 }
@@ -102,71 +106,14 @@ export default function HomeScreen(props: HomeScreenProps) {
                 }}
               />
             </View>
-            <View style={styles.buttonContainer}>
-              { Boolean(community.vkontakte) && (
-                <Button
-                  title={"ВКонтакте"}
-                  onPress={() => handleLinkClick("ВКонтакте", community.vkontakte || '')}
-                  style={styles.simpleButton}
-                  textStyle={styles.simpleButtonText}
-                />
-              )}
-              { Boolean(community.instagram) && (
-                <Button
-                  title={"Instargam"}
-                  onPress={() => handleLinkClick("Instargam", community.instagram || '')}
-                  style={styles.simpleButton}
-                  textStyle={styles.simpleButtonText}
-                />
-              )}
-              { Boolean(community.youtube) && (
-                <Button
-                  title={"Youtube"}
-                  onPress={() => handleLinkClick("Youtube", community.youtube || '')}
-                  style={styles.simpleButton}
-                  textStyle={styles.simpleButtonText}
-                />
-              )}
-              { Boolean(community.strava) && (
-                <Button
-                  title={"Strava"}
-                  onPress={() => handleLinkClick("Strava", community.strava || '')}
-                  style={styles.simpleButton}
-                  textStyle={styles.simpleButtonText}
-                />
-              )}
-              { Boolean(community.website) && (
-                <Button
-                  title={"Сайт"}
-                  onPress={() => handleLinkClick("Сайт", community.website || '')}
-                  style={styles.simpleButton}
-                  textStyle={styles.simpleButtonText}
-                />
-                )}
+            <WebLinksBlock community={community} />
+            <ChatsBlock community={community} />
+            <View style={styles.lastContainer}>
               <Button
                 title={"Другие сообщества"}
                 onPress={handleCommunitiesClick}
                 style={styles.simpleButton}
                 textStyle={styles.simpleButtonText}
-              />
-            </View>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Чаты сообщества</Text>
-            </View>
-            <View style={styles.socialsContainer}>
-              <SocialButton
-                icon={require('../../assets/img/icon_viber_x4.png')}
-                url={
-                  'https://invite.viber.com/?g2=AQBA7jF9Y7%2BXBkqTI0PoYF%2BmnEMluxPdGZy8wJQ3PRPBLT%2BMeh344RxBuBUTVc6B'
-                }
-              />
-              <SocialButton
-                icon={require('../../assets/img/icon_telegram_x4.png')}
-                url={'tg://resolve?domain=events4friends'}
-              />
-              <SocialButton
-                icon={require('../../assets/img/icon_whatsapp_x4.png')}
-                url={'https://chat.whatsapp.com/DWUaZ1bsuxwJLALyvBYTt8'}
               />
             </View>
           </>
@@ -201,9 +148,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  titleContainer: {
-    marginTop: 30,
-  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -220,12 +164,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 30,
   },
-  socialsContainer: {
+  lastContainer: {
     marginTop: 30,
     marginBottom: 50,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: calcSize(285),
   },
   simpleButton: {
     width: 310,
