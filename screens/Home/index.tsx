@@ -5,6 +5,7 @@ import * as Linking from 'expo-linking';
 // components
 import Button from '../../components/Button';
 import NoDataContainer from "../../components/NoDataContainer";
+import HeaderTitle from '../../components/HeaderTitle';
 
 // contexts
 import AuthContext from "../../context/AuthContext";
@@ -48,7 +49,7 @@ export default function HomeScreen(props: HomeScreenProps) {
   useEffect(() => {
     if (community) {
       navigation.setOptions({
-        headerTitle: () => <Text style={styles.headerTitle}>{community.name}</Text>,
+        headerTitle: () => <HeaderTitle title={community.name} logo={community.logo}/>
       })
     }
   }, [community, navigation]);
@@ -124,10 +125,5 @@ const styles = StyleSheet.create({
     color: '#404040',
     fontSize: 28,
     textAlign: 'center',
-  },
-  headerTitle: {
-    color: 'black',
-    fontSize: 18,
-    fontWeight: 'bold',
   },
 });
