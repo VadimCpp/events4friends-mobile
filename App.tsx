@@ -142,10 +142,6 @@ export default function App() {
 
   function cacheResourcesAsync(): Promise<void> {
     const images = [
-      require('./assets/img/bike_gradient.png'),
-      require('./assets/img/bike.png'),
-      require('./assets/img/brain_gradient.png'),
-      require('./assets/img/brain.png'),
       require('./assets/img/icon_place_x4.png'),
       require('./assets/img/icon_telegram_x4.png'),
       require('./assets/img/icon_time_x4.png'),
