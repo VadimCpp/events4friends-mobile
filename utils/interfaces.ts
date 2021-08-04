@@ -28,6 +28,7 @@ export interface IService {
 
 export interface INavigation {
   navigate: (route: string, params?: Object) => void;
+  setOptions: ({ headerTitle }: { headerTitle: Function }) => void;
 }
 
 export interface IRoute {
@@ -38,7 +39,16 @@ export interface ICommunity {
   id: string;
   logo: string;
   name: string;
+  description: string;
+  telegram?: string;
+  whatsapp?: string;
+  viber?: string;
+  vkontakte?: string;
+  facebook?: string;
   instagram?: string;
+  youtube?: string;
+  strava?: string;
+  website?: string;
 }
 
 export interface IDataContext {
@@ -53,4 +63,9 @@ export interface IDataContext {
     onStored: Function,
     onStoredFailed: Function,
   ) => void;
+}
+
+export interface IStorageContext {
+  getCommunityID: () => number,
+  setCommunityID: (anId: number) => void,
 }

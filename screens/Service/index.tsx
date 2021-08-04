@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 
 // utils
 import { IService, INavigation, IRoute } from '../../utils/interfaces';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Linking } from 'expo';
+import * as Linking from 'expo-linking';
 
 // utils
 import { calcSize } from '../../../../utils/misc';

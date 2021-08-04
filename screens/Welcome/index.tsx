@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components
 import NoDataContainer from '../../components/NoDataContainer';
@@ -20,6 +19,7 @@ import {
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
+import StorageContext from "../../context/StorageContext";
 
 // utils
 import { ICommunity, INavigation } from '../../utils/interfaces';
@@ -33,44 +33,18 @@ export default function WelcomeScreen(props: WelcomeScreenParams) {
 
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
+  const storageContext = useContext(StorageContext);
 
   const { connectingToFirebase } = authContext;
   const { communities } = dataContext;
+  const { getCommunityID, setCommunityID } = storageContext;
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('@communityId');
-        if (value !== null) {
-          //
-          // NOTE!
-          // value previously stored, navigate home
-          //
-          navigation.navigate('Home');
-        }
-      } catch (e) {
-        console.warn('Error reading value, skip:', e);
-      }
-    };
-
-    getData().then();
-  }, [navigation]);
-
-  const onPress = useCallback(
-    (communityId: string) => {
-      const storeData = async (value: string) => {
-        try {
-          await AsyncStorage.setItem('@communityId', value);
-          navigation.navigate('Home');
-        } catch (e) {
-          console.warn('Saving error, skip:', e);
-        }
-      };
-
-      storeData(communityId).then();
-    },
-    [navigation],
-  );
+    const communityId: number = getCommunityID();
+    if (communityId) {
+      navigation.navigate('Home');
+    }
+  }, [navigation, getCommunityID]);
 
   return (
     <View style={styles.backgroundContainer}>
@@ -83,10 +57,9 @@ export default function WelcomeScreen(props: WelcomeScreenParams) {
           </View>
         ) : (
           <View style={styles.container}>
-            {/* TODO: style text */}
             <Text style={styles.title}>Выберите сообщество</Text>
             {communities.map((community: ICommunity) =>
-              <CommunityButton key={community.id} community={community} onPress={onPress}/>)}
+              <CommunityButton key={community.id} community={community} onPress={setCommunityID} />)}
           </View>
         )}
       </ScrollView>
