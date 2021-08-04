@@ -9,13 +9,21 @@ export default function NoDataContainer(props: NoDataContainerProps) {
   const { label } = props;
 
   return (
-    <View style={styles.noDataContainer}>
-      <Text>{label}</Text>
+    <View style={styles.container}>
+      <View style={styles.noDataContainer}>
+        <Text>{label}</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    width: '100%',
+  },
   noDataContainer: {
     height: 600,
     alignItems: 'center',

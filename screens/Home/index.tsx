@@ -26,7 +26,7 @@ interface HomeScreenProps {
   navigation: INavigation;
 }
 
-export default function HomeScreen(props: HomeScreenProps) {
+const HomeScreen = (props: HomeScreenProps) => {
   const { navigation } = props;
 
   const authContext = useContext(AuthContext);
@@ -60,42 +60,33 @@ export default function HomeScreen(props: HomeScreenProps) {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.scrollViewContainer}
-        contentContainerStyle={styles.contentContainer}
-        bounces={false}
-      >
-        {connectingToFirebase || community === null ? (
-          <View style={styles.container}>
-            <NoDataContainer
-              label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING}
-            />
-          </View>
-        ) : (
-          <>
-            <MainBlock community={community} navigation={navigation} />
-            <ChatsBlock community={community} />
-            <WebLinksBlock community={community} />
-            <FooterBlock community={community} onCommunitiesClick={handleCommunitiesClick}/>
-          </>
-        )}
-      </ScrollView>
-    </View>
+    <ScrollView
+      style={styles.scrollViewContainer}
+      contentContainerStyle={styles.contentContainer}
+      bounces={false}
+    >
+      {connectingToFirebase || community === null ? (
+        <NoDataContainer label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING} />
+      ) : (
+        <>
+          <MainBlock community={community} navigation={navigation} />
+          <ChatsBlock community={community} />
+          <WebLinksBlock community={community} />
+          <FooterBlock community={community} onCommunitiesClick={handleCommunitiesClick}/>
+        </>
+      )}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    width: '100%',
-  },
   scrollViewContainer: {
     width: '100%',
+    backgroundColor: '#fff',
   },
   contentContainer: {
     alignItems: 'center',
   },
 });
+
+export default HomeScreen;
