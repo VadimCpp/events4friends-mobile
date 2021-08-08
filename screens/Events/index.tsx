@@ -18,6 +18,7 @@ import { EventsFilter } from '../../utils/enums';
 import { IEvent, INavigation } from '../../utils/interfaces';
 import { calcSize } from '../../utils/misc';
 import { getSortedEvents } from '../../utils/eventsLogic';
+import HeaderTitle from "../../components/HeaderTitle";
 
 interface EventsScreenParams {
   navigation: INavigation;
@@ -40,6 +41,12 @@ export default function EventsScreen(props: EventsScreenParams) {
     },
     [navigation],
   );
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerBackTitle: "На главную",
+    })
+  }, [navigation]);
 
   useEffect(() => {
     setSortedEvents(getSortedEvents(events, filterType));
