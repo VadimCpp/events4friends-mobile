@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 // components
-import HomeButton from "../../../../components/HomeButton";
+import Button from "../../../../components/Button";
 
 // interfaces
 import { ICommunity, INavigation } from "../../../../utils/interfaces";
@@ -25,33 +25,38 @@ const MainBlock = (props: ChatsBlockProps) => {
         title={`Добро пожаловать в «${community.name}»`}
         subTitle={community.description}
       />
-      <View style={styles.buttonContainer}>
-        <HomeButton
-          title="Все события"
-          sourceImage={require('../../../../assets/img/bike.png')}
-          gradientImage={require('../../../../assets/img/bike_gradient.png')}
-          onPress={() => {
-            navigation.navigate('Details');
-          }}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <HomeButton
-          title="Все услуги"
-          sourceImage={require('../../../../assets/img/brain.png')}
-          gradientImage={require('../../../../assets/img/brain_gradient.png')}
-          onPress={() => {
-            navigation.navigate('Services');
-          }}
-        />
-      </View>
+      <Button
+        title={"События"}
+        onPress={() => navigation.navigate('Details')}
+        style={styles.simpleButton}
+        textStyle={styles.simpleButtonText}
+      />
+      <Button
+        title={"Услуги"}
+        onPress={() => navigation.navigate('Services')}
+        style={styles.simpleButton}
+        textStyle={styles.simpleButtonText}
+      />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  simpleButton: {
+    width: 310,
+    height: 80,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderColor: 'grey',
+    borderWidth: 2,
     marginTop: 30,
+  },
+  simpleButtonText: {
+    color: '#404040',
+    fontSize: 28,
+    textAlign: 'center',
   },
 });
 

@@ -1,9 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import * as Linking from 'expo-linking';
+import { StyleSheet, View, ScrollView } from 'react-native';
 
 // components
-import Button from '../../components/Button';
 import NoDataContainer from "../../components/NoDataContainer";
 import HeaderTitle from '../../components/HeaderTitle';
 
@@ -22,12 +20,13 @@ import { ICommunity, INavigation } from '../../utils/interfaces';
 import WebLinksBlock from "./components/WebLinksBlock";
 import ChatsBlock from "./components/ChatsBlock";
 import MainBlock from "./components/MainBlock";
+import FooterBlock from './components/FooterBlock';
 
 interface HomeScreenProps {
   navigation: INavigation;
 }
 
-export default function HomeScreen(props: HomeScreenProps) {
+const HomeScreen = (props: HomeScreenProps) => {
   const { navigation } = props;
 
   const authContext = useContext(AuthContext);
@@ -61,69 +60,33 @@ export default function HomeScreen(props: HomeScreenProps) {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.scrollViewContainer}
-        contentContainerStyle={styles.contentContainer}
-        bounces={false}
-      >
-        {connectingToFirebase || community === null ? (
-          <View style={styles.container}>
-            <NoDataContainer
-              label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING}
-            />
-          </View>
-        ) : (
-          <>
-            <MainBlock community={community} navigation={navigation} />
-            <WebLinksBlock community={community} />
-            <ChatsBlock community={community} />
-            <View style={styles.lastContainer}>
-              <Button
-                title={"Другие сообщества"}
-                onPress={handleCommunitiesClick}
-                style={styles.simpleButton}
-                textStyle={styles.simpleButtonText}
-              />
-            </View>
-          </>
-        )}
-      </ScrollView>
-    </View>
+    <ScrollView
+      style={styles.scrollViewContainer}
+      contentContainerStyle={styles.contentContainer}
+      bounces={false}
+    >
+      {connectingToFirebase || community === null ? (
+        <NoDataContainer label={connectingToFirebase ? NOTICE_CONNECTING : NOTICE_LOADING} />
+      ) : (
+        <>
+          <MainBlock community={community} navigation={navigation} />
+          <ChatsBlock community={community} />
+          <WebLinksBlock community={community} />
+          <FooterBlock community={community} onCommunitiesClick={handleCommunitiesClick}/>
+        </>
+      )}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    width: '100%',
-  },
   scrollViewContainer: {
     width: '100%',
+    backgroundColor: '#fff',
   },
   contentContainer: {
     alignItems: 'center',
   },
-  lastContainer: {
-    marginTop: 30,
-    marginBottom: 50,
-  },
-  simpleButton: {
-    width: 310,
-    height: 80,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderColor: 'grey',
-    borderWidth: 2,
-    marginTop: 30,
-  },
-  simpleButtonText: {
-    color: '#404040',
-    fontSize: 28,
-    textAlign: 'center',
-  },
 });
+
+export default HomeScreen;
