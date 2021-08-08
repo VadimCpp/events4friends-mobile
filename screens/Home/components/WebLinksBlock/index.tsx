@@ -90,17 +90,21 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     width: calcSize(285),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems:'center'
   },
   simpleButton: {
-    width: 310,
-    height: 80,
+    width: calcSize(210),
+    height: calcSize(55),
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderColor: 'grey',
     borderWidth: 2,
     marginTop: 30,
+    borderColor: '#9BF',
+    backgroundColor: "rgba(153,187,255,0.2)",
   },
   simpleButtonText: {
     color: '#404040',

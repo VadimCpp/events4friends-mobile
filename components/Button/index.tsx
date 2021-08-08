@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   circle: {
-    backgroundColor: 'white',
+    backgroundColor: '#404040',
     borderRadius: 3,
     width: 6,
     height: 6,

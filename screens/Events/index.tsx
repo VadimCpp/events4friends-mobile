@@ -66,6 +66,15 @@ export default function EventsScreen(props: EventsScreenParams) {
                         ? styles.filterButtonFocused
                         : styles.filterButton
                     }
+                    textStyle={
+                      filterType === EventsFilter.Upcoming
+                      ? {
+                        color: '#404040',
+                      }
+                      : {
+                        color: '#AAA',
+                      }
+                    }
                     selected={filterType === EventsFilter.Upcoming}
                   />
                   <Button
@@ -75,6 +84,15 @@ export default function EventsScreen(props: EventsScreenParams) {
                       filterType === EventsFilter.Past
                         ? styles.filterButtonFocused
                         : styles.filterButton
+                    }
+                    textStyle={
+                      filterType === EventsFilter.Past
+                        ? {
+                          color: '#404040',
+                        }
+                        : {
+                          color: '#AAA',
+                        }
                     }
                     selected={filterType === EventsFilter.Past}
                   />
@@ -104,7 +122,7 @@ export default function EventsScreen(props: EventsScreenParams) {
 const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF',
     alignItems: 'center',
     width: '100%',
   },
@@ -126,14 +144,17 @@ const styles = StyleSheet.create({
     width: calcSize(300),
   },
   filterButton: {
-    backgroundColor: '#EC7B28',
-    color: '#eee',
+    borderColor: '#EC7B28',
+    borderWidth: 2,
+    backgroundColor: 'rgba(236,123,40,0.2)',
     width: 130,
     marginLeft: 10,
     marginBottom: 10,
   },
   filterButtonFocused: {
-    backgroundColor: '#903e01',
+    borderColor: '#903e01',
+    borderWidth: 2,
+    backgroundColor: 'rgba(144,62,1,0.2)',
     width: 130,
     marginLeft: 10,
     marginBottom: 10,

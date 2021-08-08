@@ -14,6 +14,7 @@ import DataContext from '../../context/DataContext';
 import { IService, INavigation } from '../../utils/interfaces';
 import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 import { calcSize } from '../../utils/misc';
+import {EventsFilter} from "../../utils/enums";
 
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',
@@ -106,6 +107,15 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                         ? styles.sortButtonFocused
                         : styles.sortButton
                     }
+                    textStyle={
+                      sortingType === ServiceSortingType.SortByService
+                        ? {
+                          color: '#404040',
+                        }
+                        : {
+                          color: '#AAA',
+                        }
+                    }
                     selected={sortingType === ServiceSortingType.SortByService}
                   />
                   <Button
@@ -118,6 +128,15 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                         ? styles.sortButtonFocused
                         : styles.sortButton
                     }
+                    textStyle={
+                      sortingType === ServiceSortingType.SortByName
+                        ? {
+                          color: '#404040',
+                        }
+                        : {
+                          color: '#AAA',
+                        }
+                    }
                     selected={sortingType === ServiceSortingType.SortByName}
                   />
                   <Button
@@ -129,6 +148,15 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                       sortingType === ServiceSortingType.SortByPrice
                         ? styles.sortButtonFocused
                         : styles.sortButton
+                    }
+                    textStyle={
+                      sortingType === ServiceSortingType.SortByPrice
+                        ? {
+                          color: '#404040',
+                        }
+                        : {
+                          color: '#AAA',
+                        }
                     }
                     selected={sortingType === ServiceSortingType.SortByPrice}
                   />
@@ -183,13 +211,17 @@ const styles = StyleSheet.create({
     width: calcSize(300),
   },
   sortButton: {
-    backgroundColor: '#24BA7B',
+    backgroundColor: 'rgba(36,186,123,0.2)',
+    borderColor: '#24BA7B',
+    borderWidth: 2,
     width: 100,
     marginLeft: 10,
     marginBottom: 10,
   },
   sortButtonFocused: {
-    backgroundColor: '#007946',
+    borderColor: '#007946',
+    backgroundColor: 'rgba(0,121,70,0.2)',
+    borderWidth: 2,
     color: '#aaa',
     width: 100,
     marginLeft: 10,

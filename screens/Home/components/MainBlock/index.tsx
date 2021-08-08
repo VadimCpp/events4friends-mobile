@@ -9,6 +9,7 @@ import { ICommunity, INavigation } from "../../../../utils/interfaces";
 
 // local components
 import Header from "../Header";
+import {calcSize} from "../../../../utils/misc";
 
 
 interface ChatsBlockProps {
@@ -28,13 +29,13 @@ const MainBlock = (props: ChatsBlockProps) => {
       <Button
         title={"События"}
         onPress={() => navigation.navigate('Details')}
-        style={styles.simpleButton}
+        style={[ styles.simpleButton, styles.simpleButtonEvents ]}
         textStyle={styles.simpleButtonText}
       />
       <Button
         title={"Услуги"}
         onPress={() => navigation.navigate('Services')}
-        style={styles.simpleButton}
+        style={[ styles.simpleButton, styles.simpleButtonServices ]}
         textStyle={styles.simpleButtonText}
       />
     </>
@@ -43,15 +44,22 @@ const MainBlock = (props: ChatsBlockProps) => {
 
 const styles = StyleSheet.create({
   simpleButton: {
-    width: 310,
-    height: 80,
+    width: calcSize(285),
+    height: calcSize(70),
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderColor: 'grey',
     borderWidth: 2,
     marginTop: 30,
+  },
+  simpleButtonEvents: {
+    borderColor: '#EC7B28',
+    backgroundColor: "rgba(236,123,40,0.2)",
+  },
+  simpleButtonServices: {
+    borderColor: '#24BA7B',
+    backgroundColor: "rgba(36,186,123,0.2)",
   },
   simpleButtonText: {
     color: '#404040',

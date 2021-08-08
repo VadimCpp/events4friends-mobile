@@ -4,10 +4,15 @@ import {StyleSheet, View} from 'react-native';
 // components
 import Button from "../../../../components/Button";
 
+// interfaces
+import { ICommunity } from "../../../../utils/interfaces";
+
 // local components
 import Header from "../Header";
+import {calcSize} from "../../../../utils/misc";
 
 interface ChatsBlockProps {
+  community: ICommunity;
   onCommunitiesClick: () => void;
 }
 
@@ -36,15 +41,16 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   simpleButton: {
-    width: 310,
-    height: 80,
+    width: calcSize(285),
+    height: calcSize(70),
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderColor: 'grey',
     borderWidth: 2,
     marginTop: 30,
+    borderColor: '#66F',
+    backgroundColor: "rgba(102,102,255,0.2)",
   },
   simpleButtonText: {
     color: '#404040',
