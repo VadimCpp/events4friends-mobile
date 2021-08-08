@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, {useState, useContext, useCallback, useEffect} from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 
 // components
@@ -36,6 +36,12 @@ export default function ServicesScreen(props: ServicesScreenParams) {
   const [sortingType, setSortingType] = useState(
     ServiceSortingType.SortByService,
   );
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerBackTitle: "На главную",
+    })
+  }, [navigation]);
 
   const onServicePress = useCallback(
     service => {

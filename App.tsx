@@ -215,6 +215,7 @@ export default function App() {
                 options={{
                   headerTitle: () => null,
                   headerLeft: () => null,
+                  animationEnabled: false,
                 }}
               />
               <Stack.Screen
