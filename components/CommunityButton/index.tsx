@@ -7,6 +7,7 @@ import { DEFAULT_ACTIVE_OPACITY } from "../../utils/constants";
 
 // utils
 import { ICommunity } from '../../utils/interfaces';
+import {calcSize} from "../../utils/misc";
 
 //
 // NOTE!
@@ -94,15 +95,16 @@ interface CommunityButtonProps {
 
 const styles = StyleSheet.create({
   button: {
-    width: 310,
-    height: 80,
+    width: calcSize(285),
+    height: calcSize(70),
     borderRadius: 15,
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    borderColor: 'grey',
     borderWidth: 1,
     marginTop: 30,
+    borderColor: '#66F',
+    backgroundColor: "rgba(102,102,255,0.2)",
   },
   text: {
     color: '#404040',
@@ -110,11 +112,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   logo: {
-    width: 64,
-    height: 64,
+    width: calcSize(35),
+    height: calcSize(35),
     borderColor: 'red',
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: calcSize(20),
+    marginRight: calcSize(10),
   },
   bottomText: {
     marginTop: 5,
