@@ -28,7 +28,7 @@ interface WelcomeScreenParams {
   navigation: INavigation;
 }
 
-export default function WelcomeScreen(props: WelcomeScreenParams) {
+function WelcomeScreen(props: WelcomeScreenParams) {
   const { navigation } = props;
 
   const authContext = useContext(AuthContext);
@@ -94,3 +94,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default WelcomeScreen;

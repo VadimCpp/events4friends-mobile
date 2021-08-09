@@ -10,7 +10,7 @@ interface HomeButtonParams {
   onPress: () => void;
 }
 
-export default function HomeButton(props: HomeButtonParams) {
+function HomeButton(props: HomeButtonParams) {
   const { title, sourceImage, gradientImage, onPress } = props;
 
   return (
@@ -69,3 +69,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default HomeButton;

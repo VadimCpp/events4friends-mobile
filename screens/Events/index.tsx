@@ -23,7 +23,7 @@ interface EventsScreenParams {
   navigation: INavigation;
 }
 
-export default function EventsScreen(props: EventsScreenParams) {
+function EventsScreen(props: EventsScreenParams) {
   const { navigation } = props;
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
@@ -145,3 +145,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default EventsScreen;

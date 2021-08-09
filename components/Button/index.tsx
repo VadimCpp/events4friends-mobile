@@ -13,7 +13,7 @@ interface ButtonProps {
   selected?: boolean;
 }
 
-export default function Button(props: ButtonProps) {
+function Button(props: ButtonProps) {
   const { title, onPress, selected, style, textStyle, disabled } = props;
 
   return (
@@ -62,3 +62,5 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
 });
+
+export default Button;

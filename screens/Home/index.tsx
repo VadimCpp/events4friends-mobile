@@ -27,7 +27,7 @@ interface HomeScreenProps {
   navigation: INavigation;
 }
 
-export default function HomeScreen(props: HomeScreenProps) {
+function HomeScreen(props: HomeScreenProps) {
   const { navigation } = props;
 
   const authContext = useContext(AuthContext);
@@ -127,3 +127,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default HomeScreen;

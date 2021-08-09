@@ -11,7 +11,7 @@ interface ServicesListItemParams {
   onPress: () => void;
 }
 
-export default function ServicesListItem(props: ServicesListItemParams) {
+function ServicesListItem(props: ServicesListItemParams) {
   const { service, highlightName, onPress } = props;
 
   let priceTag = null;
@@ -98,3 +98,5 @@ const styles = StyleSheet.create({
     color: '#404040',
   },
 });
+
+export default ServicesListItem;

@@ -11,7 +11,7 @@ interface SocialButtonParams {
   icon: Object;
 }
 
-export default function SocialButton(props: SocialButtonParams) {
+function SocialButton(props: SocialButtonParams) {
   const { url, icon } = props;
 
   return (
@@ -44,3 +44,5 @@ const styles = StyleSheet.create({
     borderRadius: calcSize(28),
   },
 });
+
+export default SocialButton;

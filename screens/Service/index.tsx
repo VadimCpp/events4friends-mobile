@@ -20,7 +20,7 @@ interface ServiceScreenParams {
   navigation: INavigation;
 }
 
-export default function ServiceScreen(props: ServiceScreenParams) {
+function ServiceScreen(props: ServiceScreenParams) {
   const { route } = props;
   const { service }: { service: IService } = route.params;
 
@@ -216,3 +216,5 @@ const styles = StyleSheet.create({
     paddingBottom: calcSize(20),
   },
 });
+
+export default ServiceScreen;

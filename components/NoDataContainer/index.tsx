@@ -5,7 +5,7 @@ interface NoDataContainerProps {
   label: string;
 }
 
-export default function NoDataContainer(props: NoDataContainerProps) {
+function NoDataContainer(props: NoDataContainerProps) {
   const { label } = props;
 
   return (
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default NoDataContainer;

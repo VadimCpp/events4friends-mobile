@@ -26,7 +26,7 @@ interface ServicesScreenParams {
   navigation: INavigation;
 }
 
-export default function ServicesScreen(props: ServicesScreenParams) {
+function ServicesScreen(props: ServicesScreenParams) {
   const { navigation } = props;
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
@@ -202,3 +202,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default ServicesScreen;
