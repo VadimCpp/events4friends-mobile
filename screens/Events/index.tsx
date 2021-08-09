@@ -81,64 +81,63 @@ export default function EventsScreen(props: EventsScreenParams) {
           />
         ) : (
           <View style={styles.container}>
-            {sortedEvents.length > 0 ? (
-              <View>
-                <View style={styles.filterContainer}>
-                  <Text>Фильтр</Text>
-                  <Button
-                    title="Предстоящие"
-                    onPress={() => setFilterType(EventsFilter.Upcoming)}
-                    style={
-                      filterType === EventsFilter.Upcoming
-                        ? styles.filterButtonFocused
-                        : styles.filterButton
+            <View>
+              <View style={styles.filterContainer}>
+                <Text>Фильтр</Text>
+                <Button
+                  title="Предстоящие"
+                  onPress={() => setFilterType(EventsFilter.Upcoming)}
+                  style={
+                    filterType === EventsFilter.Upcoming
+                      ? styles.filterButtonFocused
+                      : styles.filterButton
+                  }
+                  textStyle={
+                    filterType === EventsFilter.Upcoming
+                    ? {
+                      color: '#404040',
                     }
-                    textStyle={
-                      filterType === EventsFilter.Upcoming
+                    : {
+                      color: '#AAA',
+                    }
+                  }
+                  selected={filterType === EventsFilter.Upcoming}
+                />
+                <Button
+                  title="Прошедшие"
+                  onPress={() => setFilterType(EventsFilter.Past)}
+                  style={
+                    filterType === EventsFilter.Past
+                      ? styles.filterButtonFocused
+                      : styles.filterButton
+                  }
+                  textStyle={
+                    filterType === EventsFilter.Past
                       ? {
                         color: '#404040',
                       }
                       : {
                         color: '#AAA',
                       }
-                    }
-                    selected={filterType === EventsFilter.Upcoming}
+                  }
+                  selected={filterType === EventsFilter.Past}
+                />
+              </View>
+              {sortedEvents.map((event: IEvent) => {
+                return (
+                  <EventsListItem
+                    key={event.id}
+                    event={event}
+                    onPress={() => onEventPress(event)}
                   />
-                  <Button
-                    title="Прошедшие"
-                    onPress={() => setFilterType(EventsFilter.Past)}
-                    style={
-                      filterType === EventsFilter.Past
-                        ? styles.filterButtonFocused
-                        : styles.filterButton
-                    }
-                    textStyle={
-                      filterType === EventsFilter.Past
-                        ? {
-                          color: '#404040',
-                        }
-                        : {
-                          color: '#AAA',
-                        }
-                    }
-                    selected={filterType === EventsFilter.Past}
-                  />
+                );
+              })}
+              {sortedEvents.length === 0 && (
+                <View>
+                  <Text style={styles.emptyLabel}>Список пуст</Text>
                 </View>
-                {sortedEvents.map((event: IEvent) => {
-                  return (
-                    <EventsListItem
-                      key={event.id}
-                      event={event}
-                      onPress={() => onEventPress(event)}
-                    />
-                  );
-                })}
-              </View>
-            ) : (
-              <View>
-                <Text style={styles.emptyLabel}>Список пуст</Text>
-              </View>
-            )}
+              )}
+            </View>
           </View>
         )}
       </ScrollView>
@@ -187,6 +186,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   emptyLabel: {
+    marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#404040',

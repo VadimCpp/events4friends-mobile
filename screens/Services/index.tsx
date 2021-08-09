@@ -119,92 +119,91 @@ export default function ServicesScreen(props: ServicesScreenParams) {
           />
         ) : (
           <View style={styles.container}>
-            {sortedServices.length > 0 ? (
-              <View>
-                <View style={styles.sortContainer}>
-                  <Text>Сортировка</Text>
-                  <Button
-                    title="Услуга"
-                    onPress={() =>
-                      setSortingType(ServiceSortingType.SortByService)
-                    }
-                    style={
-                      sortingType === ServiceSortingType.SortByService
-                        ? styles.sortButtonFocused
-                        : styles.sortButton
-                    }
-                    textStyle={
-                      sortingType === ServiceSortingType.SortByService
-                        ? {
-                          color: '#404040',
-                        }
-                        : {
-                          color: '#AAA',
-                        }
-                    }
-                    selected={sortingType === ServiceSortingType.SortByService}
-                  />
-                  <Button
-                    title="Имя"
-                    onPress={() =>
-                      setSortingType(ServiceSortingType.SortByName)
-                    }
-                    style={
-                      sortingType === ServiceSortingType.SortByName
-                        ? styles.sortButtonFocused
-                        : styles.sortButton
-                    }
-                    textStyle={
-                      sortingType === ServiceSortingType.SortByName
-                        ? {
-                          color: '#404040',
-                        }
-                        : {
-                          color: '#AAA',
-                        }
-                    }
-                    selected={sortingType === ServiceSortingType.SortByName}
-                  />
-                  <Button
-                    title="Цена"
-                    onPress={() =>
-                      setSortingType(ServiceSortingType.SortByPrice)
-                    }
-                    style={
-                      sortingType === ServiceSortingType.SortByPrice
-                        ? styles.sortButtonFocused
-                        : styles.sortButton
-                    }
-                    textStyle={
-                      sortingType === ServiceSortingType.SortByPrice
-                        ? {
-                          color: '#404040',
-                        }
-                        : {
-                          color: '#AAA',
-                        }
-                    }
-                    selected={sortingType === ServiceSortingType.SortByPrice}
-                  />
-                </View>
-                {sortedServices.map((service: IService) => {
-                  return (
-                    <ServicesListItem
-                      key={service.id}
-                      service={service}
-                      highlightName={
-                        sortingType === ServiceSortingType.SortByName
+            <View>
+              <View style={styles.sortContainer}>
+                <Text>Сортировка</Text>
+                <Button
+                  title="Услуга"
+                  onPress={() =>
+                    setSortingType(ServiceSortingType.SortByService)
+                  }
+                  style={
+                    sortingType === ServiceSortingType.SortByService
+                      ? styles.sortButtonFocused
+                      : styles.sortButton
+                  }
+                  textStyle={
+                    sortingType === ServiceSortingType.SortByService
+                      ? {
+                        color: '#404040',
                       }
-                      onPress={() => onServicePress(service)}
-                    />
-                  );
-                })}
+                      : {
+                        color: '#AAA',
+                      }
+                  }
+                  selected={sortingType === ServiceSortingType.SortByService}
+                />
+                <Button
+                  title="Имя"
+                  onPress={() =>
+                    setSortingType(ServiceSortingType.SortByName)
+                  }
+                  style={
+                    sortingType === ServiceSortingType.SortByName
+                      ? styles.sortButtonFocused
+                      : styles.sortButton
+                  }
+                  textStyle={
+                    sortingType === ServiceSortingType.SortByName
+                      ? {
+                        color: '#404040',
+                      }
+                      : {
+                        color: '#AAA',
+                      }
+                  }
+                  selected={sortingType === ServiceSortingType.SortByName}
+                />
+                <Button
+                  title="Цена"
+                  onPress={() =>
+                    setSortingType(ServiceSortingType.SortByPrice)
+                  }
+                  style={
+                    sortingType === ServiceSortingType.SortByPrice
+                      ? styles.sortButtonFocused
+                      : styles.sortButton
+                  }
+                  textStyle={
+                    sortingType === ServiceSortingType.SortByPrice
+                      ? {
+                        color: '#404040',
+                      }
+                      : {
+                        color: '#AAA',
+                      }
+                  }
+                  selected={sortingType === ServiceSortingType.SortByPrice}
+                />
               </View>
-            ) : (
-              <View>
-                <Text style={styles.emptyLabel}>Список пуст</Text>
-              </View>
-            )}
+              {sortedServices.map((service: IService) => {
+                return (
+                  <ServicesListItem
+                    key={service.id}
+                    service={service}
+                    highlightName={
+                      sortingType === ServiceSortingType.SortByName
+                    }
+                    onPress={() => onServicePress(service)}
+                  />
+                );
+              })}
+              {sortedServices.length === 0 && (
+                <View>
+                  <Text style={styles.emptyLabel}>Список пуст</Text>
+                </View>
+              )}
+            </View>
           </View>
         )}
       </ScrollView>
@@ -254,6 +253,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   emptyLabel: {
+    marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#404040',
