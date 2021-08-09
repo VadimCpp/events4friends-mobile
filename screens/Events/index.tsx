@@ -7,18 +7,18 @@ import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING, DEFAULT_COMMUNITY_ID } from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
+import StorageContext from "../../context/StorageContext";
 
 // utils
 import { EventsFilter } from '../../utils/enums';
-import { IEvent, INavigation } from '../../utils/interfaces';
+import { ICommunity, IEvent, INavigation } from '../../utils/interfaces';
 import { calcSize } from '../../utils/misc';
 import { getSortedEvents } from '../../utils/eventsLogic';
-import HeaderTitle from "../../components/HeaderTitle";
 
 interface EventsScreenParams {
   navigation: INavigation;
@@ -26,12 +26,24 @@ interface EventsScreenParams {
 
 export default function EventsScreen(props: EventsScreenParams) {
   const { navigation } = props;
+
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
+  const storageContext = useContext(StorageContext);
+
   const { connectingToFirebase } = authContext;
-  const { events, loadingEvents } = dataContext;
+  const { events, loadingEvents, communities } = dataContext;
+  const { getCommunityID } = storageContext;
+
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
   const [sortedEvents, setSortedEvents] = useState<Array<IEvent>>([]);
+  const [community, setCommunity] = useState<ICommunity | null>(null);
+
+  useEffect(() => {
+    const anId = `${getCommunityID()}`;
+    const aCommunity = communities.find((c) => c.id === anId) || null;
+    setCommunity(aCommunity);
+  }, [communities, getCommunityID]);
 
   const onEventPress = useCallback(
     event => {
@@ -49,8 +61,14 @@ export default function EventsScreen(props: EventsScreenParams) {
   }, [navigation]);
 
   useEffect(() => {
-    setSortedEvents(getSortedEvents(events, filterType));
-  }, [events, filterType]);
+    const communityId = community?.id;
+    if (communityId) {
+      const eventsOfCommunity = events.filter((e: IEvent) => {
+        return (e.communityId || DEFAULT_COMMUNITY_ID) === communityId;
+      })
+      setSortedEvents(getSortedEvents(eventsOfCommunity, filterType));
+    }
+  }, [events, filterType, community]);
 
   return (
     <View style={styles.backgroundContainer}>

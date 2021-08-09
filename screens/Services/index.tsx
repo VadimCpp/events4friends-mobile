@@ -9,12 +9,14 @@ import NoDataContainer from '../../components/NoDataContainer';
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
+import StorageContext from "../../context/StorageContext";
+
+// constants
+import { NOTICE_CONNECTING, NOTICE_LOADING, DEFAULT_COMMUNITY_ID } from '../../utils/constants';
 
 // utils
-import { IService, INavigation } from '../../utils/interfaces';
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
+import { IService, INavigation, ICommunity } from '../../utils/interfaces';
 import { calcSize } from '../../utils/misc';
-import {EventsFilter} from "../../utils/enums";
 
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',
@@ -29,13 +31,23 @@ interface ServicesScreenParams {
 
 export default function ServicesScreen(props: ServicesScreenParams) {
   const { navigation } = props;
+
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
+  const storageContext = useContext(StorageContext);
+
   const { connectingToFirebase } = authContext;
-  const { services, loadingServices } = dataContext;
-  const [sortingType, setSortingType] = useState(
-    ServiceSortingType.SortByService,
-  );
+  const { services, loadingServices, communities } = dataContext;
+  const { getCommunityID } = storageContext;
+
+  const [community, setCommunity] = useState<ICommunity | null>(null);
+  const [sortingType, setSortingType] = useState(ServiceSortingType.SortByService);
+
+  useEffect(() => {
+    const anId = `${getCommunityID()}`;
+    const aCommunity = communities.find((c) => c.id === anId) || null;
+    setCommunity(aCommunity);
+  }, [communities, getCommunityID]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -56,17 +68,21 @@ export default function ServicesScreen(props: ServicesScreenParams) {
   // NOTE!
   // При сортировке сначала в результате названия с латинскими буквами
   //
-  let sorted: Array<IService> = [];
+  console.log('Community ID:', community?.id);
+  let sorted: Array<IService> = services.filter((s: IService) => {
+    console.log('Service Community ID:', s.communityId, (s.communityId || DEFAULT_COMMUNITY_ID) === community?.id);
+    return (s.communityId || DEFAULT_COMMUNITY_ID) === community?.id;
+  });
   if (sortingType === ServiceSortingType.SortByName) {
-    sorted = services.sort((a: IService, b: IService): number => {
+    sorted.sort((a: IService, b: IService): number => {
       return a.name ? a.name.localeCompare(b.name) : 0;
     });
   } else if (sortingType === ServiceSortingType.SortByService) {
-    sorted = services.sort((a: IService, b: IService): number => {
+    sorted.sort((a: IService, b: IService): number => {
       return a.service ? a.service.localeCompare(b.service) : 0;
     });
   } else if (sortingType === ServiceSortingType.SortByPrice) {
-    sorted = services.sort((a: IService, b: IService): number => {
+    sorted.sort((a: IService, b: IService): number => {
       //
       // NOTE!
       // Сначала показываем бесплатные услуги
