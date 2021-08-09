@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING, DEFAULT_COMMUNITY_ID } from '../../utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
@@ -35,9 +35,9 @@ export default function EventsScreen(props: EventsScreenParams) {
   const { events, loadingEvents, communities } = dataContext;
   const { getCommunityID } = storageContext;
 
+  const [community, setCommunity] = useState<ICommunity | null>(null);
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
   const [sortedEvents, setSortedEvents] = useState<Array<IEvent>>([]);
-  const [community, setCommunity] = useState<ICommunity | null>(null);
 
   useEffect(() => {
     const anId = `${getCommunityID()}`;
@@ -61,6 +61,8 @@ export default function EventsScreen(props: EventsScreenParams) {
   }, [navigation]);
 
   useEffect(() => {
+    // Номер сообщества по умолчанию - 1 - events4friends
+    const DEFAULT_COMMUNITY_ID = "1";
     const communityId = community?.id;
     if (communityId) {
       const eventsOfCommunity = events.filter((e: IEvent) => {

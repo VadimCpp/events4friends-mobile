@@ -12,7 +12,7 @@ import DataContext from '../../context/DataContext';
 import StorageContext from "../../context/StorageContext";
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING, DEFAULT_COMMUNITY_ID } from '../../utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // utils
 import { IService, INavigation, ICommunity } from '../../utils/interfaces';
@@ -42,6 +42,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
 
   const [community, setCommunity] = useState<ICommunity | null>(null);
   const [sortingType, setSortingType] = useState(ServiceSortingType.SortByService);
+  const [sortedServices, setSortedServices] = useState<Array<IService>>([]);
 
   useEffect(() => {
     const anId = `${getCommunityID()}`;
@@ -64,47 +65,50 @@ export default function ServicesScreen(props: ServicesScreenParams) {
     [navigation],
   );
 
-  //
-  // NOTE!
-  // При сортировке сначала в результате названия с латинскими буквами
-  //
-  console.log('Community ID:', community?.id);
-  let sorted: Array<IService> = services.filter((s: IService) => {
-    console.log('Service Community ID:', s.communityId, (s.communityId || DEFAULT_COMMUNITY_ID) === community?.id);
-    return (s.communityId || DEFAULT_COMMUNITY_ID) === community?.id;
-  });
-  if (sortingType === ServiceSortingType.SortByName) {
-    sorted.sort((a: IService, b: IService): number => {
-      return a.name ? a.name.localeCompare(b.name) : 0;
-    });
-  } else if (sortingType === ServiceSortingType.SortByService) {
-    sorted.sort((a: IService, b: IService): number => {
-      return a.service ? a.service.localeCompare(b.service) : 0;
-    });
-  } else if (sortingType === ServiceSortingType.SortByPrice) {
-    sorted.sort((a: IService, b: IService): number => {
-      //
-      // NOTE!
-      // Сначала показываем бесплатные услуги
-      // Потом по возрастанию цены
-      // В конце - услуги без указания цены
-      //
-      if (a.isFree && b.isFree) {
-        return 0;
-      } else if (a.isFree) {
-        return -1;
-      } else if (b.isFree) {
-        return 1;
-      } else if (a.price && b.price) {
-        return a.price < b.price ? -1 : 0;
-      } else if (a.price && !b.price) {
-        return -1;
-      } else if (a.price && !b.price) {
-        return 1;
+  useEffect(() => {
+    // Номер сообщества по умолчанию - 1 - events4friends
+    const DEFAULT_COMMUNITY_ID = "1";
+    const communityId = community?.id;
+    if (communityId) {
+      let sorted: Array<IService> = services.filter((s: IService) => {
+        const sCommunityId = s.communityId ? s.communityId : DEFAULT_COMMUNITY_ID;
+        return sCommunityId === communityId;
+      });
+      if (sortingType === ServiceSortingType.SortByName) {
+        sorted.sort((a: IService, b: IService): number => {
+          return a.name ? a.name.localeCompare(b.name) : 0;
+        });
+      } else if (sortingType === ServiceSortingType.SortByService) {
+        sorted.sort((a: IService, b: IService): number => {
+          return a.service ? a.service.localeCompare(b.service) : 0;
+        });
+      } else if (sortingType === ServiceSortingType.SortByPrice) {
+        sorted.sort((a: IService, b: IService): number => {
+          //
+          // NOTE!
+          // Сначала показываем бесплатные услуги
+          // Потом по возрастанию цены
+          // В конце - услуги без указания цены
+          //
+          if (a.isFree && b.isFree) {
+            return 0;
+          } else if (a.isFree) {
+            return -1;
+          } else if (b.isFree) {
+            return 1;
+          } else if (a.price && b.price) {
+            return a.price < b.price ? -1 : 0;
+          } else if (a.price && !b.price) {
+            return -1;
+          } else if (a.price && !b.price) {
+            return 1;
+          }
+          return 0;
+        });
       }
-      return 0;
-    });
-  }
+      setSortedServices(sorted);
+    }
+  }, [services, sortingType, community]);
 
   return (
     <View style={styles.backgroundContainer}>
@@ -115,7 +119,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
           />
         ) : (
           <View style={styles.container}>
-            {services.length > 0 ? (
+            {sortedServices.length > 0 ? (
               <View>
                 <View style={styles.sortContainer}>
                   <Text>Сортировка</Text>
@@ -183,7 +187,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
                     selected={sortingType === ServiceSortingType.SortByPrice}
                   />
                 </View>
-                {sorted.map((service: IService) => {
+                {sortedServices.map((service: IService) => {
                   return (
                     <ServicesListItem
                       key={service.id}
