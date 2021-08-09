@@ -84,7 +84,7 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

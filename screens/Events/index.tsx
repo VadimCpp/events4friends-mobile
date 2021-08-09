@@ -23,7 +23,7 @@ interface EventsScreenParams {
   navigation: INavigation;
 }
 
-function EventsScreen(props: EventsScreenParams) {
+const EventsScreen = (props: EventsScreenParams) => {
   const { navigation } = props;
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
@@ -99,7 +99,7 @@ function EventsScreen(props: EventsScreenParams) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   backgroundContainer: {

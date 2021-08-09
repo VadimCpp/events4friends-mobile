@@ -10,7 +10,7 @@ interface HomeButtonParams {
   onPress: () => void;
 }
 
-function HomeButton(props: HomeButtonParams) {
+const HomeButton = (props: HomeButtonParams) => {
   const { title, sourceImage, gradientImage, onPress } = props;
 
   return (
@@ -27,7 +27,7 @@ function HomeButton(props: HomeButtonParams) {
       </View>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   imageContainer: {

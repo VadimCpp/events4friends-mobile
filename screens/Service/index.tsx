@@ -20,7 +20,7 @@ interface ServiceScreenParams {
   navigation: INavigation;
 }
 
-function ServiceScreen(props: ServiceScreenParams) {
+const ServiceScreen = (props: ServiceScreenParams) => {
   const { route } = props;
   const { service }: { service: IService } = route.params;
 
@@ -121,7 +121,7 @@ function ServiceScreen(props: ServiceScreenParams) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

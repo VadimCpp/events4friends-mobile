@@ -27,7 +27,7 @@ interface HomeScreenProps {
   navigation: INavigation;
 }
 
-function HomeScreen(props: HomeScreenProps) {
+const HomeScreen = (props: HomeScreenProps) => {
   const { navigation } = props;
 
   const authContext = useContext(AuthContext);
@@ -91,7 +91,7 @@ function HomeScreen(props: HomeScreenProps) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

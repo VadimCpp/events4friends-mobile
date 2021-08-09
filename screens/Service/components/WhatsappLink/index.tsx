@@ -10,7 +10,7 @@ interface WhatsappLinkProps {
   service: string;
 }
 
-function WhatsappLink(props: WhatsappLinkProps) {
+const WhatsappLink = (props: WhatsappLinkProps) => {
   const { whatsapp, service } = props;
   const textToEncode = `Привет, меня интересует услуга ${service}, которую я нашел на сайте events4friends.ru`;
   const url = `https://wa.me/${whatsapp}?text=${encodeURI(textToEncode)}`;
@@ -28,7 +28,7 @@ function WhatsappLink(props: WhatsappLinkProps) {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   waContainer: {

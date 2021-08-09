@@ -28,7 +28,7 @@ interface WelcomeScreenParams {
   navigation: INavigation;
 }
 
-function WelcomeScreen(props: WelcomeScreenParams) {
+const WelcomeScreen = (props: WelcomeScreenParams) => {
   const { navigation } = props;
 
   const authContext = useContext(AuthContext);
@@ -65,7 +65,7 @@ function WelcomeScreen(props: WelcomeScreenParams) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   backgroundContainer: {

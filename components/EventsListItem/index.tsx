@@ -16,7 +16,7 @@ interface EventsListItemParams {
   onPress: () => void;
 }
 
-function EventsListItem(props: EventsListItemParams) {
+const EventsListItem = (props: EventsListItemParams) => {
   const { event, onPress } = props;
 
   const startDate = getVerboseDate(event);
@@ -79,7 +79,7 @@ function EventsListItem(props: EventsListItemParams) {
       )}
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   listItemContainer: {

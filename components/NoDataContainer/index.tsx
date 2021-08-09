@@ -5,7 +5,7 @@ interface NoDataContainerProps {
   label: string;
 }
 
-function NoDataContainer(props: NoDataContainerProps) {
+const NoDataContainer = (props: NoDataContainerProps) => {
   const { label } = props;
 
   return (
@@ -13,7 +13,7 @@ function NoDataContainer(props: NoDataContainerProps) {
       <Text>{label}</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   noDataContainer: {

@@ -47,7 +47,7 @@ const MainBlock = (props: ChatsBlockProps) => {
       </View>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {

@@ -26,7 +26,7 @@ interface ServicesScreenParams {
   navigation: INavigation;
 }
 
-function ServicesScreen(props: ServicesScreenParams) {
+const ServicesScreen = (props: ServicesScreenParams) => {
   const { navigation } = props;
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
@@ -156,7 +156,7 @@ function ServicesScreen(props: ServicesScreenParams) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   backgroundContainer: {

@@ -33,7 +33,7 @@ interface EventScreenParams {
   navigation: INavigation;
 }
 
-function EventScreen(props: EventScreenParams) {
+const EventScreen = (props: EventScreenParams) => {
   const { route } = props;
   const { event } = route.params;
 
@@ -225,7 +225,7 @@ function EventScreen(props: EventScreenParams) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
