@@ -12,13 +12,13 @@ import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
+import StorageContext from "../../context/StorageContext";
 
 // utils
 import { EventsFilter } from '../../utils/enums';
-import { IEvent, INavigation } from '../../utils/interfaces';
+import { ICommunity, IEvent, INavigation } from '../../utils/interfaces';
 import { calcSize } from '../../utils/misc';
 import { getSortedEvents } from '../../utils/eventsLogic';
-import HeaderTitle from "../../components/HeaderTitle";
 
 interface EventsScreenParams {
   navigation: INavigation;
@@ -26,12 +26,24 @@ interface EventsScreenParams {
 
 export default function EventsScreen(props: EventsScreenParams) {
   const { navigation } = props;
+
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
+  const storageContext = useContext(StorageContext);
+
   const { connectingToFirebase } = authContext;
-  const { events, loadingEvents } = dataContext;
+  const { events, loadingEvents, communities } = dataContext;
+  const { getCommunityID } = storageContext;
+
+  const [community, setCommunity] = useState<ICommunity | null>(null);
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
   const [sortedEvents, setSortedEvents] = useState<Array<IEvent>>([]);
+
+  useEffect(() => {
+    const anId = `${getCommunityID()}`;
+    const aCommunity = communities.find((c) => c.id === anId) || null;
+    setCommunity(aCommunity);
+  }, [communities, getCommunityID]);
 
   const onEventPress = useCallback(
     event => {
@@ -49,8 +61,16 @@ export default function EventsScreen(props: EventsScreenParams) {
   }, [navigation]);
 
   useEffect(() => {
-    setSortedEvents(getSortedEvents(events, filterType));
-  }, [events, filterType]);
+    // Номер сообщества по умолчанию - 1 - events4friends
+    const DEFAULT_COMMUNITY_ID = "1";
+    const communityId = community?.id;
+    if (communityId) {
+      const eventsOfCommunity = events.filter((e: IEvent) => {
+        return (e.communityId || DEFAULT_COMMUNITY_ID) === communityId;
+      })
+      setSortedEvents(getSortedEvents(eventsOfCommunity, filterType));
+    }
+  }, [events, filterType, community]);
 
   return (
     <View style={styles.backgroundContainer}>
@@ -61,64 +81,63 @@ export default function EventsScreen(props: EventsScreenParams) {
           />
         ) : (
           <View style={styles.container}>
-            {sortedEvents.length > 0 ? (
-              <View>
-                <View style={styles.filterContainer}>
-                  <Text>Фильтр</Text>
-                  <Button
-                    title="Предстоящие"
-                    onPress={() => setFilterType(EventsFilter.Upcoming)}
-                    style={
-                      filterType === EventsFilter.Upcoming
-                        ? styles.filterButtonFocused
-                        : styles.filterButton
+            <View>
+              <View style={styles.filterContainer}>
+                <Text>Фильтр</Text>
+                <Button
+                  title="Предстоящие"
+                  onPress={() => setFilterType(EventsFilter.Upcoming)}
+                  style={
+                    filterType === EventsFilter.Upcoming
+                      ? styles.filterButtonFocused
+                      : styles.filterButton
+                  }
+                  textStyle={
+                    filterType === EventsFilter.Upcoming
+                    ? {
+                      color: '#404040',
                     }
-                    textStyle={
-                      filterType === EventsFilter.Upcoming
+                    : {
+                      color: '#AAA',
+                    }
+                  }
+                  selected={filterType === EventsFilter.Upcoming}
+                />
+                <Button
+                  title="Прошедшие"
+                  onPress={() => setFilterType(EventsFilter.Past)}
+                  style={
+                    filterType === EventsFilter.Past
+                      ? styles.filterButtonFocused
+                      : styles.filterButton
+                  }
+                  textStyle={
+                    filterType === EventsFilter.Past
                       ? {
                         color: '#404040',
                       }
                       : {
                         color: '#AAA',
                       }
-                    }
-                    selected={filterType === EventsFilter.Upcoming}
+                  }
+                  selected={filterType === EventsFilter.Past}
+                />
+              </View>
+              {sortedEvents.map((event: IEvent) => {
+                return (
+                  <EventsListItem
+                    key={event.id}
+                    event={event}
+                    onPress={() => onEventPress(event)}
                   />
-                  <Button
-                    title="Прошедшие"
-                    onPress={() => setFilterType(EventsFilter.Past)}
-                    style={
-                      filterType === EventsFilter.Past
-                        ? styles.filterButtonFocused
-                        : styles.filterButton
-                    }
-                    textStyle={
-                      filterType === EventsFilter.Past
-                        ? {
-                          color: '#404040',
-                        }
-                        : {
-                          color: '#AAA',
-                        }
-                    }
-                    selected={filterType === EventsFilter.Past}
-                  />
+                );
+              })}
+              {sortedEvents.length === 0 && (
+                <View>
+                  <Text style={styles.emptyLabel}>Список пуст</Text>
                 </View>
-                {sortedEvents.map((event: IEvent) => {
-                  return (
-                    <EventsListItem
-                      key={event.id}
-                      event={event}
-                      onPress={() => onEventPress(event)}
-                    />
-                  );
-                })}
-              </View>
-            ) : (
-              <View>
-                <Text style={styles.emptyLabel}>Список пуст</Text>
-              </View>
-            )}
+              )}
+            </View>
           </View>
         )}
       </ScrollView>
@@ -167,6 +186,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   emptyLabel: {
+    marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#404040',

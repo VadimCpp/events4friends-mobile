@@ -1,5 +1,6 @@
 export interface IEvent {
   id: string;
+  communityId: string;
   summary: string;
   description: string;
   isOnline: boolean;
@@ -13,6 +14,7 @@ export interface IEvent {
 
 export interface IService {
   id: string;
+  communityId: string;
   name: string;
   service: string;
   description: string;
