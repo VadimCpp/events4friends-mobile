@@ -12,10 +12,11 @@ import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
+import StorageContext from "../../context/StorageContext";
 
 // utils
 import { EventsFilter } from '../../utils/enums';
-import { IEvent, INavigation } from '../../utils/interfaces';
+import { ICommunity, IEvent, INavigation } from '../../utils/interfaces';
 import { calcSize } from '../../utils/misc';
 import { getSortedEvents } from '../../utils/eventsLogic';
 
@@ -25,12 +26,24 @@ interface EventsScreenParams {
 
 const EventsScreen = (props: EventsScreenParams) => {
   const { navigation } = props;
+
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
+  const storageContext = useContext(StorageContext);
+
   const { connectingToFirebase } = authContext;
-  const { events, loadingEvents } = dataContext;
+  const { events, loadingEvents, communities } = dataContext;
+  const { getCommunityID } = storageContext;
+
+  const [community, setCommunity] = useState<ICommunity | null>(null);
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
   const [sortedEvents, setSortedEvents] = useState<Array<IEvent>>([]);
+
+  useEffect(() => {
+    const anId = `${getCommunityID()}`;
+    const aCommunity = communities.find((c) => c.id === anId) || null;
+    setCommunity(aCommunity);
+  }, [communities, getCommunityID]);
 
   const onEventPress = useCallback(
     event => {
@@ -42,8 +55,22 @@ const EventsScreen = (props: EventsScreenParams) => {
   );
 
   useEffect(() => {
-    setSortedEvents(getSortedEvents(events, filterType));
-  }, [events, filterType]);
+    navigation.setOptions({
+      headerBackTitle: "На главную",
+    })
+  }, [navigation]);
+
+  useEffect(() => {
+    // Номер сообщества по умолчанию - 1 - events4friends
+    const DEFAULT_COMMUNITY_ID = "1";
+    const communityId = community?.id;
+    if (communityId) {
+      const eventsOfCommunity = events.filter((e: IEvent) => {
+        return (e.communityId || DEFAULT_COMMUNITY_ID) === communityId;
+      })
+      setSortedEvents(getSortedEvents(eventsOfCommunity, filterType));
+    }
+  }, [events, filterType, community]);
 
   return (
     <View style={styles.backgroundContainer}>
@@ -54,46 +81,63 @@ const EventsScreen = (props: EventsScreenParams) => {
           />
         ) : (
           <View style={styles.container}>
-            {sortedEvents.length > 0 ? (
-              <View>
-                <View style={styles.filterContainer}>
-                  <Text>Фильтр</Text>
-                  <Button
-                    title="Предстоящие"
-                    onPress={() => setFilterType(EventsFilter.Upcoming)}
-                    style={
-                      filterType === EventsFilter.Upcoming
-                        ? styles.filterButtonFocused
-                        : styles.filterButton
+            <View>
+              <View style={styles.filterContainer}>
+                <Text>Фильтр</Text>
+                <Button
+                  title="Предстоящие"
+                  onPress={() => setFilterType(EventsFilter.Upcoming)}
+                  style={
+                    filterType === EventsFilter.Upcoming
+                      ? styles.filterButtonFocused
+                      : styles.filterButton
+                  }
+                  textStyle={
+                    filterType === EventsFilter.Upcoming
+                    ? {
+                      color: '#404040',
                     }
-                    selected={filterType === EventsFilter.Upcoming}
-                  />
-                  <Button
-                    title="Прошедшие"
-                    onPress={() => setFilterType(EventsFilter.Past)}
-                    style={
-                      filterType === EventsFilter.Past
-                        ? styles.filterButtonFocused
-                        : styles.filterButton
+                    : {
+                      color: '#AAA',
                     }
-                    selected={filterType === EventsFilter.Past}
+                  }
+                  selected={filterType === EventsFilter.Upcoming}
+                />
+                <Button
+                  title="Прошедшие"
+                  onPress={() => setFilterType(EventsFilter.Past)}
+                  style={
+                    filterType === EventsFilter.Past
+                      ? styles.filterButtonFocused
+                      : styles.filterButton
+                  }
+                  textStyle={
+                    filterType === EventsFilter.Past
+                      ? {
+                        color: '#404040',
+                      }
+                      : {
+                        color: '#AAA',
+                      }
+                  }
+                  selected={filterType === EventsFilter.Past}
+                />
+              </View>
+              {sortedEvents.map((event: IEvent) => {
+                return (
+                  <EventsListItem
+                    key={event.id}
+                    event={event}
+                    onPress={() => onEventPress(event)}
                   />
+                );
+              })}
+              {sortedEvents.length === 0 && (
+                <View>
+                  <Text style={styles.emptyLabel}>Список пуст</Text>
                 </View>
-                {sortedEvents.map((event: IEvent) => {
-                  return (
-                    <EventsListItem
-                      key={event.id}
-                      event={event}
-                      onPress={() => onEventPress(event)}
-                    />
-                  );
-                })}
-              </View>
-            ) : (
-              <View>
-                <Text style={styles.emptyLabel}>Список пуст</Text>
-              </View>
-            )}
+              )}
+            </View>
           </View>
         )}
       </ScrollView>
@@ -104,7 +148,7 @@ const EventsScreen = (props: EventsScreenParams) => {
 const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF',
     alignItems: 'center',
     width: '100%',
   },
@@ -126,19 +170,23 @@ const styles = StyleSheet.create({
     width: calcSize(300),
   },
   filterButton: {
-    backgroundColor: '#EC7B28',
-    color: '#eee',
+    borderColor: '#EC7B28',
+    borderWidth: 2,
+    backgroundColor: 'rgba(236,123,40,0.2)',
     width: 130,
     marginLeft: 10,
     marginBottom: 10,
   },
   filterButtonFocused: {
-    backgroundColor: '#903e01',
+    borderColor: '#903e01',
+    borderWidth: 2,
+    backgroundColor: 'rgba(144,62,1,0.2)',
     width: 130,
     marginLeft: 10,
     marginBottom: 10,
   },
   emptyLabel: {
+    marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
     color: '#404040',
