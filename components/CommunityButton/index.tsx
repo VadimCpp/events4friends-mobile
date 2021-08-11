@@ -1,13 +1,13 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 // constants
-import { DEFAULT_ACTIVE_OPACITY } from "../../utils/constants";
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
 
 // utils
 import { ICommunity } from '../../utils/interfaces';
-import {calcSize} from "../../utils/misc";
+import { calcSize } from '../../utils/misc';
 
 //
 // NOTE!
@@ -22,13 +22,15 @@ import {calcSize} from "../../utils/misc";
 //
 
 function BottomTextDecorator(label: string) {
-  return function decorator<ComponentType>(Component: ComponentType): ComponentType {
+  return function decorator<ComponentType>(
+    Component: ComponentType,
+  ): ComponentType {
     class HOC extends React.Component<any, any> {
       render() {
         return (
           <>
             {/* @ts-ignore */}
-            <Component {...this.props}/>
+            <Component {...this.props} />
             <Text style={styles.bottomText}>{label}</Text>
           </>
         );
@@ -37,7 +39,7 @@ function BottomTextDecorator(label: string) {
 
     hoistNonReactStatic(HOC, Component as any);
 
-    return HOC as any as ComponentType;
+    return (HOC as any) as ComponentType;
   };
 }
 
@@ -51,10 +53,10 @@ function BorderWidthDecorator(width: number) {
         this.borderWidth = width;
       }
     };
-  }
+  };
 }
 
-@BottomTextDecorator("* - позже можно изменить")
+@BottomTextDecorator('* - позже можно изменить')
 @BorderWidthDecorator(2)
 class CommunityButton extends React.Component<any, any> {
   readonly borderWidth: number;
@@ -65,7 +67,10 @@ class CommunityButton extends React.Component<any, any> {
   }
 
   render() {
-    const { onPress, community: { logo, id, name } } = this.props;
+    const {
+      onPress,
+      community: { logo, id, name },
+    } = this.props;
 
     const base64Icon: string = `data:image/png;base64,${logo}`;
     const anId: number = parseInt(id) || 0;
@@ -77,7 +82,7 @@ class CommunityButton extends React.Component<any, any> {
           styles.button,
           {
             borderWidth: this.borderWidth,
-          }
+          },
         ]}
         activeOpacity={DEFAULT_ACTIVE_OPACITY}
       >
@@ -89,8 +94,8 @@ class CommunityButton extends React.Component<any, any> {
 }
 
 interface CommunityButtonProps {
-  community: ICommunity,
-  onPress: (id: string) => void,
+  community: ICommunity;
+  onPress: (id: string) => void;
 }
 
 const styles = StyleSheet.create({
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 30,
     borderColor: '#66F',
-    backgroundColor: "rgba(102,102,255,0.2)",
+    backgroundColor: 'rgba(102,102,255,0.2)',
   },
   text: {
     color: '#404040',
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     marginTop: 5,
-  }
+  },
 });
 
 export default CommunityButton;

@@ -1,15 +1,15 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 // components
-import Button from "../../../../components/Button";
+import Button from '../../../../components/Button';
 
 // interfaces
-import { ICommunity } from "../../../../utils/interfaces";
+import { ICommunity } from '../../../../utils/interfaces';
 
 // local components
-import Header from "../Header";
-import {calcSize} from "../../../../utils/misc";
+import Header from '../Header';
+import { calcSize } from '../../../../utils/misc';
 
 interface ChatsBlockProps {
   community: ICommunity;
@@ -22,18 +22,18 @@ const FooterBlock = (props: ChatsBlockProps) => {
   return (
     <View style={styles.lastContainer}>
       <Header
-        title={"Дополнительно"}
-        subTitle={"Для смены сообщества нажмите кнопку «Другие сообщества»"}
+        title={'Дополнительно'}
+        subTitle={'Для смены сообщества нажмите кнопку «Другие сообщества»'}
       />
       <Button
-        title={"Другие сообщества"}
+        title={'Другие сообщества'}
         onPress={onCommunitiesClick}
         style={styles.simpleButton}
         textStyle={styles.simpleButtonText}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   lastContainer: {
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: 30,
     borderColor: '#66F',
-    backgroundColor: "rgba(102,102,255,0.2)",
+    backgroundColor: 'rgba(102,102,255,0.2)',
   },
   simpleButtonText: {
     color: '#404040',

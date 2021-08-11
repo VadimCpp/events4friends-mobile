@@ -1,25 +1,17 @@
 import React, { useContext, useCallback, useEffect } from 'react';
-import {
-  ScrollView,
-  View,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import { ScrollView, View, StyleSheet, Text } from 'react-native';
 
 // components
 import NoDataContainer from '../../components/NoDataContainer';
 import CommunityButton from '../../components/CommunityButton';
 
 // constants
-import {
-  NOTICE_CONNECTING,
-  NOTICE_LOADING,
-} from '../../utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
-import StorageContext from "../../context/StorageContext";
+import StorageContext from '../../context/StorageContext';
 
 // utils
 import { ICommunity, INavigation } from '../../utils/interfaces';
@@ -58,8 +50,13 @@ const WelcomeScreen = (props: WelcomeScreenParams) => {
         ) : (
           <View style={styles.container}>
             <Text style={styles.title}>Выберите сообщество</Text>
-            {communities.map((community: ICommunity) =>
-              <CommunityButton key={community.id} community={community} onPress={setCommunityID} />)}
+            {communities.map((community: ICommunity) => (
+              <CommunityButton
+                key={community.id}
+                community={community}
+                onPress={setCommunityID}
+              />
+            ))}
           </View>
         )}
       </ScrollView>

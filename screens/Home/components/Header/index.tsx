@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 // utils
-import { calcSize } from "../../../../utils/misc";
+import { calcSize } from '../../../../utils/misc';
 
 interface HeaderProps {
   title?: string;
@@ -19,8 +19,8 @@ const Header = (props: HeaderProps) => {
 
   return (
     <View style={styles.titleContainer}>
-      { Boolean(title) && <Text style={styles.title}>{title}</Text> }
-      { Boolean(subTitle) && <Text style={styles.subTitle}>{subTitle}</Text> }
+      {Boolean(title) && <Text style={styles.title}>{title}</Text>}
+      {Boolean(subTitle) && <Text style={styles.subTitle}>{subTitle}</Text>}
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useCallback, useEffect} from 'react';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 
 // components
@@ -9,7 +9,7 @@ import NoDataContainer from '../../components/NoDataContainer';
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
-import StorageContext from "../../context/StorageContext";
+import StorageContext from '../../context/StorageContext';
 
 // constants
 import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
@@ -41,19 +41,21 @@ const ServicesScreen = (props: ServicesScreenParams) => {
   const { getCommunityID } = storageContext;
 
   const [community, setCommunity] = useState<ICommunity | null>(null);
-  const [sortingType, setSortingType] = useState(ServiceSortingType.SortByService);
+  const [sortingType, setSortingType] = useState(
+    ServiceSortingType.SortByService,
+  );
   const [sortedServices, setSortedServices] = useState<Array<IService>>([]);
 
   useEffect(() => {
     const anId = `${getCommunityID()}`;
-    const aCommunity = communities.find((c) => c.id === anId) || null;
+    const aCommunity = communities.find(c => c.id === anId) || null;
     setCommunity(aCommunity);
   }, [communities, getCommunityID]);
 
   useEffect(() => {
     navigation.setOptions({
-      headerBackTitle: "На главную",
-    })
+      headerBackTitle: 'На главную',
+    });
   }, [navigation]);
 
   const onServicePress = useCallback(
@@ -67,11 +69,13 @@ const ServicesScreen = (props: ServicesScreenParams) => {
 
   useEffect(() => {
     // Номер сообщества по умолчанию - 1 - events4friends
-    const DEFAULT_COMMUNITY_ID = "1";
+    const DEFAULT_COMMUNITY_ID = '1';
     const communityId = community?.id;
     if (communityId) {
       let sorted: Array<IService> = services.filter((s: IService) => {
-        const sCommunityId = s.communityId ? s.communityId : DEFAULT_COMMUNITY_ID;
+        const sCommunityId = s.communityId
+          ? s.communityId
+          : DEFAULT_COMMUNITY_ID;
         return sCommunityId === communityId;
       });
       if (sortingType === ServiceSortingType.SortByName) {
@@ -135,19 +139,17 @@ const ServicesScreen = (props: ServicesScreenParams) => {
                   textStyle={
                     sortingType === ServiceSortingType.SortByService
                       ? {
-                        color: '#404040',
-                      }
+                          color: '#404040',
+                        }
                       : {
-                        color: '#AAA',
-                      }
+                          color: '#AAA',
+                        }
                   }
                   selected={sortingType === ServiceSortingType.SortByService}
                 />
                 <Button
                   title="Имя"
-                  onPress={() =>
-                    setSortingType(ServiceSortingType.SortByName)
-                  }
+                  onPress={() => setSortingType(ServiceSortingType.SortByName)}
                   style={
                     sortingType === ServiceSortingType.SortByName
                       ? styles.sortButtonFocused
@@ -156,19 +158,17 @@ const ServicesScreen = (props: ServicesScreenParams) => {
                   textStyle={
                     sortingType === ServiceSortingType.SortByName
                       ? {
-                        color: '#404040',
-                      }
+                          color: '#404040',
+                        }
                       : {
-                        color: '#AAA',
-                      }
+                          color: '#AAA',
+                        }
                   }
                   selected={sortingType === ServiceSortingType.SortByName}
                 />
                 <Button
                   title="Цена"
-                  onPress={() =>
-                    setSortingType(ServiceSortingType.SortByPrice)
-                  }
+                  onPress={() => setSortingType(ServiceSortingType.SortByPrice)}
                   style={
                     sortingType === ServiceSortingType.SortByPrice
                       ? styles.sortButtonFocused
@@ -177,11 +177,11 @@ const ServicesScreen = (props: ServicesScreenParams) => {
                   textStyle={
                     sortingType === ServiceSortingType.SortByPrice
                       ? {
-                        color: '#404040',
-                      }
+                          color: '#404040',
+                        }
                       : {
-                        color: '#AAA',
-                      }
+                          color: '#AAA',
+                        }
                   }
                   selected={sortingType === ServiceSortingType.SortByPrice}
                 />

@@ -10,7 +10,7 @@ import { IStorageContext } from '../utils/interfaces';
 //
 const storageData: IStorageContext = {
   getCommunityID: () => 0,
-  setCommunityID: (anId: number) => undefined
+  setCommunityID: (anId: number) => undefined,
 };
 
 const StorageContext = React.createContext(storageData);

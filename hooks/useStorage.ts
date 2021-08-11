@@ -7,7 +7,8 @@ const useStorage = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const value: string = await AsyncStorage.getItem('@communityId') || '';
+        const value: string =
+          (await AsyncStorage.getItem('@communityId')) || '';
         const anId: number = parseInt(value) || 0;
         if (anId !== communityId) {
           setCommunityId(anId);
@@ -18,26 +19,29 @@ const useStorage = () => {
     };
 
     getData().then();
-  }, []);
+  });
 
   const getCommunityID = useCallback(() => {
     return communityId;
   }, [communityId]);
 
-  const setCommunityID = useCallback((anId: number) => {
-    if (anId !== communityId) {
-      const storeData = async (value: string) => {
-        try {
-          await AsyncStorage.setItem('@communityId', value);
-          setCommunityId(anId);
-        } catch (e) {
-          console.warn('Saving error, skip:', e);
-        }
-      };
+  const setCommunityID = useCallback(
+    (anId: number) => {
+      if (anId !== communityId) {
+        const storeData = async (value: string) => {
+          try {
+            await AsyncStorage.setItem('@communityId', value);
+            setCommunityId(anId);
+          } catch (e) {
+            console.warn('Saving error, skip:', e);
+          }
+        };
 
-      storeData(`${anId}`).then();
-    }
-  }, [communityId]);
+        storeData(`${anId}`).then();
+      }
+    },
+    [communityId],
+  );
 
   return {
     getCommunityID,
