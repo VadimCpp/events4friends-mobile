@@ -14,7 +14,7 @@ import CommunityButton from '../../components/CommunityButton';
 import {
   NOTICE_CONNECTING,
   NOTICE_LOADING,
-} from '../../utils/сonstants';
+} from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';

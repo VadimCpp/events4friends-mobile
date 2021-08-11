@@ -11,7 +11,7 @@ import DataContext from "../../context/DataContext";
 import StorageContext from "../../context/StorageContext";
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/сonstants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // interfaces
 import { ICommunity, INavigation } from '../../utils/interfaces';

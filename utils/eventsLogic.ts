@@ -1,10 +1,10 @@
 import moment from 'moment';
 
 // utils
-import { IEvent } from '../utils/interfaces';
-import { DEFAULT_EVENT_DURATION } from '../utils/сonstants';
-import { EventsFilter } from '../utils/enums';
-import { timeZoneToCityName } from '../utils/misc';
+import { IEvent } from './interfaces';
+import { DEFAULT_EVENT_DURATION } from './constants';
+import { EventsFilter } from './enums';
+import { timeZoneToCityName } from './misc';
 
 /**
  * Возвращает время начала мероприятия

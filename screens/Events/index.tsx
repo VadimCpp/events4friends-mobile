@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/сonstants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
