@@ -40,7 +40,7 @@ const MainBlock = (props: ChatsBlockProps) => {
       />
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   simpleButton: {

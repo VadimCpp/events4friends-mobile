@@ -16,7 +16,7 @@ interface EventsListItemParams {
   onPress: () => void;
 }
 
-export default function EventsListItem(props: EventsListItemParams) {
+const EventsListItem = (props: EventsListItemParams) => {
   const { event, onPress } = props;
 
   const startDate = getVerboseDate(event);
@@ -79,7 +79,7 @@ export default function EventsListItem(props: EventsListItemParams) {
       )}
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   listItemContainer: {
@@ -160,3 +160,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
 });
+
+export default EventsListItem;

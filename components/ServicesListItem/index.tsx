@@ -11,7 +11,7 @@ interface ServicesListItemParams {
   onPress: () => void;
 }
 
-export default function ServicesListItem(props: ServicesListItemParams) {
+const ServicesListItem = (props: ServicesListItemParams) => {
   const { service, highlightName, onPress } = props;
 
   let priceTag = null;
@@ -43,7 +43,7 @@ export default function ServicesListItem(props: ServicesListItemParams) {
       {priceTag && <View style={styles.priceTagContainer}>{priceTag}</View>}
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   listItemContainer: {
@@ -98,3 +98,5 @@ const styles = StyleSheet.create({
     color: '#404040',
   },
 });
+
+export default ServicesListItem;

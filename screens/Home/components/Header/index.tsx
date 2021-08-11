@@ -23,7 +23,7 @@ const Header = (props: HeaderProps) => {
       { Boolean(subTitle) && <Text style={styles.subTitle}>{subTitle}</Text> }
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   titleContainer: {

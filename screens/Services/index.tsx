@@ -29,7 +29,7 @@ interface ServicesScreenParams {
   navigation: INavigation;
 }
 
-export default function ServicesScreen(props: ServicesScreenParams) {
+const ServicesScreen = (props: ServicesScreenParams) => {
   const { navigation } = props;
 
   const authContext = useContext(AuthContext);
@@ -209,7 +209,7 @@ export default function ServicesScreen(props: ServicesScreenParams) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   backgroundContainer: {
@@ -260,3 +260,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default ServicesScreen;

@@ -11,7 +11,7 @@ interface SocialButtonParams {
   icon: Object;
 }
 
-export default function SocialButton(props: SocialButtonParams) {
+const SocialButton = (props: SocialButtonParams) => {
   const { url, icon } = props;
 
   return (
@@ -25,7 +25,7 @@ export default function SocialButton(props: SocialButtonParams) {
       <Image style={styles.img} source={icon} />
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -44,3 +44,5 @@ const styles = StyleSheet.create({
     borderRadius: calcSize(28),
   },
 });
+
+export default SocialButton;

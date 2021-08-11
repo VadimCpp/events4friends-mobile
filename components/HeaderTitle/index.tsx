@@ -16,7 +16,7 @@ const HeaderTitle = (props: HeaderTitleProps) => {
       <Text style={styles.title} numberOfLines={1}> {title} </Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

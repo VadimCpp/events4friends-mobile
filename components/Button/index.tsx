@@ -13,7 +13,7 @@ interface ButtonProps {
   selected?: boolean;
 }
 
-export default function Button(props: ButtonProps) {
+const Button = (props: ButtonProps) => {
   const { title, onPress, selected, style, textStyle, disabled } = props;
 
   return (
@@ -33,7 +33,7 @@ export default function Button(props: ButtonProps) {
       )}
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -62,3 +62,5 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
 });
+
+export default Button;

@@ -77,7 +77,7 @@ const HomeScreen = (props: HomeScreenProps) => {
       )}
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   scrollViewContainer: {

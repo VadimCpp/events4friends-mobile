@@ -24,7 +24,7 @@ interface EventsScreenParams {
   navigation: INavigation;
 }
 
-export default function EventsScreen(props: EventsScreenParams) {
+const EventsScreen = (props: EventsScreenParams) => {
   const { navigation } = props;
 
   const authContext = useContext(AuthContext);
@@ -143,7 +143,7 @@ export default function EventsScreen(props: EventsScreenParams) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   backgroundContainer: {
@@ -193,3 +193,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default EventsScreen;

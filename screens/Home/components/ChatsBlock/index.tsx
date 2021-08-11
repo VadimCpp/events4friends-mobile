@@ -56,7 +56,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
