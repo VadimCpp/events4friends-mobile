@@ -2,7 +2,7 @@ import moment from 'moment';
 
 // utils
 import { IEvent } from '../utils/interfaces';
-import { DEFAULT_EVENT_DURATION } from '../utils/constants';
+import { DEFAULT_EVENT_DURATION } from '../utils/сonstants';
 import { EventsFilter } from '../utils/enums';
 import { timeZoneToCityName } from '../utils/misc';
 

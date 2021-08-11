@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 // constants
-import { DEFAULT_ACTIVE_OPACITY } from "../../utils/constants";
+import { DEFAULT_ACTIVE_OPACITY } from "../../utils/сonstants";
 
 // utils
 import { ICommunity } from '../../utils/interfaces';
