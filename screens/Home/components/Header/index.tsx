@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 // utils
-import { calcSize } from '../../../../utils/misc';
+import { calcSize } from '@utils/misc';
 
 interface HeaderProps {
   title?: string;

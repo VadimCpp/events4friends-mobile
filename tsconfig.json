@@ -8,6 +8,22 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@context/*": [
+        "context/*"
+      ],
+    },
   }
 }

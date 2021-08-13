@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 // components
-import SocialButton from '../../../../components/SocialButton';
+import SocialButton from '@components/SocialButton';
 
 // interfaces
-import { ICommunity } from '../../../../utils/interfaces';
+import { ICommunity } from '@utils/interfaces';
 
 // utils
-import { calcSize } from '../../../../utils/misc';
+import { calcSize } from '@utils/misc';
 
 // local components
 import Header from '../Header';
@@ -34,7 +34,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
         {Boolean(viber) && (
           <View style={styles.socialWrap}>
             <SocialButton
-              icon={require('../../../../assets/img/icon_viber_x4.png')}
+              icon={require('@assets/img/icon_viber_x4.png')}
               url={viber || ''}
             />
           </View>
@@ -42,7 +42,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
         {Boolean(telegram) && (
           <View style={styles.socialWrap}>
             <SocialButton
-              icon={require('../../../../assets/img/icon_telegram_x4.png')}
+              icon={require('@assets/img/icon_telegram_x4.png')}
               url={telegram || ''}
             />
           </View>
@@ -50,7 +50,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
         {Boolean(whatsapp) && (
           <View style={styles.socialWrap}>
             <SocialButton
-              icon={require('../../../../assets/img/icon_whatsapp_x4.png')}
+              icon={require('@assets/img/icon_whatsapp_x4.png')}
               url={whatsapp || ''}
             />
           </View>

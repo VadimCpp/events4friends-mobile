@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // utils
-import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
-import { calcSize } from '../../utils/misc';
+import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
+import { calcSize } from '@utils/misc';
 
 interface ServicesListItemParams {
   service: any;

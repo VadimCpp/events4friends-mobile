@@ -3,13 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Linking from 'expo-linking';
 
 // components
-import Button from '../../../../components/Button';
+import Button from '@components/Button';
 
 // interfaces
-import { ICommunity } from '../../../../utils/interfaces';
+import { ICommunity } from '@utils/interfaces';
 
 // utils
-import { calcSize } from '../../../../utils/misc';
+import { calcSize } from '@utils/misc';
 
 // local components
 import Header from '../Header';

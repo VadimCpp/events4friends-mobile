@@ -2,23 +2,23 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 
 // components
-import EventsListItem from '../../components/EventsListItem';
-import Button from '../../components/Button';
-import NoDataContainer from '../../components/NoDataContainer';
+import EventsListItem from '@components/EventsListItem';
+import Button from '@components/Button';
+import NoDataContainer from '@components/NoDataContainer';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '@utils/constants';
 
 // contexts
-import AuthContext from '../../context/AuthContext';
-import DataContext from '../../context/DataContext';
-import StorageContext from '../../context/StorageContext';
+import AuthContext from '@context/AuthContext';
+import DataContext from '@context/DataContext';
+import StorageContext from '@context/StorageContext';
 
 // utils
-import { EventsFilter } from '../../utils/enums';
-import { ICommunity, IEvent, INavigation } from '../../utils/interfaces';
-import { calcSize } from '../../utils/misc';
-import { getSortedEvents } from '../../utils/eventsLogic';
+import { EventsFilter } from '@utils/enums';
+import { ICommunity, IEvent, INavigation } from '@utils/interfaces';
+import { calcSize } from '@utils/misc';
+import { getSortedEvents } from '@utils/eventsLogic';
 
 interface EventsScreenParams {
   navigation: INavigation;

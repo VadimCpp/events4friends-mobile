@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as firebase from 'firebase';
 
-import { ICommunity } from './../utils/interfaces';
+import { ICommunity } from '@utils/interfaces';
 
 export const getCommunities = (): Promise<any> =>
   firebase
