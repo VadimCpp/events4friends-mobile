@@ -35,7 +35,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
           <View style={styles.socialWrap}>
             <SocialButton
               icon={require('../../../../assets/img/icon_viber_x4.png')}
-              url={viber || ''}
+              url={`${viber}`}
             />
           </View>
         )}
@@ -43,7 +43,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
           <View style={styles.socialWrap}>
             <SocialButton
               icon={require('../../../../assets/img/icon_telegram_x4.png')}
-              url={telegram || ''}
+              url={`${telegram}`}
             />
           </View>
         )}
@@ -51,7 +51,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
           <View style={styles.socialWrap}>
             <SocialButton
               icon={require('../../../../assets/img/icon_whatsapp_x4.png')}
-              url={whatsapp || ''}
+              url={`${whatsapp}`}
             />
           </View>
         )}
