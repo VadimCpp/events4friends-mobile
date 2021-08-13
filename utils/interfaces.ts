@@ -30,7 +30,13 @@ export interface IService {
 
 export interface INavigation {
   navigate: (route: string, params?: Object) => void;
-  setOptions: ({ headerTitle, headerBackTitle }: { headerTitle?: Function, headerBackTitle?: string }) => void;
+  setOptions: ({
+    headerTitle,
+    headerBackTitle,
+  }: {
+    headerTitle?: Function;
+    headerBackTitle?: string;
+  }) => void;
 }
 
 export interface IRoute {
@@ -68,6 +74,6 @@ export interface IDataContext {
 }
 
 export interface IStorageContext {
-  getCommunityID: () => number,
-  setCommunityID: (anId: number) => void,
+  getCommunityID: () => number;
+  setCommunityID: (anId: number) => void;
 }

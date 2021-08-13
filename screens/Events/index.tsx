@@ -7,12 +7,12 @@ import Button from '../../components/Button';
 import NoDataContainer from '../../components/NoDataContainer';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/сonstants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
-import StorageContext from "../../context/StorageContext";
+import StorageContext from '../../context/StorageContext';
 
 // utils
 import { EventsFilter } from '../../utils/enums';
@@ -41,7 +41,7 @@ const EventsScreen = (props: EventsScreenParams) => {
 
   useEffect(() => {
     const anId = `${getCommunityID()}`;
-    const aCommunity = communities.find((c) => c.id === anId) || null;
+    const aCommunity = communities.find(c => c.id === anId) || null;
     setCommunity(aCommunity);
   }, [communities, getCommunityID]);
 
@@ -56,18 +56,18 @@ const EventsScreen = (props: EventsScreenParams) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerBackTitle: "На главную",
-    })
+      headerBackTitle: 'На главную',
+    });
   }, [navigation]);
 
   useEffect(() => {
     // Номер сообщества по умолчанию - 1 - events4friends
-    const DEFAULT_COMMUNITY_ID = "1";
+    const DEFAULT_COMMUNITY_ID = '1';
     const communityId = community?.id;
     if (communityId) {
       const eventsOfCommunity = events.filter((e: IEvent) => {
         return (e.communityId || DEFAULT_COMMUNITY_ID) === communityId;
-      })
+      });
       setSortedEvents(getSortedEvents(eventsOfCommunity, filterType));
     }
   }, [events, filterType, community]);
@@ -94,12 +94,12 @@ const EventsScreen = (props: EventsScreenParams) => {
                   }
                   textStyle={
                     filterType === EventsFilter.Upcoming
-                    ? {
-                      color: '#404040',
-                    }
-                    : {
-                      color: '#AAA',
-                    }
+                      ? {
+                          color: '#404040',
+                        }
+                      : {
+                          color: '#AAA',
+                        }
                   }
                   selected={filterType === EventsFilter.Upcoming}
                 />
@@ -114,11 +114,11 @@ const EventsScreen = (props: EventsScreenParams) => {
                   textStyle={
                     filterType === EventsFilter.Past
                       ? {
-                        color: '#404040',
-                      }
+                          color: '#404040',
+                        }
                       : {
-                        color: '#AAA',
-                      }
+                          color: '#AAA',
+                        }
                   }
                   selected={filterType === EventsFilter.Past}
                 />

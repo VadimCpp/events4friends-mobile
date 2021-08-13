@@ -1,15 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import * as Linking from "expo-linking";
+import * as Linking from 'expo-linking';
 
 // components
-import Button from "../../../../components/Button";
+import Button from '../../../../components/Button';
 
 // interfaces
-import { ICommunity } from "../../../../utils/interfaces";
+import { ICommunity } from '../../../../utils/interfaces';
 
 // utils
-import { calcSize } from "../../../../utils/misc";
+import { calcSize } from '../../../../utils/misc';
 
 // local components
 import Header from '../Header';
@@ -19,8 +19,12 @@ interface WebLinksBlockProps {
 }
 
 const WebLinksBlock = (props: WebLinksBlockProps) => {
-  const { community: { vkontakte, instagram, youtube, strava, website } } = props;
-  const atLeastOneSocial = Boolean(vkontakte || instagram || youtube || strava || website);
+  const {
+    community: { vkontakte, instagram, youtube, strava, website },
+  } = props;
+  const atLeastOneSocial = Boolean(
+    vkontakte || instagram || youtube || strava || website,
+  );
 
   if (!atLeastOneSocial) {
     return null;
@@ -30,8 +34,7 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
     try {
       console.log(`Opening ${slug}: ${url}`);
       await Linking.openURL(url);
-    }
-    catch (e) {
+    } catch (e) {
       alert(`Ошибка! Не могу открыть ${slug}: ${url}`);
     }
   };
@@ -39,45 +42,47 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
   return (
     <View style={styles.container}>
       <Header
-        title={"Ссылки"}
-        subTitle={"В этом разделе ссылки на Instagram, YouTube, социальные сети и т.п."}
+        title={'Ссылки'}
+        subTitle={
+          'В этом разделе ссылки на Instagram, YouTube, социальные сети и т.п.'
+        }
       />
-      { Boolean(vkontakte) && (
+      {Boolean(vkontakte) && (
         <Button
-          title={"ВКонтакте"}
-          onPress={() => handleLinkClick("ВКонтакте", vkontakte || '')}
+          title={'ВКонтакте'}
+          onPress={() => handleLinkClick('ВКонтакте', vkontakte || '')}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
       )}
-      { Boolean(instagram) && (
+      {Boolean(instagram) && (
         <Button
-          title={"Instagram"}
-          onPress={() => handleLinkClick("Instagram", instagram || '')}
+          title={'Instagram'}
+          onPress={() => handleLinkClick('Instagram', instagram || '')}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
       )}
-      { Boolean(youtube) && (
+      {Boolean(youtube) && (
         <Button
-          title={"Youtube"}
-          onPress={() => handleLinkClick("Youtube", youtube || '')}
+          title={'Youtube'}
+          onPress={() => handleLinkClick('Youtube', youtube || '')}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
       )}
-      { Boolean(strava) && (
+      {Boolean(strava) && (
         <Button
-          title={"Strava"}
-          onPress={() => handleLinkClick("Strava", strava || '')}
+          title={'Strava'}
+          onPress={() => handleLinkClick('Strava', strava || '')}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
       )}
-      { Boolean(website) && (
+      {Boolean(website) && (
         <Button
-          title={"Сайт"}
-          onPress={() => handleLinkClick("Сайт", website || '')}
+          title={'Сайт'}
+          onPress={() => handleLinkClick('Сайт', website || '')}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
     width: calcSize(285),
     display: 'flex',
     flexDirection: 'column',
-    alignItems:'center'
+    alignItems: 'center',
   },
   simpleButton: {
     width: calcSize(210),
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: 30,
     borderColor: '#9BF',
-    backgroundColor: "rgba(153,187,255,0.2)",
+    backgroundColor: 'rgba(153,187,255,0.2)',
   },
   simpleButtonText: {
     color: '#404040',

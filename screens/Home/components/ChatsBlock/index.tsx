@@ -1,24 +1,26 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 // components
-import SocialButton from "../../../../components/SocialButton";
+import SocialButton from '../../../../components/SocialButton';
 
 // interfaces
-import { ICommunity } from "../../../../utils/interfaces";
+import { ICommunity } from '../../../../utils/interfaces';
 
 // utils
-import { calcSize } from "../../../../utils/misc";
+import { calcSize } from '../../../../utils/misc';
 
 // local components
-import Header from "../Header";
+import Header from '../Header';
 
 interface ChatsBlockProps {
   community: ICommunity;
 }
 
 const ChatsBlock = (props: ChatsBlockProps) => {
-  const { community: { telegram, whatsapp, viber } } = props;
+  const {
+    community: { telegram, whatsapp, viber },
+  } = props;
   const atLeastOneChat = Boolean(telegram || whatsapp || viber);
 
   if (!atLeastOneChat) {
@@ -27,9 +29,9 @@ const ChatsBlock = (props: ChatsBlockProps) => {
 
   return (
     <View style={styles.container}>
-      <Header title={"Чаты сообщества"} />
+      <Header title={'Чаты сообщества'} />
       <View style={styles.socialsContainer}>
-        { Boolean(viber) && (
+        {Boolean(viber) && (
           <View style={styles.socialWrap}>
             <SocialButton
               icon={require('../../../../assets/img/icon_viber_x4.png')}
@@ -37,7 +39,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
             />
           </View>
         )}
-        { Boolean(telegram) && (
+        {Boolean(telegram) && (
           <View style={styles.socialWrap}>
             <SocialButton
               icon={require('../../../../assets/img/icon_telegram_x4.png')}
@@ -45,7 +47,7 @@ const ChatsBlock = (props: ChatsBlockProps) => {
             />
           </View>
         )}
-        { Boolean(whatsapp) && (
+        {Boolean(whatsapp) && (
           <View style={styles.socialWrap}>
             <SocialButton
               icon={require('../../../../assets/img/icon_whatsapp_x4.png')}

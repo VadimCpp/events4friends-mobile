@@ -2,15 +2,14 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 // components
-import Button from "../../../../components/Button";
+import Button from '../../../../components/Button';
 
 // interfaces
-import { ICommunity, INavigation } from "../../../../utils/interfaces";
+import { ICommunity, INavigation } from '../../../../utils/interfaces';
 
 // local components
-import Header from "../Header";
-import {calcSize} from "../../../../utils/misc";
-
+import Header from '../Header';
+import { calcSize } from '../../../../utils/misc';
 
 interface ChatsBlockProps {
   community: ICommunity;
@@ -27,15 +26,15 @@ const MainBlock = (props: ChatsBlockProps) => {
         subTitle={community.description}
       />
       <Button
-        title={"События"}
+        title={'События'}
         onPress={() => navigation.navigate('Details')}
-        style={[ styles.simpleButton, styles.simpleButtonEvents ]}
+        style={[styles.simpleButton, styles.simpleButtonEvents]}
         textStyle={styles.simpleButtonText}
       />
       <Button
-        title={"Услуги"}
+        title={'Услуги'}
         onPress={() => navigation.navigate('Services')}
-        style={[ styles.simpleButton, styles.simpleButtonServices ]}
+        style={[styles.simpleButton, styles.simpleButtonServices]}
         textStyle={styles.simpleButtonText}
       />
     </>
@@ -55,11 +54,11 @@ const styles = StyleSheet.create({
   },
   simpleButtonEvents: {
     borderColor: '#EC7B28',
-    backgroundColor: "rgba(236,123,40,0.2)",
+    backgroundColor: 'rgba(236,123,40,0.2)',
   },
   simpleButtonServices: {
     borderColor: '#24BA7B',
-    backgroundColor: "rgba(36,186,123,0.2)",
+    backgroundColor: 'rgba(36,186,123,0.2)',
   },
   simpleButtonText: {
     color: '#404040',

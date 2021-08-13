@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 interface HeaderTitleProps {
   logo: string;
@@ -13,7 +13,9 @@ const HeaderTitle = (props: HeaderTitleProps) => {
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={{ uri: base64Icon }} />
-      <Text style={styles.title} numberOfLines={1}> {title} </Text>
+      <Text style={styles.title} numberOfLines={1}>
+        {title}
+      </Text>
     </View>
   );
 };
