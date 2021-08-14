@@ -50,7 +50,7 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
       {Boolean(vkontakte) && (
         <Button
           title={'ВКонтакте'}
-          onPress={() => handleLinkClick('ВКонтакте', vkontakte || '')}
+          onPress={() => handleLinkClick('ВКонтакте', `${vkontakte}`)}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
@@ -58,7 +58,7 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
       {Boolean(instagram) && (
         <Button
           title={'Instagram'}
-          onPress={() => handleLinkClick('Instagram', instagram || '')}
+          onPress={() => handleLinkClick('Instagram', `${instagram}`)}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
@@ -66,7 +66,7 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
       {Boolean(youtube) && (
         <Button
           title={'Youtube'}
-          onPress={() => handleLinkClick('Youtube', youtube || '')}
+          onPress={() => handleLinkClick('Youtube', `${youtube}`)}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
@@ -74,7 +74,7 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
       {Boolean(strava) && (
         <Button
           title={'Strava'}
-          onPress={() => handleLinkClick('Strava', strava || '')}
+          onPress={() => handleLinkClick('Strava', `${strava}`)}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
@@ -82,7 +82,7 @@ const WebLinksBlock = (props: WebLinksBlockProps) => {
       {Boolean(website) && (
         <Button
           title={'Сайт'}
-          onPress={() => handleLinkClick('Сайт', website || '')}
+          onPress={() => handleLinkClick('Сайт', `${website}`)}
           style={styles.simpleButton}
           textStyle={styles.simpleButtonText}
         />
