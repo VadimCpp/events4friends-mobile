@@ -34,24 +34,24 @@ const ChatsBlock = (props: ChatsBlockProps) => {
         {Boolean(viber) && (
           <View style={styles.socialWrap}>
             <SocialButton
-              icon={require('@assets/img/icon_viber_x4.png')}
-              url={viber || ''}
+              icon={require('../../../../assets/img/icon_viber_x4.png')}
+              url={`${viber}`}
             />
           </View>
         )}
         {Boolean(telegram) && (
           <View style={styles.socialWrap}>
             <SocialButton
-              icon={require('@assets/img/icon_telegram_x4.png')}
-              url={telegram || ''}
+              icon={require('../../../../assets/img/icon_telegram_x4.png')}
+              url={`${telegram}`}
             />
           </View>
         )}
         {Boolean(whatsapp) && (
           <View style={styles.socialWrap}>
             <SocialButton
-              icon={require('@assets/img/icon_whatsapp_x4.png')}
-              url={whatsapp || ''}
+              icon={require('../../../../assets/img/icon_whatsapp_x4.png')}
+              url={`${whatsapp}`}
             />
           </View>
         )}

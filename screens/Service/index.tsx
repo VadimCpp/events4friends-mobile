@@ -53,12 +53,12 @@ const ServiceScreen = (props: ServiceScreenParams) => {
         <View style={styles.descriptionContainer}>
           <Text>{removeTags(service.description)}</Text>
         </View>
-        {service.instagram && (
+        {Boolean(service.instagram) && (
           <View style={styles.locationContainer}>
             <Text style={styles.locationLabel}>Инстаграм:</Text>
             <TouchableOpacity
               onPress={() => {
-                Linking.openURL(service.instagram);
+                Linking.openURL(`${service.instagram}`).then();
               }}
               style={styles.linkContainer}
             >
@@ -68,12 +68,12 @@ const ServiceScreen = (props: ServiceScreenParams) => {
             </TouchableOpacity>
           </View>
         )}
-        {service.website && (
+        {Boolean(service.website) && (
           <View style={styles.locationContainer}>
             <Text style={styles.locationLabel}>Сайт:</Text>
             <TouchableOpacity
               onPress={() => {
-                Linking.openURL(service.website);
+                Linking.openURL(`${service.website}`).then();
               }}
               style={styles.linkContainer}
             >
@@ -83,10 +83,13 @@ const ServiceScreen = (props: ServiceScreenParams) => {
             </TouchableOpacity>
           </View>
         )}
-        {service.whatsapp && service.service && (
-          <WhatsappLink whatsapp={service.whatsapp} service={service.service} />
+        {Boolean(service.whatsapp) && Boolean(service.service) && (
+          <WhatsappLink
+            whatsapp={`${service.whatsapp}`}
+            service={`${service.service}`}
+          />
         )}
-        {service.telegram && (
+        {Boolean(service.telegram) && (
           <View style={styles.locationContainer}>
             <Text style={styles.locationLabel}>Telegram:</Text>
             <TouchableOpacity
@@ -101,12 +104,12 @@ const ServiceScreen = (props: ServiceScreenParams) => {
             </TouchableOpacity>
           </View>
         )}
-        {service.vkontakte && (
+        {Boolean(service.vkontakte) && (
           <View style={styles.locationContainer}>
             <Text style={styles.locationLabel}>VKontakte:</Text>
             <TouchableOpacity
               onPress={() => {
-                Linking.openURL(service.vkontakte);
+                Linking.openURL(`${service.vkontakte}`).then();
               }}
               style={styles.linkContainer}
             >
