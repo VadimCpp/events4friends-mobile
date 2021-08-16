@@ -3,8 +3,8 @@ import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import * as Linking from 'expo-linking';
 
 // utils
-import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
-import { calcSize } from '../../utils/misc';
+import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
+import { calcSize } from '@utils/misc';
 
 interface SocialButtonParams {
   url: string;

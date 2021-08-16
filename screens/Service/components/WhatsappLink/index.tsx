@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Linking from 'expo-linking';
 
 // utils
-import { calcSize } from '../../../../utils/misc';
+import { calcSize } from '@utils/misc';
 
 interface WhatsappLinkProps {
   whatsapp: string;

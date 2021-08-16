@@ -2,13 +2,13 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 // components
-import SocialButton from '../../../../components/SocialButton';
+import SocialButton from '@components/SocialButton';
 
 // interfaces
-import { ICommunity } from '../../../../utils/interfaces';
+import { ICommunity } from '@utils/interfaces';
 
 // utils
-import { calcSize } from '../../../../utils/misc';
+import { calcSize } from '@utils/misc';
 
 // local components
 import Header from '../Header';

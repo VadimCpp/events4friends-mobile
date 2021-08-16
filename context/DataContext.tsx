@@ -1,7 +1,7 @@
 import React from 'react';
 
 // utils
-import { IDataContext } from '../utils/interfaces';
+import { IDataContext } from '@utils/interfaces';
 
 const defaultData: IDataContext = {
   events: [], // список анонсов

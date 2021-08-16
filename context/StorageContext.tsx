@@ -1,7 +1,7 @@
 import React from 'react';
 
 // utils
-import { IStorageContext } from '../utils/interfaces';
+import { IStorageContext } from '@utils/interfaces';
 
 //
 // NOTE!
