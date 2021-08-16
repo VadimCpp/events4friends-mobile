@@ -15,6 +15,7 @@ import StorageContext from '@context/StorageContext';
 import { NOTICE_CONNECTING, NOTICE_LOADING } from '@utils/constants';
 
 // utils
+import { COLORS } from '@utils/constants';
 import { IService, INavigation, ICommunity } from '@utils/interfaces';
 import { calcSize } from '@utils/misc';
 
@@ -139,10 +140,10 @@ const ServicesScreen = (props: ServicesScreenParams) => {
                   textStyle={
                     sortingType === ServiceSortingType.SortByService
                       ? {
-                          color: '#404040',
+                          color: COLORS.DARK_GRAY,
                         }
                       : {
-                          color: '#AAA',
+                          color: COLORS.GRAY,
                         }
                   }
                   selected={sortingType === ServiceSortingType.SortByService}
@@ -158,10 +159,10 @@ const ServicesScreen = (props: ServicesScreenParams) => {
                   textStyle={
                     sortingType === ServiceSortingType.SortByName
                       ? {
-                          color: '#404040',
+                          color: COLORS.DARK_GRAY,
                         }
                       : {
-                          color: '#AAA',
+                          color: COLORS.GRAY,
                         }
                   }
                   selected={sortingType === ServiceSortingType.SortByName}
@@ -177,10 +178,10 @@ const ServicesScreen = (props: ServicesScreenParams) => {
                   textStyle={
                     sortingType === ServiceSortingType.SortByPrice
                       ? {
-                          color: '#404040',
+                          color: COLORS.DARK_GRAY,
                         }
                       : {
-                          color: '#AAA',
+                          color: COLORS.GRAY,
                         }
                   }
                   selected={sortingType === ServiceSortingType.SortByPrice}
@@ -214,7 +215,7 @@ const ServicesScreen = (props: ServicesScreenParams) => {
 const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.WHITE,
     alignItems: 'center',
     width: '100%',
   },
@@ -236,18 +237,18 @@ const styles = StyleSheet.create({
     width: calcSize(300),
   },
   sortButton: {
-    backgroundColor: 'rgba(36,186,123,0.2)',
-    borderColor: '#24BA7B',
+    backgroundColor: COLORS.STRONG_CYAN_OPACITY_02,
+    borderColor: COLORS.STRONG_CYAN,
     borderWidth: 2,
     width: 100,
     marginLeft: 10,
     marginBottom: 10,
   },
   sortButtonFocused: {
-    borderColor: '#007946',
-    backgroundColor: 'rgba(0,121,70,0.2)',
+    borderColor: COLORS.DARK_CYAN,
+    backgroundColor: COLORS.DARK_CYAN_OPACITY_02,
     borderWidth: 2,
-    color: '#aaa',
+    color: COLORS.GRAY,
     width: 100,
     marginLeft: 10,
     marginBottom: 10,
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     textAlign: 'center',
   },
 });

@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+//utils
+import { COLORS } from '@utils/constants';
+
 interface NoDataContainerProps {
   label: string;
 }
@@ -20,7 +23,7 @@ const NoDataContainer = (props: NoDataContainerProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.WHITE,
     alignItems: 'center',
     width: '100%',
   },

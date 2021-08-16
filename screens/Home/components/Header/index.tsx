@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 // utils
+import { COLORS } from '@utils/constants';
 import { calcSize } from '@utils/misc';
 
 interface HeaderProps {
@@ -33,15 +34,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     textAlign: 'center',
-    textShadowColor: 'white',
+    textShadowColor: COLORS.WHITE,
     textShadowRadius: 2,
     textShadowOffset: { height: 1, width: 1 },
   },
   subTitle: {
     marginTop: 10,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
 });
 

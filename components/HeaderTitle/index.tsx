@@ -1,6 +1,9 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
+//utils
+import { COLORS } from '@utils/constants';
+
 interface HeaderTitleProps {
   logo: string;
   title: string;
@@ -29,11 +32,11 @@ const styles = StyleSheet.create({
   logo: {
     width: 24,
     height: 24,
-    borderColor: 'red',
+    borderColor: COLORS.RED,
     marginRight: 5,
   },
   title: {
-    color: 'black',
+    color: COLORS.BLACK,
     fontSize: 18,
     fontWeight: 'bold',
   },

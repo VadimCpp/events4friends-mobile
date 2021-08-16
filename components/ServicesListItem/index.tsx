@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // utils
 import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
+import { COLORS } from '@utils/constants';
 import { calcSize } from '@utils/misc';
 
 interface ServicesListItemParams {
@@ -51,9 +52,9 @@ const styles = StyleSheet.create({
     width: calcSize(300),
     borderRadius: calcSize(10),
     marginTop: 16,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.WHITE,
 
-    shadowColor: '#444',
+    shadowColor: COLORS.DARK_GRAY,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -66,13 +67,13 @@ const styles = StyleSheet.create({
   },
   service: {
     fontSize: 18,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontWeight: 'bold',
   },
   hr: {
     width: calcSize(282),
     height: 2,
-    backgroundColor: '#24BA7B',
+    backgroundColor: COLORS.STRONG_CYAN,
     marginHorizontal: calcSize(9),
   },
   nameWrap: {
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
   priceTagContainer: {
     position: 'absolute',
@@ -91,11 +92,11 @@ const styles = StyleSheet.create({
   },
   serviceFree: {
     fontSize: 18,
-    color: '#24BA7B',
+    color: COLORS.STRONG_CYAN,
   },
   price: {
     fontSize: 18,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
 });
 

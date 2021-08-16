@@ -9,6 +9,7 @@ import {
 import * as Linking from 'expo-linking';
 
 // utils
+import { COLORS } from '@utils/constants';
 import { IService, INavigation, IRoute } from '@utils/interfaces';
 import { calcSize, removeTags } from '@utils/misc';
 
@@ -129,7 +130,7 @@ const ServiceScreen = (props: ServiceScreenParams) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -141,13 +142,13 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     width: calcSize(315),
-    backgroundColor: 'white',
+    backgroundColor: COLORS.WHITE,
     marginTop: 30,
     marginBottom: 50,
     marginHorizontal: calcSize(30),
     borderRadius: calcSize(10),
 
-    shadowColor: '#444',
+    shadowColor: COLORS.DARK_GRAY,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
   },
   service: {
     fontSize: 18,
-    color: '#24BA7B',
+    color: COLORS.STRONG_CYAN,
     fontWeight: 'bold',
   },
   nameWrap: {
@@ -170,13 +171,13 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontWeight: 'bold',
   },
   hr: {
     width: calcSize(355),
     height: 2,
-    backgroundColor: '#24BA7B',
+    backgroundColor: COLORS.STRONG_CYAN,
     marginHorizontal: calcSize(10),
     marginTop: 20,
   },
@@ -194,13 +195,13 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
   linkContainer: {
     paddingVertical: 5,
   },
   link: {
-    color: 'rgb(47, 124, 246)',
+    color: COLORS.BRIGHT_BLUE,
   },
   priceTagContainer: {
     position: 'absolute',
@@ -209,11 +210,11 @@ const styles = StyleSheet.create({
   },
   serviceFree: {
     fontSize: 18,
-    color: '#24BA7B',
+    color: COLORS.STRONG_CYAN,
   },
   price: {
     fontSize: 18,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
   paddingBottomContainer: {
     paddingBottom: calcSize(20),

@@ -9,6 +9,7 @@ import Button from '@components/Button';
 import { ICommunity } from '@utils/interfaces';
 
 // utils
+import { COLORS } from '@utils/constants';
 import { calcSize } from '@utils/misc';
 
 // local components
@@ -108,11 +109,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 2,
     marginTop: 30,
-    borderColor: '#9BF',
-    backgroundColor: 'rgba(153,187,255,0.2)',
+    borderColor: COLORS.VERY_LIGHT_BLUE,
+    backgroundColor: COLORS.VERY_LIGHT_BLUE_OPACITY_02,
   },
   simpleButtonText: {
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontSize: 28,
     textAlign: 'center',
   },

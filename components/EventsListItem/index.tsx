@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 // utils
 import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
+import { COLORS } from '@utils/constants';
 import { calcSize } from '@utils/misc';
 import {
   isCurrentEvent,
@@ -87,9 +88,9 @@ const styles = StyleSheet.create({
     width: calcSize(300),
     borderRadius: calcSize(10),
     marginTop: 16,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.WHITE,
 
-    shadowColor: '#444',
+    shadowColor: COLORS.DARK_GRAY,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -102,13 +103,13 @@ const styles = StyleSheet.create({
   },
   summary: {
     fontSize: 18,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontWeight: 'bold',
   },
   hr: {
     width: calcSize(282),
     height: 2,
-    backgroundColor: '#EC7B28',
+    backgroundColor: COLORS.BRIGHT_ORANGE,
     marginHorizontal: calcSize(9),
   },
   labelContainer: {
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     height: 35,
   },
   labelText: {
-    color: 'red',
+    color: COLORS.RED,
   },
   datetimeContainer: {
     marginHorizontal: calcSize(10),

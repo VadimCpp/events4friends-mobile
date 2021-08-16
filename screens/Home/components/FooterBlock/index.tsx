@@ -11,6 +11,9 @@ import { ICommunity } from '@utils/interfaces';
 import Header from '../Header';
 import { calcSize } from '@utils/misc';
 
+//utils
+import { COLORS } from '@utils/constants';
+
 interface ChatsBlockProps {
   community: ICommunity;
   onCommunitiesClick: () => void;
@@ -49,11 +52,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 2,
     marginTop: 30,
-    borderColor: '#66F',
-    backgroundColor: 'rgba(102,102,255,0.2)',
+    borderColor: COLORS.LIGHT_BLUE,
+    backgroundColor: COLORS.LIGHT_BLUE_OPACITY_02,
   },
   simpleButtonText: {
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontSize: 28,
     textAlign: 'center',
   },

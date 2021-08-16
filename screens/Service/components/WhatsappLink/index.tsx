@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Linking from 'expo-linking';
 
 // utils
+import { COLORS } from '@utils/constants';
 import { calcSize } from '@utils/misc';
 
 interface WhatsappLinkProps {
@@ -40,13 +41,13 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
   linkContainer: {
     paddingVertical: 5,
   },
   link: {
-    color: 'rgb(47, 124, 246)',
+    color: COLORS.BRIGHT_BLUE,
   },
 });
 
