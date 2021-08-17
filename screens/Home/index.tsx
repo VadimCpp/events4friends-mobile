@@ -16,6 +16,9 @@ import { NOTICE_CONNECTING, NOTICE_LOADING } from '@utils/constants';
 // interfaces
 import { ICommunity, INavigation } from '@utils/interfaces';
 
+//utils
+import { COLORS } from '@utils/constants';
+
 // local components
 import WebLinksBlock from './components/WebLinksBlock';
 import ChatsBlock from './components/ChatsBlock';
@@ -89,7 +92,7 @@ const HomeScreen = (props: HomeScreenProps) => {
 const styles = StyleSheet.create({
   scrollViewContainer: {
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.WHITE,
   },
   contentContainer: {
     alignItems: 'center',

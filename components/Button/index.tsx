@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // utils
 import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
+import { COLORS } from '@utils/constants';
 
 interface ButtonProps {
   title: string;
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    color: 'white',
+    color: COLORS.WHITE,
     fontSize: 16,
   },
   circleWrap: {
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   circle: {
-    backgroundColor: '#404040',
+    backgroundColor: COLORS.DARK_GRAY,
     borderRadius: 3,
     width: 6,
     height: 6,

@@ -7,6 +7,7 @@ import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
 
 // utils
 import { ICommunity } from '@utils/interfaces';
+import { COLORS } from '@utils/constants';
 import { calcSize } from '@utils/misc';
 
 //
@@ -108,18 +109,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     marginTop: 30,
-    borderColor: '#66F',
-    backgroundColor: 'rgba(102,102,255,0.2)',
+    borderColor: COLORS.LIGHT_BLUE,
+    backgroundColor: COLORS.LIGHT_BLUE_OPACITY_02,
   },
   text: {
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontSize: 28,
     textAlign: 'center',
   },
   logo: {
     width: calcSize(35),
     height: calcSize(35),
-    borderColor: 'red',
+    borderColor: COLORS.RED,
     marginLeft: calcSize(20),
     marginRight: calcSize(10),
   },

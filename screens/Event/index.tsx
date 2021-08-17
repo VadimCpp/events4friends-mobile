@@ -20,6 +20,7 @@ import Button from '@components/Button';
 import DataContext from '@context/DataContext';
 
 // utils
+import { COLORS } from '@utils/constants';
 import { IEvent, INavigation } from '@utils/interfaces';
 import { removeTags, calcSize } from '@utils/misc';
 import {
@@ -28,6 +29,7 @@ import {
   getVerboseDate,
   getVerboseTime,
 } from '@utils/eventsLogic';
+
 interface EventScreenParams {
   route: { params: { event: IEvent } };
   navigation: INavigation;
@@ -230,7 +232,7 @@ const EventScreen = (props: EventScreenParams) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.WHITE,
     alignItems: 'center',
     width: '100%',
   },
@@ -246,7 +248,7 @@ const styles = StyleSheet.create({
     height: 30,
   },
   labelText: {
-    color: 'red',
+    color: COLORS.RED,
   },
   datePlaceContainer: {
     width: '100%',
@@ -295,7 +297,7 @@ const styles = StyleSheet.create({
   hr: {
     width: calcSize(355),
     height: 2,
-    backgroundColor: '#EC7B28',
+    backgroundColor: COLORS.BRIGHT_ORANGE,
     marginHorizontal: calcSize(10),
     marginTop: 20,
   },
@@ -308,12 +310,12 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
   description: {
     flex: 1,
     marginTop: 20,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
   locationContainer: {
     width: '100%',
@@ -325,13 +327,13 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
   },
   linkContainer: {
     paddingVertical: 5,
   },
   link: {
-    color: 'rgb(47, 124, 246)',
+    color: COLORS.BRIGHT_BLUE,
   },
   remindButtonContainer: {
     alignItems: 'center',
@@ -347,11 +349,11 @@ const styles = StyleSheet.create({
     marginBottom: calcSize(10),
   },
   cancelRemindButton: {
-    backgroundColor: '#404040',
+    backgroundColor: COLORS.DARK_GRAY,
     width: 220,
   },
   remindButton: {
-    backgroundColor: '#EC7B28',
+    backgroundColor: COLORS.BRIGHT_ORANGE,
     width: 130,
   },
 });

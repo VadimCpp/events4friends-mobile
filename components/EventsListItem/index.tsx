@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 // utils
 import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
+import { COLORS } from '@utils/constants';
 import { calcSize } from '@utils/misc';
 import {
   isCurrentEvent,
@@ -47,7 +48,7 @@ const EventsListItem = (props: EventsListItemParams) => {
       <View style={styles.datetimeContainer}>
         <Image
           style={styles.iconTime}
-          source={require('../../assets/img/icon_time_x4.png')}
+          source={require('@assets/img/icon_time_x4.png')}
         />
         <View style={styles.datetimeColumn}>
           <Text>{startDate}</Text>
@@ -60,7 +61,7 @@ const EventsListItem = (props: EventsListItemParams) => {
         <View style={styles.addressContainer}>
           <Image
             style={styles.iconWww}
-            source={require('../../assets/img/icon_www_x4.png')}
+            source={require('@assets/img/icon_www_x4.png')}
           />
           <View style={styles.address}>
             <Text numberOfLines={1}>Онлайн</Text>
@@ -70,7 +71,7 @@ const EventsListItem = (props: EventsListItemParams) => {
         <View style={styles.addressContainer}>
           <Image
             style={styles.iconPlace}
-            source={require('../../assets/img/icon_place_x4.png')}
+            source={require('@assets/img/icon_place_x4.png')}
           />
           <View style={styles.address}>
             <Text numberOfLines={2}>{event.location}</Text>
@@ -87,9 +88,9 @@ const styles = StyleSheet.create({
     width: calcSize(300),
     borderRadius: calcSize(10),
     marginTop: 16,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.WHITE,
 
-    shadowColor: '#444',
+    shadowColor: COLORS.DARK_GRAY,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -102,13 +103,13 @@ const styles = StyleSheet.create({
   },
   summary: {
     fontSize: 18,
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontWeight: 'bold',
   },
   hr: {
     width: calcSize(282),
     height: 2,
-    backgroundColor: '#EC7B28',
+    backgroundColor: COLORS.BRIGHT_ORANGE,
     marginHorizontal: calcSize(9),
   },
   labelContainer: {
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     height: 35,
   },
   labelText: {
-    color: 'red',
+    color: COLORS.RED,
   },
   datetimeContainer: {
     marginHorizontal: calcSize(10),

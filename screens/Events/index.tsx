@@ -15,6 +15,7 @@ import DataContext from '@context/DataContext';
 import StorageContext from '@context/StorageContext';
 
 // utils
+import { COLORS } from '@utils/constants';
 import { EventsFilter } from '@utils/enums';
 import { ICommunity, IEvent, INavigation } from '@utils/interfaces';
 import { calcSize } from '@utils/misc';
@@ -95,10 +96,10 @@ const EventsScreen = (props: EventsScreenParams) => {
                   textStyle={
                     filterType === EventsFilter.Upcoming
                       ? {
-                          color: '#404040',
+                          color: COLORS.DARK_GRAY,
                         }
                       : {
-                          color: '#AAA',
+                          color: COLORS.GRAY,
                         }
                   }
                   selected={filterType === EventsFilter.Upcoming}
@@ -114,10 +115,10 @@ const EventsScreen = (props: EventsScreenParams) => {
                   textStyle={
                     filterType === EventsFilter.Past
                       ? {
-                          color: '#404040',
+                          color: COLORS.DARK_GRAY,
                         }
                       : {
-                          color: '#AAA',
+                          color: COLORS.GRAY,
                         }
                   }
                   selected={filterType === EventsFilter.Past}
@@ -148,7 +149,7 @@ const EventsScreen = (props: EventsScreenParams) => {
 const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: COLORS.WHITE,
     alignItems: 'center',
     width: '100%',
   },
@@ -170,17 +171,17 @@ const styles = StyleSheet.create({
     width: calcSize(300),
   },
   filterButton: {
-    borderColor: '#EC7B28',
+    borderColor: COLORS.BRIGHT_ORANGE,
     borderWidth: 2,
-    backgroundColor: 'rgba(236,123,40,0.2)',
+    backgroundColor: COLORS.BRIGHT_ORANGE_OPACITY_02,
     width: 130,
     marginLeft: 10,
     marginBottom: 10,
   },
   filterButtonFocused: {
-    borderColor: '#903e01',
+    borderColor: COLORS.DARK_ORANGE,
     borderWidth: 2,
-    backgroundColor: 'rgba(144,62,1,0.2)',
+    backgroundColor: COLORS.DARK_ORANGE_OPACITY_02,
     width: 130,
     marginLeft: 10,
     marginBottom: 10,
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     textAlign: 'center',
   },
 });

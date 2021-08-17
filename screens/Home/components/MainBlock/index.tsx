@@ -11,6 +11,9 @@ import { ICommunity, INavigation } from '@utils/interfaces';
 import Header from '../Header';
 import { calcSize } from '@utils/misc';
 
+//utils
+import { COLORS } from '@utils/constants';
+
 interface ChatsBlockProps {
   community: ICommunity;
   navigation: INavigation;
@@ -53,15 +56,15 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   simpleButtonEvents: {
-    borderColor: '#EC7B28',
-    backgroundColor: 'rgba(236,123,40,0.2)',
+    borderColor: COLORS.BRIGHT_ORANGE,
+    backgroundColor: COLORS.BRIGHT_ORANGE_OPACITY_02,
   },
   simpleButtonServices: {
-    borderColor: '#24BA7B',
-    backgroundColor: 'rgba(36,186,123,0.2)',
+    borderColor: COLORS.STRONG_CYAN,
+    backgroundColor: COLORS.STRONG_CYAN_OPACITY_02,
   },
   simpleButtonText: {
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontSize: 28,
     textAlign: 'center',
   },

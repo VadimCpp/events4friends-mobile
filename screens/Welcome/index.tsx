@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 
 // components
@@ -14,6 +14,7 @@ import DataContext from '@context/DataContext';
 import StorageContext from '@context/StorageContext';
 
 // utils
+import { COLORS } from '@utils/constants';
 import { ICommunity, INavigation } from '@utils/interfaces';
 
 interface WelcomeScreenParams {
@@ -67,7 +68,7 @@ const WelcomeScreen = (props: WelcomeScreenParams) => {
 const styles = StyleSheet.create({
   backgroundContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.WHITE,
     alignItems: 'center',
     width: '100%',
   },
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   title: {
-    color: '#404040',
+    color: COLORS.DARK_GRAY,
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',

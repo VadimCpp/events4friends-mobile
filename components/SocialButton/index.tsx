@@ -4,6 +4,7 @@ import * as Linking from 'expo-linking';
 
 // utils
 import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
+import { COLORS } from '@utils/constants';
 import { calcSize } from '@utils/misc';
 
 interface SocialButtonParams {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     width: calcSize(55),
     height: calcSize(55),
 
-    shadowColor: '#444',
+    shadowColor: COLORS.DARK_GRAY,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
