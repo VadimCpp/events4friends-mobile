@@ -6,7 +6,7 @@ export const DEFAULT_EVENT_DURATION = 1;
 export const NOTICE_CONNECTING = 'Подключаемся к базе данных...';
 export const NOTICE_LOADING = 'Загружаем...';
 
-export const enum COLORS {
+export enum COLORS {
   BLACK = 'black',
   BRIGHT_BLUE = 'rgb(47, 124, 246)',
   BRIGHT_ORANGE = '#EC7B28',
