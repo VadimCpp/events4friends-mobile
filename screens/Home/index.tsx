@@ -24,6 +24,7 @@ import WebLinksBlock from './components/WebLinksBlock';
 import ChatsBlock from './components/ChatsBlock';
 import MainBlock from './components/MainBlock';
 import FooterBlock from './components/FooterBlock';
+import ReportErrorBlock from './components/ReportErrorBlock';
 
 interface HomeScreenProps {
   navigation: INavigation;
@@ -83,6 +84,7 @@ const HomeScreen = (props: HomeScreenProps) => {
             community={community}
             onCommunitiesClick={handleCommunitiesClick}
           />
+          <ReportErrorBlock />
         </>
       )}
     </ScrollView>

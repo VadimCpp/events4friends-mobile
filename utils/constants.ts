@@ -26,3 +26,5 @@ export enum COLORS {
   VERY_LIGHT_BLUE_OPACITY_02 = 'rgba(153,187,255,0.2)',
   WHITE = 'white',
 }
+
+export const SUPPORT_WEBSITE = 'https://vadimcpp.ru/';

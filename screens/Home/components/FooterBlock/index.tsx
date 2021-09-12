@@ -41,7 +41,6 @@ const FooterBlock = (props: ChatsBlockProps) => {
 const styles = StyleSheet.create({
   lastContainer: {
     marginTop: 30,
-    marginBottom: 50,
   },
   simpleButton: {
     width: calcSize(285),
