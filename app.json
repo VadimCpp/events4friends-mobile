@@ -9,8 +9,8 @@
       "android",
       "web"
     ],
-    "version": "2.0",
-    "githubUrl": "https://github.com/VadimCpp/events4friends-mobile", 
+    "version": "2.1",
+    "githubUrl": "https://github.com/VadimCpp/events4friends-mobile",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -26,11 +26,11 @@
     ],
     "android": {
       "package": "com.roscomputing.events4friends",
-      "versionCode": 25
+      "versionCode": 26
     },
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "25",
+      "buildNumber": "26",
       "bundleIdentifier": "com.roscomputing.events4friends"
     }
   }
