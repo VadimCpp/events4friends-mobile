@@ -2,17 +2,17 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 // components
-import Button from '@components/Button';
+import Button from '../../../../components/Button';
 
 // interfaces
-import { ICommunity, INavigation } from '@utils/interfaces';
+import { ICommunity, INavigation } from '../../../../utils/interfaces';
 
 // local components
 import Header from '../Header';
-import { calcSize } from '@utils/misc';
 
 //utils
-import { COLORS } from '@utils/constants';
+import { calcSize } from '../../../../utils/misc';
+import { COLORS } from '../../../../utils/constants';
 
 interface ChatsBlockProps {
   community: ICommunity;

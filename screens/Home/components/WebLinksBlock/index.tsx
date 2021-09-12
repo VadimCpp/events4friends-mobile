@@ -3,17 +3,17 @@ import { StyleSheet, View } from 'react-native';
 import * as Linking from 'expo-linking';
 
 // components
-import Button from '@components/Button';
+import Button from '../../../../components/Button';
 
 // interfaces
-import { ICommunity } from '@utils/interfaces';
-
-// utils
-import { COLORS } from '@utils/constants';
-import { calcSize } from '@utils/misc';
+import { ICommunity } from '../../../../utils/interfaces';
 
 // local components
 import Header from '../Header';
+
+// utils
+import { COLORS } from '../../../../utils/constants';
+import { calcSize } from '../../../../utils/misc';
 
 interface WebLinksBlockProps {
   community: ICommunity;

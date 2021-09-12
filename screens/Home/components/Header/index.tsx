@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 // utils
-import { COLORS } from '@utils/constants';
-import { calcSize } from '@utils/misc';
+import { COLORS } from '../../../../utils/constants';
+import { calcSize } from '../../../../utils/misc';
 
 interface HeaderProps {
   title?: string;

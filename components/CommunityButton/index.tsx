@@ -3,12 +3,12 @@ import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
 // constants
-import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
 
 // utils
-import { ICommunity } from '@utils/interfaces';
-import { COLORS } from '@utils/constants';
-import { calcSize } from '@utils/misc';
+import { ICommunity } from '../../utils/interfaces';
+import { COLORS } from '../../utils/constants';
+import { calcSize } from '../../utils/misc';
 
 //
 // NOTE!

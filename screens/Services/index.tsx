@@ -2,23 +2,23 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 
 // components
-import ServicesListItem from '@components/ServicesListItem';
-import Button from '@components/Button';
-import NoDataContainer from '@components/NoDataContainer';
-import SupportBlock from '@components/SupportBlock';
+import ServicesListItem from '../../components/ServicesListItem';
+import Button from '../../components/Button';
+import NoDataContainer from '../../components/NoDataContainer';
+import SupportBlock from '../../components/SupportBlock';
 
 // contexts
-import AuthContext from '@context/AuthContext';
-import DataContext from '@context/DataContext';
-import StorageContext from '@context/StorageContext';
+import AuthContext from '../../context/AuthContext';
+import DataContext from '../../context/DataContext';
+import StorageContext from '../../context/StorageContext';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '@utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // utils
-import { COLORS } from '@utils/constants';
-import { IService, INavigation, ICommunity } from '@utils/interfaces';
-import { calcSize } from '@utils/misc';
+import { COLORS } from '../../utils/constants';
+import { IService, INavigation, ICommunity } from '../../utils/interfaces';
+import { calcSize } from '../../utils/misc';
 
 enum ServiceSortingType {
   SortByName = 'SORT_BY_NAME',

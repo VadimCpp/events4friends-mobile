@@ -14,21 +14,21 @@ import * as Linking from 'expo-linking';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components
-import Button from '@components/Button';
+import Button from '../../components/Button';
 
 // contexts
-import DataContext from '@context/DataContext';
+import DataContext from '../../context/DataContext';
 
 // utils
-import { COLORS } from '@utils/constants';
-import { IEvent, INavigation } from '@utils/interfaces';
-import { removeTags, calcSize } from '@utils/misc';
+import { COLORS } from '../../utils/constants';
+import { IEvent, INavigation } from '../../utils/interfaces';
+import { removeTags, calcSize } from '../../utils/misc';
 import {
   isCurrentEvent,
   isStartWithinAnHourEvent,
   getVerboseDate,
   getVerboseTime,
-} from '@utils/eventsLogic';
+} from '../../utils/eventsLogic';
 
 interface EventScreenParams {
   route: { params: { event: IEvent } };
@@ -94,7 +94,7 @@ const EventScreen = (props: EventScreenParams) => {
           <View style={styles.datetimeContainer}>
             <Image
               style={styles.iconTime}
-              source={require('@assets/img/icon_time_x4.png')}
+              source={require('../../assets/img/icon_time_x4.png')}
             />
             <View style={styles.datetimeColumn}>
               <Text>{startDate}</Text>
@@ -107,7 +107,7 @@ const EventScreen = (props: EventScreenParams) => {
             <View style={styles.addressContainer}>
               <Image
                 style={styles.iconWww}
-                source={require('@assets/img/icon_www_x4.png')}
+                source={require('../../assets/img/icon_www_x4.png')}
               />
               <View style={styles.address}>
                 <Text numberOfLines={1}>Онлайн</Text>
@@ -117,7 +117,7 @@ const EventScreen = (props: EventScreenParams) => {
             <View style={styles.addressContainer}>
               <Image
                 style={styles.iconPlace}
-                source={require('@assets/img/icon_place_x4.png')}
+                source={require('../../assets/img/icon_place_x4.png')}
               />
               <View style={styles.address}>
                 <Text numberOfLines={2}>{event.location}</Text>

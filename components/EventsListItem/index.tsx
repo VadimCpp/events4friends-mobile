@@ -2,15 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 // utils
-import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
-import { COLORS } from '@utils/constants';
-import { calcSize } from '@utils/misc';
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
+import { COLORS } from '../../utils/constants';
+import { calcSize } from '../../utils/misc';
 import {
   isCurrentEvent,
   isStartWithinAnHourEvent,
   getVerboseDate,
   getVerboseTime,
-} from '@utils/eventsLogic';
+} from '../../utils/eventsLogic';
 
 interface EventsListItemParams {
   event: any;
@@ -48,7 +48,7 @@ const EventsListItem = (props: EventsListItemParams) => {
       <View style={styles.datetimeContainer}>
         <Image
           style={styles.iconTime}
-          source={require('@assets/img/icon_time_x4.png')}
+          source={require('../../assets/img/icon_time_x4.png')}
         />
         <View style={styles.datetimeColumn}>
           <Text>{startDate}</Text>
@@ -61,7 +61,7 @@ const EventsListItem = (props: EventsListItemParams) => {
         <View style={styles.addressContainer}>
           <Image
             style={styles.iconWww}
-            source={require('@assets/img/icon_www_x4.png')}
+            source={require('../../assets/img/icon_www_x4.png')}
           />
           <View style={styles.address}>
             <Text numberOfLines={1}>Онлайн</Text>
@@ -71,7 +71,7 @@ const EventsListItem = (props: EventsListItemParams) => {
         <View style={styles.addressContainer}>
           <Image
             style={styles.iconPlace}
-            source={require('@assets/img/icon_place_x4.png')}
+            source={require('../../assets/img/icon_place_x4.png')}
           />
           <View style={styles.address}>
             <Text numberOfLines={2}>{event.location}</Text>

@@ -3,8 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Linking from 'expo-linking';
 
 // utils
-import { COLORS } from '@utils/constants';
-import { calcSize } from '@utils/misc';
+import { COLORS } from '../../../../utils/constants';
+import { calcSize } from '../../../../utils/misc';
 
 interface WhatsappLinkProps {
   whatsapp: string;

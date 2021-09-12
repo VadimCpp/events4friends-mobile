@@ -9,9 +9,9 @@ import {
 import * as Linking from 'expo-linking';
 
 // utils
-import { COLORS } from '@utils/constants';
-import { IService, INavigation, IRoute } from '@utils/interfaces';
-import { calcSize, removeTags } from '@utils/misc';
+import { COLORS } from '../../utils/constants';
+import { IService, INavigation, IRoute } from '../../utils/interfaces';
+import { calcSize, removeTags } from '../../utils/misc';
 
 // local
 import WhatsappLink from './components/WhatsappLink';

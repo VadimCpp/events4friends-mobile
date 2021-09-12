@@ -2,20 +2,20 @@ import React, { useContext, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 
 // components
-import NoDataContainer from '@components/NoDataContainer';
-import CommunityButton from '@components/CommunityButton';
+import NoDataContainer from '../../components/NoDataContainer';
+import CommunityButton from '../../components/CommunityButton';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '@utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // contexts
-import AuthContext from '@context/AuthContext';
-import DataContext from '@context/DataContext';
-import StorageContext from '@context/StorageContext';
+import AuthContext from '../../context/AuthContext';
+import DataContext from '../../context/DataContext';
+import StorageContext from '../../context/StorageContext';
 
 // utils
-import { COLORS } from '@utils/constants';
-import { ICommunity, INavigation } from '@utils/interfaces';
+import { COLORS } from '../../utils/constants';
+import { ICommunity, INavigation } from '../../utils/interfaces';
 
 interface WelcomeScreenParams {
   navigation: INavigation;

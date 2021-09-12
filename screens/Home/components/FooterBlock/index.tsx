@@ -2,24 +2,24 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 // components
-import Button from '@components/Button';
+import Button from '../../../../components/Button';
 
 // interfaces
-import { ICommunity } from '@utils/interfaces';
+import { ICommunity } from '../../../../utils/interfaces';
 
 // local components
 import Header from '../Header';
-import { calcSize } from '@utils/misc';
 
 //utils
-import { COLORS } from '@utils/constants';
+import { calcSize } from '../../../../utils/misc';
+import { COLORS } from '../../../../utils/constants';
 
-interface ChatsBlockProps {
+interface FooterBlockProps {
   community: ICommunity;
   onCommunitiesClick: () => void;
 }
 
-const FooterBlock = (props: ChatsBlockProps) => {
+const FooterBlock = (props: FooterBlockProps) => {
   const { onCommunitiesClick } = props;
 
   return (

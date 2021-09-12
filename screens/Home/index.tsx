@@ -2,22 +2,22 @@ import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 
 // components
-import NoDataContainer from '@components/NoDataContainer';
-import HeaderTitle from '@components/HeaderTitle';
+import NoDataContainer from '../../components/NoDataContainer';
+import HeaderTitle from '../../components/HeaderTitle';
 
 // contexts
-import AuthContext from '@context/AuthContext';
-import DataContext from '@context/DataContext';
-import StorageContext from '@context/StorageContext';
+import AuthContext from '../../context/AuthContext';
+import DataContext from '../../context/DataContext';
+import StorageContext from '../../context/StorageContext';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '@utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
 
 // interfaces
-import { ICommunity, INavigation } from '@utils/interfaces';
+import { ICommunity, INavigation } from '../../utils/interfaces';
 
 //utils
-import { COLORS } from '@utils/constants';
+import { COLORS } from '../../utils/constants';
 
 // local components
 import WebLinksBlock from './components/WebLinksBlock';

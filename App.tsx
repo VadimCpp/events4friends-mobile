@@ -24,9 +24,9 @@ import ServicesScreen from './screens/Services';
 import WelcomeScreen from './screens/Welcome';
 
 // contexts
-import AuthContext from '@context/AuthContext';
-import DataContext from '@context/DataContext';
-import StorageContext from '@context/StorageContext';
+import AuthContext from './context/AuthContext';
+import DataContext from './context/DataContext';
+import StorageContext from './context/StorageContext';
 
 // hooks
 import useAuth from './hooks/useAuth';
@@ -114,10 +114,7 @@ export default function App() {
     loadingEvents,
     loadingServices,
   } = useData();
-  const {
-    getCommunityID,
-    setCommunityID,
-  } = useStorage();
+  const { getCommunityID, setCommunityID } = useStorage();
 
   const [isAppReady, setIsAppReady] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -142,12 +139,12 @@ export default function App() {
 
   function cacheResourcesAsync(): Promise<void> {
     const images = [
-      require('@assets/img/icon_place_x4.png'),
-      require('@assets/img/icon_telegram_x4.png'),
-      require('@assets/img/icon_time_x4.png'),
-      require('@assets/img/icon_viber_x4.png'),
-      require('@assets/img/icon_whatsapp_x4.png'),
-      require('@assets/img/icon_www_x4.png'),
+      require('./assets/img/icon_place_x4.png'),
+      require('./assets/img/icon_telegram_x4.png'),
+      require('./assets/img/icon_time_x4.png'),
+      require('./assets/img/icon_viber_x4.png'),
+      require('./assets/img/icon_whatsapp_x4.png'),
+      require('./assets/img/icon_www_x4.png'),
     ];
 
     const cacheImages = images.map(image => {

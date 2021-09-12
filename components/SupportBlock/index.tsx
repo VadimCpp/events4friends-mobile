@@ -3,11 +3,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Linking from 'expo-linking';
 
 // components
-import Button from '@components/Button';
+import Button from '../../components/Button';
 
 // utils
-import { COLORS, SUPPORT_WEBSITE } from '@utils/constants';
-import { calcSize } from '@utils/misc';
+import { COLORS, SUPPORT_WEBSITE } from '../../utils/constants';
+import { calcSize } from '../../utils/misc';
 
 const SupportBlock = () => {
   return (

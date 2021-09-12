@@ -3,14 +3,14 @@ import { StyleSheet, View } from 'react-native';
 import * as Linking from 'expo-linking';
 
 // components
-import Button from '@components/Button';
+import Button from '../../../../components/Button';
 
 // local components
 import Header from '../Header';
-import { calcSize } from '@utils/misc';
 
 // utils
-import { COLORS, SUPPORT_WEBSITE } from '@utils/constants';
+import { calcSize } from '../../../../utils/misc';
+import { COLORS, SUPPORT_WEBSITE } from '../../../../utils/constants';
 
 const ReportErrorBlock = () => {
   return (

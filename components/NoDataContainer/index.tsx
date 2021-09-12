@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 //utils
-import { COLORS } from '@utils/constants';
+import { COLORS } from '../../utils/constants';
 
 interface NoDataContainerProps {
   label: string;

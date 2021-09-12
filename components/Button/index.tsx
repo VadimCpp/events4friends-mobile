@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // utils
-import { DEFAULT_ACTIVE_OPACITY } from '@utils/constants';
-import { COLORS } from '@utils/constants';
+import { DEFAULT_ACTIVE_OPACITY } from '../../utils/constants';
+import { COLORS } from '../../utils/constants';
 
 interface ButtonProps {
   title: string;

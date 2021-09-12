@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 //utils
-import { COLORS } from '@utils/constants';
+import { COLORS } from '../../utils/constants';
 
 interface HeaderTitleProps {
   logo: string;
