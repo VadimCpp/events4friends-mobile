@@ -5,6 +5,7 @@ import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import EventsListItem from '@components/EventsListItem';
 import Button from '@components/Button';
 import NoDataContainer from '@components/NoDataContainer';
+import SupportBlock from '@components/SupportBlock';
 
 // constants
 import { NOTICE_CONNECTING, NOTICE_LOADING } from '@utils/constants';
@@ -141,6 +142,7 @@ const EventsScreen = (props: EventsScreenParams) => {
             </View>
           </View>
         )}
+        <SupportBlock />
       </ScrollView>
     </View>
   );

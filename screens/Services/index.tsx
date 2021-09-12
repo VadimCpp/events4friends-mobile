@@ -5,6 +5,7 @@ import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import ServicesListItem from '@components/ServicesListItem';
 import Button from '@components/Button';
 import NoDataContainer from '@components/NoDataContainer';
+import SupportBlock from '@components/SupportBlock';
 
 // contexts
 import AuthContext from '@context/AuthContext';
@@ -207,6 +208,7 @@ const ServicesScreen = (props: ServicesScreenParams) => {
             </View>
           </View>
         )}
+        <SupportBlock />
       </ScrollView>
     </View>
   );

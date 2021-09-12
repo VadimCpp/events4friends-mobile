@@ -23,7 +23,7 @@ const FooterBlock = (props: ChatsBlockProps) => {
   const { onCommunitiesClick } = props;
 
   return (
-    <View style={styles.lastContainer}>
+    <View style={styles.constiner}>
       <Header
         title={'Дополнительно'}
         subTitle={'Для смены сообщества нажмите кнопку «Другие сообщества»'}
@@ -39,7 +39,7 @@ const FooterBlock = (props: ChatsBlockProps) => {
 };
 
 const styles = StyleSheet.create({
-  lastContainer: {
+  constiner: {
     marginTop: 30,
   },
   simpleButton: {
