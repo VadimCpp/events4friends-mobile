@@ -143,7 +143,13 @@ export const isStartWithinAnHourEvent = (event: IEvent): boolean => {
  * Функция возвращает дату в удобном для пользователя формате
  */
 export const getVerboseDate = (event: IEvent): string => {
-  return moment(`${event.start}`).format('D MMMM, dddd');
+  let currentYear: moment.Moment = moment();
+  let eventYear: moment.Moment = moment(event.start);
+  let format = 'D MMMM yy, dddd';
+  if (currentYear.isSame(eventYear, 'year')) {
+    format = 'D MMMM, dddd';
+  }
+  return eventYear.format(format);
 };
 
 /**
