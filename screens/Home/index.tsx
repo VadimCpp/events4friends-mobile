@@ -53,7 +53,7 @@ const HomeScreen = (props: HomeScreenProps) => {
     if (community) {
       navigation.setOptions({
         headerTitle: () => (
-          <HeaderTitle title={community.name} logo={community.logo} />
+          <HeaderTitle title={community.name} logo_url={community.logo_url} />
         ),
       });
     }

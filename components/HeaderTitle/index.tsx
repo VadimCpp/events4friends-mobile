@@ -5,17 +5,16 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../../utils/constants';
 
 interface HeaderTitleProps {
-  logo: string;
+  logo_url: string;
   title: string;
 }
 
 const HeaderTitle = (props: HeaderTitleProps) => {
-  const { title, logo } = props;
-  const base64Icon: string = `data:image/png;base64,${logo}`;
+  const { title, logo_url } = props;
 
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={{ uri: base64Icon }} />
+      <Image style={styles.logo} source={{ uri: logo_url }} />
       <Text style={styles.title} numberOfLines={1}>
         {title}
       </Text>

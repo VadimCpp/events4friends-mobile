@@ -45,7 +45,7 @@ export interface IRoute {
 
 export interface ICommunity {
   id: string;
-  logo: string;
+  logo_url: string;
   name: string;
   description: string;
   telegram?: string;
