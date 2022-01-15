@@ -16,6 +16,7 @@ import StorageContext from '../../context/StorageContext';
 // utils
 import { COLORS } from '../../utils/constants';
 import { ICommunity, INavigation } from '../../utils/interfaces';
+import { calcSize } from '../../utils/misc';
 
 interface WelcomeScreenParams {
   navigation: INavigation;
@@ -52,11 +53,14 @@ const WelcomeScreen = (props: WelcomeScreenParams) => {
           <View style={styles.container}>
             <Text style={styles.title}>Выберите сообщество</Text>
             {communities.map((community: ICommunity) => (
-              <CommunityButton
-                key={community.id}
-                community={community}
-                onPress={setCommunityID}
-              />
+              <>
+                <Text style={styles.description}>{community.description}:</Text>
+                <CommunityButton
+                  key={community.id}
+                  community={community}
+                  onPress={setCommunityID}
+                />
+              </>
             ))}
           </View>
         )}
@@ -78,7 +82,6 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
-    height: 500,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -90,6 +93,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginTop: 40,
+  },
+  description: {
+    marginTop: 40,
+    width: calcSize(285),
   },
 });
 

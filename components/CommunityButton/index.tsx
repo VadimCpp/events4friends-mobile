@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     borderWidth: 1,
-    marginTop: 30,
+    marginTop: 15,
     borderColor: COLORS.LIGHT_BLUE,
     backgroundColor: COLORS.LIGHT_BLUE_OPACITY_02,
   },
