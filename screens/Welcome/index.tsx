@@ -6,7 +6,11 @@ import NoDataContainer from '../../components/NoDataContainer';
 import CommunityButton from '../../components/CommunityButton';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
+import {
+  NOTICE_CONNECTING,
+  NOTICE_LOADING,
+  COLORS,
+} from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
@@ -14,7 +18,6 @@ import DataContext from '../../context/DataContext';
 import StorageContext from '../../context/StorageContext';
 
 // utils
-import { COLORS } from '../../utils/constants';
 import { ICommunity, INavigation } from '../../utils/interfaces';
 import { calcSize } from '../../utils/misc';
 
@@ -53,14 +56,13 @@ const WelcomeScreen = (props: WelcomeScreenParams) => {
           <View style={styles.container}>
             <Text style={styles.title}>Выберите сообщество</Text>
             {communities.map((community: ICommunity) => (
-              <>
+              <View key={community.id}>
                 <Text style={styles.description}>{community.description}:</Text>
                 <CommunityButton
-                  key={community.id}
                   community={community}
                   onPress={setCommunityID}
                 />
-              </>
+              </View>
             ))}
           </View>
         )}
