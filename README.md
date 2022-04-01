@@ -8,7 +8,7 @@ yarn install
 yarn start
 ```
 
-## Create test build 
+## Собрать для тестирования 
 Для того чтобы сделать тестовую сборку в expo необходимо выполнить команды:
 ```bash
 expo login #только один раз для входа в аккаунт expo
@@ -17,6 +17,13 @@ expo publish --release-channel beta
 
 Тестовая сборка приложения доступна по ссылке:
 https://expo.io/@vadimcpp/events4friends?release-channel=beta
+
+## Собрать для публикации
+
+```bash
+expo build:ios
+expo build:android
+```
 
 ## Share text
 
