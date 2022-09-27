@@ -32,6 +32,11 @@
       "supportsTablet": true,
       "buildNumber": "30",
       "bundleIdentifier": "com.roscomputing.events4friends"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6b63048f-bebb-48b1-ad3c-5563eeff54de"
+      }
     }
   }
 }
