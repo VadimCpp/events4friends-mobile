@@ -132,9 +132,10 @@ const EventScreen = (props: EventScreenParams) => {
           </View>
           <ScrollView style={styles.description}>
             <HTML
-              html={event.description}
+              source={{html: event.description}}
+              contentWidth={Dimensions.get('window').width}
               imagesMaxWidth={Dimensions.get('window').width}
-              onLinkPress={onLinkPress}
+              renderersProps={{ a: { onLinkPress } }}
             />
           </ScrollView>
           {event.name && (
