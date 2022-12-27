@@ -20,9 +20,16 @@ https://expo.io/@vadimcpp/events4friends?release-channel=beta
 
 ## Собрать для публикации
 
+Ios:
 ```bash
-expo build:ios
-expo build:android
+npm install -g eas-cli # if eas not installed
+eas build -p ios
+```
+
+Android:
+```bash
+npm install -g eas-cli # if eas not installed
+eas build -p android
 ```
 
 ## Share text

@@ -28,3 +28,5 @@ export enum COLORS {
 }
 
 export const SUPPORT_WEBSITE = 'https://vadimcpp.ru/';
+
+export const EVENTS4FRIENDS_ID = "1";

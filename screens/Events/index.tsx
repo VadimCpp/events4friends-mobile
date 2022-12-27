@@ -8,12 +8,11 @@ import NoDataContainer from '../../components/NoDataContainer';
 import SupportBlock from '../../components/SupportBlock';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING, EVENTS4FRIENDS_ID } from '../../utils/constants';
 
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
-import StorageContext from '../../context/StorageContext';
 
 // utils
 import { COLORS } from '../../utils/constants';
@@ -31,21 +30,18 @@ const EventsScreen = (props: EventsScreenParams) => {
 
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
-  const storageContext = useContext(StorageContext);
 
   const { connectingToFirebase } = authContext;
   const { events, loadingEvents, communities } = dataContext;
-  const { getCommunityID } = storageContext;
 
   const [community, setCommunity] = useState<ICommunity | null>(null);
   const [filterType, setFilterType] = useState(EventsFilter.Upcoming);
   const [sortedEvents, setSortedEvents] = useState<Array<IEvent>>([]);
 
   useEffect(() => {
-    const anId = `${getCommunityID()}`;
-    const aCommunity = communities.find(c => c.id === anId) || null;
+    const aCommunity = communities.find((c: ICommunity) => c.id === EVENTS4FRIENDS_ID) || null;
     setCommunity(aCommunity);
-  }, [communities, getCommunityID]);
+  }, [communities]);
 
   const onEventPress = useCallback(
     event => {

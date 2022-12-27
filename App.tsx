@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import { Asset } from 'expo-asset';
 import AppLoading from 'expo-app-loading';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as SplashScreen from 'expo-splash-screen';
+
+// Keep the splash screen visible while we fetch resources
+//SplashScreen.preventAutoHideAsync();
 
 // moment
 import moment from 'moment';
@@ -14,17 +19,14 @@ import EventsScreen from './screens/Events';
 import HomeScreen from './screens/Home';
 import ServiceScreen from './screens/Service';
 import ServicesScreen from './screens/Services';
-import WelcomeScreen from './screens/Welcome';
 
 // contexts
 import AuthContext from './context/AuthContext';
 import DataContext from './context/DataContext';
-import StorageContext from './context/StorageContext';
 
 // hooks
 import useAuth from './hooks/useAuth';
 import useData from './hooks/useData';
-import useStorage from './hooks/useStorage';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +39,6 @@ export default function App() {
     loadingEvents,
     loadingServices,
   } = useData();
-  const { getCommunityID, setCommunityID } = useStorage();
 
   const [isAppReady, setIsAppReady] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -70,6 +71,12 @@ export default function App() {
     // Do nothing
   }
 
+  return <View style={{height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+    <Text>
+      {"TEST"}
+    </Text>
+  </View>;
+
   return isAppReady ? (
     <AuthContext.Provider
       value={{
@@ -87,53 +94,39 @@ export default function App() {
           storeReminder,
         }}
       >
-        <StorageContext.Provider
-          value={{
-            getCommunityID,
-            setCommunityID,
-          }}
-        >
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName="WelcomeScreen">
-              <Stack.Screen
-                name="WelcomeScreen"
-                component={WelcomeScreen}
-                options={{
-                  header: () => null,
-                }}
-              />
-              <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{
-                  headerTitle: () => null,
-                  headerLeft: () => null,
-                  animationEnabled: false,
-                }}
-              />
-              <Stack.Screen
-                name="Details"
-                component={EventsScreen}
-                options={{ title: 'Все события' }}
-              />
-              <Stack.Screen
-                name="Services"
-                component={ServicesScreen}
-                options={{ title: 'Все услуги' }}
-              />
-              <Stack.Screen
-                name="EventScreen"
-                component={EventScreen}
-                options={{ title: 'Событие' }}
-              />
-              <Stack.Screen
-                name="ServiceScreen"
-                component={ServiceScreen}
-                options={{ title: 'Услуга' }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </StorageContext.Provider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                headerTitle: () => null,
+                headerLeft: () => null,
+                animationEnabled: false,
+              }}
+            />
+            <Stack.Screen
+              name="Details"
+              component={EventsScreen}
+              options={{ title: 'Все события' }}
+            />
+            <Stack.Screen
+              name="Services"
+              component={ServicesScreen}
+              options={{ title: 'Все услуги' }}
+            />
+            <Stack.Screen
+              name="EventScreen"
+              component={EventScreen}
+              options={{ title: 'Событие' }}
+            />
+            <Stack.Screen
+              name="ServiceScreen"
+              component={ServiceScreen}
+              options={{ title: 'Услуга' }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </DataContext.Provider>
     </AuthContext.Provider>
   ) : (

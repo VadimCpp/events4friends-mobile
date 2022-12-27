@@ -10,10 +10,9 @@ import SupportBlock from '../../components/SupportBlock';
 // contexts
 import AuthContext from '../../context/AuthContext';
 import DataContext from '../../context/DataContext';
-import StorageContext from '../../context/StorageContext';
 
 // constants
-import { NOTICE_CONNECTING, NOTICE_LOADING } from '../../utils/constants';
+import { NOTICE_CONNECTING, NOTICE_LOADING, EVENTS4FRIENDS_ID } from '../../utils/constants';
 
 // utils
 import { COLORS } from '../../utils/constants';
@@ -36,11 +35,9 @@ const ServicesScreen = (props: ServicesScreenParams) => {
 
   const authContext = useContext(AuthContext);
   const dataContext = useContext(DataContext);
-  const storageContext = useContext(StorageContext);
 
   const { connectingToFirebase } = authContext;
   const { services, loadingServices, communities } = dataContext;
-  const { getCommunityID } = storageContext;
 
   const [community, setCommunity] = useState<ICommunity | null>(null);
   const [sortingType, setSortingType] = useState(
@@ -49,10 +46,9 @@ const ServicesScreen = (props: ServicesScreenParams) => {
   const [sortedServices, setSortedServices] = useState<Array<IService>>([]);
 
   useEffect(() => {
-    const anId = `${getCommunityID()}`;
-    const aCommunity = communities.find(c => c.id === anId) || null;
+    const aCommunity = communities.find((c: ICommunity) => c.id === EVENTS4FRIENDS_ID) || null;
     setCommunity(aCommunity);
-  }, [communities, getCommunityID]);
+  }, [communities]);
 
   useEffect(() => {
     navigation.setOptions({
