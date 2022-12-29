@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
 import { Asset } from 'expo-asset';
 import AppLoading from 'expo-app-loading';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as SplashScreen from 'expo-splash-screen';
-
-// Keep the splash screen visible while we fetch resources
-//SplashScreen.preventAutoHideAsync();
 
 // moment
 import moment from 'moment';
@@ -70,12 +65,6 @@ export default function App() {
   ): void {
     // Do nothing
   }
-
-  return <View style={{height: '100%', justifyContent: 'center', alignItems: 'center'}}>
-    <Text>
-      {"TEST"}
-    </Text>
-  </View>;
 
   return isAppReady ? (
     <AuthContext.Provider

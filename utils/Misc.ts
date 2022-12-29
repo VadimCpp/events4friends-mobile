@@ -13,7 +13,7 @@ export function calcSize(figmaSize: number): number {
 
 //
 // NOTE!
-// This method is used in EventSingle screen
+// This method is used in Service screen
 // to remove all html tags from description
 //
 export function removeTags(html: string): string {

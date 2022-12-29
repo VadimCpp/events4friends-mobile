@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -6,23 +6,15 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Alert,
   Dimensions,
 } from 'react-native';
 import HTML from 'react-native-render-html';
 import * as Linking from 'expo-linking';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// components
-import Button from '../../components/Button';
-
-// contexts
-import DataContext from '../../context/DataContext';
 
 // utils
 import { COLORS } from '../../utils/constants';
 import { IEvent, INavigation } from '../../utils/interfaces';
-import { removeTags, calcSize } from '../../utils/misc';
+import { calcSize } from '../../utils/misc';
 import {
   isCurrentEvent,
   isStartWithinAnHourEvent,
@@ -39,35 +31,8 @@ const EventScreen = (props: EventScreenParams) => {
   const { route } = props;
   const { event } = route.params;
 
-  const [reminder, setReminder] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-
   const startDate = getVerboseDate(event);
   const startTime = getVerboseTime(event);
-
-  useEffect(() => {
-    (async function asyncWrapper() {
-      try {
-        const value = await AsyncStorage.getItem(`${event.id}`);
-        if (value !== null && JSON.parse(value)) {
-          setReminder(true);
-        }
-      } catch (error) {
-        console.log('error get reminder: ', error);
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  async function onReminderChange(value: boolean) {
-    setReminder(value);
-
-    try {
-      await AsyncStorage.setItem(`${event.id}`, JSON.stringify(value));
-    } catch (error) {
-      console.log('error save reminder: ', error);
-    }
-  }
 
   // eslint-disable-next-line no-shadow
   function onLinkPress(event: IEvent, href: string) {
@@ -161,70 +126,6 @@ const EventScreen = (props: EventScreenParams) => {
             </TouchableOpacity>
           </View>
         )}
-        {/*
-          NOTE!
-          Этот функционал ниже отключен.
-          В телеграм боте @events4friendsbot реализована команда /remind,
-          которая отправляет напоминания о мероприятии.
-          В астоматическом режиме напоминания не работают.
-
-          TODO:
-          реализовать сервис автоматических уведомлений и вернуть код ниже
-        */}
-        {/* <View style={styles.remindButtonContainer}>
-          <DataContext.Consumer>
-            {({ storeReminder }) => {
-              return reminder ? (
-                <View style={styles.remindBlock}>
-                  <Text style={styles.remindLabel}>
-                    Напомним Вам об этом мероприятии
-                  </Text>
-                  <Button
-                    title="Отменить напоминание"
-                    disabled={disabled}
-                    onPress={() => {
-                      setDisabled(true);
-                      storeReminder(
-                        false,
-                        event.id,
-                        () => {
-                          setDisabled(false);
-                          onReminderChange(false);
-                        },
-                        (error: string) => {
-                          setDisabled(false);
-                          Alert.alert('Ошибка', error);
-                        },
-                      );
-                    }}
-                    style={styles.cancelRemindButton}
-                  />
-                </View>
-              ) : (
-                <Button
-                  title="Напомнить"
-                  disabled={disabled}
-                  onPress={() => {
-                    setDisabled(true);
-                    storeReminder(
-                      true,
-                      event.id,
-                      () => {
-                        setDisabled(false);
-                        onReminderChange(true);
-                      },
-                      (error: string) => {
-                        setDisabled(false);
-                        Alert.alert('Ошибка', error);
-                      },
-                    );
-                  }}
-                  style={styles.remindButton}
-                />
-              );
-            }}
-          </DataContext.Consumer>
-        </View> */}
       </ScrollView>
     </View>
   );
