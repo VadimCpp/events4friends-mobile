@@ -65,10 +65,4 @@ export interface IDataContext {
   communities: Array<ICommunity>;
   loadingEvents: boolean;
   loadingServices: boolean;
-  storeReminder: (
-    value: boolean,
-    eventId: string,
-    onStored: Function,
-    onStoredFailed: Function,
-  ) => void;
 }

@@ -72,16 +72,6 @@ export default function App() {
     moment.locale('ru');
   }, []);
 
-
-  function storeReminder(
-    value: boolean,
-    eventId: string,
-    onStored: Function,
-    onStoredFailed: Function,
-  ): void {
-    // Do nothing
-  }
-
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       // This tells the splash screen to hide immediately! If we call this after
@@ -115,7 +105,6 @@ export default function App() {
             communities,
             loadingEvents,
             loadingServices,
-            storeReminder,
           }}
         >
           <NavigationContainer>

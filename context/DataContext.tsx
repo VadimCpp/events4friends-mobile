@@ -9,12 +9,6 @@ const defaultData: IDataContext = {
   communities: [], // список сообществ
   loadingEvents: true,
   loadingServices: true,
-  storeReminder: (
-    value: boolean,
-    eventId: string,
-    onStored: Function,
-    onStoredFailed: Function,
-  ) => {},
 };
 
 const DataContext = React.createContext(defaultData);
